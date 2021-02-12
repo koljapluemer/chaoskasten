@@ -1,3 +1,7 @@
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+
+
 def payment(request):
     # Stripe
     stripe.api_key = os.getenv("STRIPE_SECRET_KEY")

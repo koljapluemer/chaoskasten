@@ -1,0 +1,53 @@
+<div class="note-main">
+{% load static %}
+  {% if parentnote.id == editableNote %}
+    <form action="" method="post" class="">
+      {% csrf_token %}
+      {{ form }}
+      <div class="form-buttons">
+        <a href="/notes" onclick="return confirm('Discard the change to your card?')">Discard</a>
+        <button type="submit" value="Submit" class="button-primary form-submit">Submit</button>
+      </div>
+
+    </form>
+  {% else %}
+
+    <div class="note-topbar">
+      <h2 class="single-note-title">{{ parentnote.title }}</h2>
+      <a href="/close/{{ parentnote.id }}">X</a>
+    </div>
+
+    {% load markdown %}
+
+    <div class="note-content">{{ parentnote.content|markdown|safe}}</div>
+
+    {% if parentnote.reference.all %}
+      <ul class="note-related-list">
+        {% for reference in parentnote.reference.all %}
+        {% include 'widgets/noteTitle.html' with note=reference unconnectable='True' %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+
+    <div class="note-bottombar">
+      <p class="note-drawer">{{ parentnote.drawer }}</p>
+      <div class="note-buttons">
+        <a href="/pin/{{parentnote.id}}" class=""><img src="static/ico/tag.svg" alt="Pin" class="icon"></a>
+        {% if sender %}
+          {% if parentnote.id == sender %}
+            <a href="/notes" class="connect-sender"><img src="static/ico/link.svg" alt="Connect" class="icon"></a>
+            {% else %}
+          <a href="/notes/{{sender}}/{{ parentnote.id }}" class="connect-receiver"><img src="static/ico/link.svg" alt="Connect" class="icon"></a>
+          {% endif %}
+        {% else %}
+          <a href="/notes/{{parentnote.id}}" class=""><img src="static/ico/link.svg" alt="Connect" class="icon"></a>
+        {% endif %}
+        <a href="/delete/{{parentnote.id}}" class="p-2 shadow" class="ml-2" onclick="return confirm('Delete this note?')">
+          <img src="static/ico/trash-2.svg" alt="Delete" class="icon">
+        </a>
+        <a href="/editMode/{{parentnote.id}}/true" class="p-2 shadow" class="ml-2"><img src="static/ico/edit.svg" alt="Edit" class="icon"></a>
+      </div>
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,29 @@
+{% extends 'boilerplate/page.html' %}
+{% block content %}
+<main id="main-index">
+  <h1 class="index-font slogan">Chaoskasten: Plaintext notes for productive people.</h1>
+  <h2 class="index-font">Write your first note now:</h2>
+
+  <div class="index-noteholder">
+    <div class="note">
+      <form action="" method="post" class="">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" placeholder="Give your note a title to reference it later - like 'Recipe Recommendations from John'">
+        <label for="content">Content:</label>
+        <textarea name="content" rows="8" cols="80" placeholder="You may write anything here! If you want, you can use Markdown syntax to format your text."></textarea>
+        <label for="drawer">Drawer:</label>
+        <input type="text" name="drawer" placeholder="Define a drawer to group your notes, e.g. 'Recipes', 'Bad Jokes' or 'Read Later'.">
+        <div class="form-buttons">
+          <button type="submit" value="Submit" class="button-primary form-submit">Save my first note</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <h2 class="index-font"><a href="#" class="index-font">...or sign up first ($4/month)</a></h2>
+
+
+</main>
+{% endblock content %}

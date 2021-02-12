@@ -1,0 +1,33 @@
+<div class="pagination note-section-footer">
+  <span>
+    {% if page.has_previous %}
+    <a href="/changePage/{{section}}/1">&laquo; first</a>
+    {% else %}
+    -
+    {% endif %}
+  </span>
+  <span>
+    {% if page.has_previous %}
+    <a href="/changePage/{{section}}/{{page.previous_page_number }}">previous</a>
+    {% else %}
+    -
+    {% endif %}
+  </span>
+  <span class="current">
+    Page {{ page.number }} of {{ page.paginator.num_pages }}.
+  </span>
+  <span>
+    {% if page.has_next %}
+    <a href="/changePage/{{section}}/{{page.next_page_number }}">next</a>
+    {% else %}
+    -
+    {% endif %}
+  </span>
+  <span>
+    {% if page.has_next %}
+    <a href="/changePage/{{section}}/{{page.paginator.num_pages }}">last &raquo;</a>
+    {% else %}
+    -
+    {% endif %}
+  </span>
+</div>

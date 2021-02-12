@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" class=" h-full">
+<head>
+  <meta charset="utf-8" />
+  <title>Chaoskasten Beta</title>
+  <!-- <link
+  href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+  rel="stylesheet"
+  /> -->
+  {% load static %}
+  <link href="https://fonts.googleapis.com/css?family=Oswald|Source+Sans+Pro&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+</head>
+{% load i18n lazysignup_tags %}
+
+<body class="page-content content ">
+
+  {% block content %}
+  {% endblock content %}
+
+  <nav class="index-buttonbar">
+    <a href="/">home</a>
+    {% if user.is_authenticated %}
+    {% if not user|is_lazy_user %}
+    <a href="/profile">{{ user.username }}</a>
+    <a href="{% url 'logout' %}">logout</a>
+    {% else %}
+    <a href="/signup">signup</a>
+    <a href="{% url 'login' %}">login</a>
+    {% endif %}
+    {% else %}
+    <a href="{% url 'login' %}">login</a>
+    <a href="/signup">signup</a>
+    {% endif %}
+    <a href="/about">about</a>
+    <a href="">impressum</a>
+  </nav>
+
+</body>
+</html>

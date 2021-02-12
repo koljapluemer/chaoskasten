@@ -1,0 +1,155 @@
+{% extends 'boilerplate/base.html' %}
+{% load i18n lazysignup_tags %}
+
+{% block sidebar %}
+
+{% if sidebarCollapsed %}
+<div id="sidebar-hint">
+  <a href="/sidebar">
+    <img src="static/ico/sm-arrow-circle-right.svg" alt="User" class="sidebar-manager" id="sidebar-collapse">
+  </a>
+</div>
+{% else %}
+<div id="sidebar">
+  <a href="/sidebar">
+    <img src="static/ico/sm-arrow-circle-left.svg" alt="User" class="sidebar-manager" id="sidebar-collapse">
+  </a>
+
+
+  <header class="notes-sidebar">
+    <h1>Chaoskasten</h1>
+    <nav class="nav-header">
+      <li id="user">
+        {% if user.is_authenticated %}
+        <img src="static/ico/user.svg" alt="User" class="icon title-icon">
+        {% if not user|is_lazy_user %}
+        <a href="/profile">{{ user.username }}</a> (<a href="{% url 'logout' %}">logout</a>)
+        {% else %}
+        Temporary User (<a href="/convert">Sign Up</a>) <br>
+        <div class="spacer"></div>
+        <a href="{% url 'login' %}">Log into existing account</a> <br>
+        <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+        {% else %}
+        <div class="spacer"></div>
+        <a href="{% url 'login' %}">login</a>
+        {% endif %}
+      </li>
+
+    </nav>
+  </header>
+  <div id="notes-sections">
+    <div class="note-section">
+      <div class="note-section-title-wrapper">
+        <h2 class="note-section-title">Pinned</h2>
+        <img src="static/ico/tag.svg" alt="Pin" class="icon title-icon">
+      </div>
+      <ul class="note-related-list">
+        {% if pinnedNotes %}
+        {% for note in pinnedNotes %}
+        {% include 'widgets/noteTitle.html' with unpinnable='True' %}
+        {% endfor %}
+        {% else %}
+        You have no pinned notes yet.
+        {% endif %}
+      </ul>
+      {% include 'widgets/paginator.html' with page=pinnedNotes section='pinned' %}
+    </div>
+
+    <div class="note-section">
+      <h2 class="note-section-title">Recent</h2>
+      <ul class="note-related-list">
+        {% for note in recentNotes %}
+        {% include 'widgets/noteTitle.html' %}
+        {% endfor %}
+      </ul>
+      {% include 'widgets/paginator.html' with page=recentNotes section='recent' %}
+    </div>
+
+    <div class="note-section">
+      <h2 class="note-section-title">All Notes</h2>
+      <form action="/search" class="form-search">
+        <input type="text" class="search-input" name="searchTerm" value="{% if searchTerm %}{{searchTerm}}{% endif %}">
+        <select name="drawer">
+          <option value="">- All -</option>
+          {% for drawer in drawers %}
+          {% if drawer == openDrawer %}<option value="{{drawer}}" selected >
+            {% else %}<option value="{{drawer}}"">
+              {% endif %}
+              {{drawer}}
+            </option>
+            {% endfor %}
+          </select>
+          <button class="">Search</button>
+        </form>
+        <ul class="note-related-list">
+          {% for note in allNotes %}
+          {% include 'widgets/noteTitle.html' %}
+          {% endfor %}
+        </ul>
+        {% include 'widgets/paginator.html' with page=allNotes section='all' %}
+      </div>
+
+    </div>
+
+    <footer class="notes-sidebar">
+      <ul class="links-footer">
+        <li>
+          <a href="/editMode/true" class="button-primary">New Note</a>
+        </li>
+        <li>
+          <a href="/open/-">Open random note</a>
+        </li>
+        <li>
+          <a href="/closeNotes">Close all notes</a>
+        </li>
+      </ul>
+      <nav class="nav-footer">
+
+        <li><a href="/about">About</a></li>
+        <li><a href="/settings">Settings</a></li>
+
+        <li>
+          <a href="#">Impressum</a>
+        </li>
+      </nav>
+
+
+
+  </footer>
+</div>
+{% endif %}
+
+  {% endblock %}
+  {% block content %}
+  {% if user|is_lazy_user %}
+  <div class="warning">
+    You are in test mode. Your notes may be lost when you close this window or restart the device. <br>
+    To make an account and permanently save your notes, <a href="/convert">click here</a> ($4/month)
+  </div>
+  {% endif %}
+  <div class="notes">
+    <!-- use parentnote syntax to differenciate between the surrounding notes and specific nodes listed by title -->
+    {% for parentnote in notes %}
+    <div class="note">
+      {% include 'widgets/note.html' %}
+    </div>
+    {% endfor %}
+    <!-- Add a new note -->
+    {% if form and not editableNote %}
+    <div class="note">
+      <form action="" method="post" class="">
+        {% csrf_token %}
+        {{ form }}
+        <div class="form-buttons">
+          <a href="/notes" onclick="return confirm('Discard the change to your note?')">Discard</a>
+          <button type="submit" value="Submit" class="button-primary form-submit">Submit</button>
+        </div>
+
+      </form>
+    </div>
+    {% endif %}
+  </div>
+
+
+  {% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'boilerplate/page.html' %}
+{% block content %}
+<div class="note">
+
+  <h1>Your drawers:</h1>
+
+  <form method="post" action="" class="forms-drawer">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {% for form in formset %}
+    <div class="forms-drawer-form">
+      {{ form }}
+    </div>
+    {% endfor %}
+    <p>Deleting drawers with notes in them will delete the notes as well!</p>
+    <input type="submit" value="Save & Exit">
+  </form>
+</div>
+{% endblock %}

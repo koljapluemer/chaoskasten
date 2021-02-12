@@ -1,0 +1,46 @@
+{% extends 'boilerplate/page.html' %}
+{% block content %}
+{% load i18n lazysignup_tags %}
+<main id="main-index">
+  <h1 class="index-font slogan">Chaoskasten: Plaintext notes for productive people.</h1>
+
+<div id="about-notes">
+  <article class="note" id="">
+    <h2 class="note-title">Idea</h2>
+    <div class="note-content">
+      <p>
+        There are many ideas, concepts and tools to take notes. <br>
+        Few work.
+      </p>
+
+
+      <p>      We aim to provide you:</p>
+
+      <ul>
+        <li>A lean tool: No bloat, no drowning in features.</li>
+        <li>An unopinionated tool: Chaoskasten works whether you are brainstorming on an iMac or collect your favorite blogs on a Linuxbox.</li>
+        <li>A tool to remember: In Chaoskasten, your knowledge is interconnected. No more favorite & forget.</li>
+      </ul>
+    </div>
+
+  </article>
+
+  <article class="note">
+    <h2 class="note-title">Pricing</h2>
+    <div class="note-content">
+      <p>The Beta is currently free.</p>
+      <p>On official release, we will move to monthly payment model of $4/month. <br>You may download your notes at any time. We will never hold your data hostage.</p>
+    </div>
+  </article>
+
+  <article class="note">
+    <h2 class="note-title">Statistics</h2>
+    <div class="note-content">
+      <p>Our users have written {{ countNotes }} notes so far.</p>
+      <p>{{ countLoginsWeekly }} users checked in within the last seven days.</p>
+    </div>
+  </article>
+</div>
+
+</main>
+{% endblock content %}

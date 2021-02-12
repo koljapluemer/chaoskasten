@@ -1,0 +1,44 @@
+{% extends 'boilerplate/page.html' %}
+{% block content %}
+
+
+<div class="note">
+  <h1>Welcome, {{user.username}}</h1>
+  <ul>
+    <li>
+      <!-- if user is paid -->
+      {% if created %}
+      Your paid subscription was activated on {{ created }}.
+      {% else %}
+      You are not a paid user yet.
+      {% endif %}
+    </li>
+    <li>
+      Your email is <code>{{ user.email}}</code>. (<a href="/accounts/changeEmail">Change Email address</a>)
+    </li>
+    <li>
+      <a href="/accounts/password_change/">Change password</a>
+    </li>
+  </ul>
+
+</div>
+
+<div class="" id="profile-notes">
+  <div class="note">
+    <h2>Statistics</h2>
+    <ul>
+      <li>You have {{ noteCounter }} notes!</li>
+    </ul>
+
+  </div>
+
+  <div class="note">
+    <h2>Danger Zone</h2>
+    <a href="/deleteUser" onclick="return confirm('Are you sure? This immediatly deletes all your data and cancels your subscription!');">Delete User</a>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

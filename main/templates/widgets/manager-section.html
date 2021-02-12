@@ -1,0 +1,40 @@
+<ul class="note-list">
+  {% for cousin in contextNotes %}
+  {% include 'widgets/noteTitle.html' with note=cousin unpinnable=True %}
+  {% endfor %}
+</ul>
+
+<div class="pagination note-section-footer">
+
+  <span>
+    {% if contextNotes.has_previous %}
+    <a href="/openPage/{{desk.desknumber}}/1">&laquo; first</a>
+    {% else %}
+    -
+    {% endif %}
+  </span>
+  <span>
+    {% if contextNotes.has_previous %}
+    <a href="/openPage/{{desk.desknumber}}/{{contextNotes.previous_page_number }}">previous</a>
+    {% else %}
+    -
+    {% endif %}
+  </span>
+  <span class="current">
+    Page {{ contextNotes.number }} of {{ contextNotes.paginator.num_pages }}.
+  </span>
+  <span>
+    {% if contextNotes.has_next %}
+    <a href="/openPage/{{desk.desknumber}}/{{contextNotes.next_page_number }}">next</a>
+    {% else %}
+    -
+    {% endif %}
+  </span>
+  <span>
+    {% if contextNotes.has_next %}
+    <a href="/openPage/{{desk.desknumber}}/{{contextNotes.paginator.num_pages }}">last &raquo;</a>
+    {% else %}
+    -
+    {% endif %}
+  </span>
+</div>

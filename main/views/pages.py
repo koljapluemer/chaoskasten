@@ -1,3 +1,7 @@
+from ..models import *
+from django.shortcuts import render, redirect
+from lazysignup.decorators import allow_lazy_user
+
 # The landing page
 @allow_lazy_user
 def home(request):

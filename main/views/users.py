@@ -1,3 +1,7 @@
+from ..models import *
+from django.shortcuts import render, redirect
+
+
 def profile(request):
     user = request.user
     context = {}

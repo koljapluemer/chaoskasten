@@ -1,37 +1,12 @@
 from django.shortcuts import render, redirect
-from django import forms
 from django.forms import ModelForm
-from django.forms.models import modelformset_factory
-from .models import *
-
-from django.contrib.auth import login, authenticate
-from django.urls import reverse_lazy
-from django.views import generic
+from ..models import *
 
 from django.db.models import Q
 from django.core.paginator import Paginator
-# export data
-import json
-import csv
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 
-from django.utils import timezone
-from datetime import timedelta
-from datetime import datetime
-
-import os
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
-
-from lazysignup.decorators import allow_lazy_user
 from lazysignup.templatetags.lazysignup_tags import *
-from lazysignup.utils import is_lazy_user
-
-import stripe
 import random
-
-from django.conf import settings
 
 
 def notes(request, sender = None, recipient = None, editmode = False, noteID = None):
@@ -124,6 +99,17 @@ def changePage(request, section, pageNr):
         collection.allNotesPageNr = pageNr
 
     collection.save()
+    return redirect('/notes')
+
+def generateWelcomeNote(request):
+    profile = request.user.profile
+    collection = profile.collection
+
+    d, created = Drawer.objects.get_or_create(name="Help", profile=profile)
+    n, created = Note.objects.get_or_create(title = "Welcome", content=WelcomeNote, drawer = d, profile=profile)
+
+    collection.openNotes.add(n)
+
     return redirect('/notes')
 
 def pinNote(request, noteID):
