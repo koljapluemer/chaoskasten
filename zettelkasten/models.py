@@ -12,7 +12,6 @@ import stripe
 
 from django import forms
 
-from .apps.users import models
 
 WelcomeNote = """
 Create a new note by clicking the `New Note` Button on one of the desks.
