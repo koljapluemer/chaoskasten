@@ -60,3 +60,4 @@ class Collection(models.Model):
     searchTerm = models.TextField(blank="true", null="true")
 
     sidebarCollapsed = models.BooleanField(default=False)
+

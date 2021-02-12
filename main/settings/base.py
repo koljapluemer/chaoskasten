@@ -18,9 +18,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
 
 INSTALLED_APPS = [
-    'zettelkasten',
-    'users',
-    'pages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -114,6 +111,6 @@ DJSTRIPE_WEBHOOK_SECRET = "whsec_kb9U8bjAmphHM44exYNx6hxdlMsbUAY5"  # Get it fro
 
 APPEND_SLASH=False
 
-LAZYSIGNUP_CUSTOM_USER_CREATION_FORM = 'zettelkasten.models.SignUpForm'
+LAZYSIGNUP_CUSTOM_USER_CREATION_FORM = 'main.models.SignUpForm'
 
 # Stripe
