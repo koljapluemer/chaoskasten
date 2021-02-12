@@ -1,7 +1,8 @@
 # MY STUFF
 
 .idea/
-.env
+.env/
+.envvalues
 
 # DJANGO BOILERPLATE STUFF
 
