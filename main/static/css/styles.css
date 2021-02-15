@@ -472,3 +472,11 @@ form {
   padding-right: 8px;
   background: #f6f6f6;
 }
+
+/* General */
+
+.flex-around {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
