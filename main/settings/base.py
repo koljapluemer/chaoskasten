@@ -116,3 +116,5 @@ STRIPE_LIVE_MODE = False  # Change to True in production
 DJSTRIPE_WEBHOOK_SECRET = "whsec_kb9U8bjAmphHM44exYNx6hxdlMsbUAY5"  # Get it from the section in the Stripe dashboard where you added the webhook endpoint
 
 APPEND_SLASH=False
+
+SECRET_KEY="efefoiewfeoifewiofueiofw"
