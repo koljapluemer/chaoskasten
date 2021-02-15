@@ -3,6 +3,7 @@
 .idea/
 .env/
 .envvalues
+production.py
 
 # DJANGO BOILERPLATE STUFF
 

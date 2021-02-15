@@ -14,7 +14,3 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-STRIPE_SECRET_KEY = "sk_test_saz48OVpTahMj8ZhFNKu4PBo00tqeXobcv"

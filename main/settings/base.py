@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -97,7 +98,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-print(BASE_DIR)
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -107,11 +108,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOGIN_REDIRECT_URL = '/notes'
 LOGOUT_REDIRECT_URL = '/'
 
+STRIPE_LIVE_PUBLIC_KEY = os.environ.get("STRIPE_LIVE_PUBLIC_KEY", "<your publishable key>")
+STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "<your secret key>")
+STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_CBM7HhIYdjePmccQsSqDHpxZ00eBDyU9YD")
+STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_saz48OVpTahMj8ZhFNKu4PBo00tqeXobcv")
 STRIPE_LIVE_MODE = False  # Change to True in production
 DJSTRIPE_WEBHOOK_SECRET = "whsec_kb9U8bjAmphHM44exYNx6hxdlMsbUAY5"  # Get it from the section in the Stripe dashboard where you added the webhook endpoint
 
 APPEND_SLASH=False
-
-LAZYSIGNUP_CUSTOM_USER_CREATION_FORM = 'main.models.SignUpForm'
-
-# Stripe
