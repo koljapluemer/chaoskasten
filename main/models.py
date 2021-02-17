@@ -1,121 +1,293 @@
-from django import forms
-
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
-import stripe
 
 
-WelcomeNote = """
-Create a new note by clicking the `New Note` button.
-
-With an open note itself you can do the following:
-
-* `Pin:` Your note will be displayed in the "Pinned" section in the sidebar, allowing you quick access at any time
-* `Connect:` By clicking the *Connect* button, you can connect two notes with each other, creating references to each other on each note. This is the primary tool to organize your knowledge - try it!
-* `Delete:` You may delete the note - but watch out, this cannot be undone. You can this note as a test run, since you can always get a new *Welcome Note* in the `Settings`.
-* `Edit:` Change the properties of your notes at anytime. You can test the function with this very note you are reading to find out how all the fancy formatting tricks work (Spoiler: It's Markdown)
-
-To manage your drawers, you may want to check out the `Settings` link.
-
-### Happy productivity!
-"""
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    stripeID = models.TextField()
-
-
-class Drawer(models.Model):
-    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
-
-    def save_model(self, request, obj, form, change):
-        obj.profile = request.user.profile
-        super().save_model(request, obj, form, change)
-
-
-class Note(models.Model):
-    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    content = models.TextField(blank="true", null="true")
-    reference = models.ManyToManyField('self')
-    drawer = models.ForeignKey('Drawer', on_delete=models.CASCADE, null=True)
-
-
-class Collection(models.Model):
-    openNotes = models.ManyToManyField('Note', related_name="openNotes", blank=True)
-    openDrawer = models.ForeignKey('Drawer', null=True, on_delete=models.SET_NULL)
-
-    pinnedNotes = models.ManyToManyField('Note', related_name="pinnedNotes", blank=True)
-    recentNotes = models.ManyToManyField('Note', related_name="recentNotes", blank=True, through='CollectionHistory')
-
-    pinnedNotesPageNr = models.IntegerField(default = 1)
-    recentNotesPageNr = models.IntegerField(default = 1)
-    allNotesPageNr = models.IntegerField(default = 1)
-
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-
-    searchTerm = models.TextField(blank="true", null="true")
-
-    sidebarCollapsed = models.BooleanField(default=False)
-
-
-class SignUpForm(UserCreationForm):
-    email = forms.EmailField(max_length=254, help_text='Required. Only used when you have to restore your password. Never sold, never spammed.')
+class AuthGroup(models.Model):
+    name = models.CharField(unique=True, max_length=150)
 
     class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2', )
-
-    def get_credentials(self):
-        return {
-            "username": self.cleaned_data["username"],
-            "password": self.cleaned_data["password1"]
-        }
+        managed = False
+        db_table = 'auth_group'
 
 
-class EmailChangeForm(forms.Form):
-    email = forms.EmailField(label='New Email adress')
+class AuthGroupPermissions(models.Model):
+    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_group_permissions'
+        unique_together = (('group', 'permission'),)
 
 
-class CollectionHistory(models.Model):
-    addedAt = models.DateTimeField(auto_now_add=True, blank=True)
-    collection = models.ForeignKey('Collection', on_delete=models.CASCADE)
-    note = models.ForeignKey('Note', on_delete=models.CASCADE)
+class AuthPermission(models.Model):
+    name = models.CharField(max_length=255)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
+    codename = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_permission'
+        unique_together = (('content_type', 'codename'),)
 
 
-# Update our corresponding Profile model when the boilerplate User changes
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        stripe.api_key = 'sk_test_saz48OVpTahMj8ZhFNKu4PBo00tqeXobcv'
-        p = Profile.objects.create(user=instance)
-        customer = stripe.Customer.create(
-            description="",
-            name="",
-        )
-        p.stripeID = customer.id
-        p.save()
-        c = Collection.objects.create(profile=p)
-        d = Drawer.objects.create(name="Help", profile=p)
-        n = Note.objects.create(
-            title="Welcome",
-            content = WelcomeNote,
-            drawer = d,
-            profile=p)
-        c.openNotes.add(n)
+class AuthUser(models.Model):
+    password = models.CharField(max_length=128)
+    last_login = models.DateTimeField(blank=True, null=True)
+    is_superuser = models.BooleanField()
+    username = models.CharField(unique=True, max_length=150)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=150)
+    email = models.CharField(max_length=254)
+    is_staff = models.BooleanField()
+    is_active = models.BooleanField()
+    date_joined = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user'
 
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-    instance.profile.collection.save()
+class AuthUserGroups(models.Model):
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user_groups'
+        unique_together = (('user', 'group'),)
+
+
+class AuthUserUserPermissions(models.Model):
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user_user_permissions'
+        unique_together = (('user', 'permission'),)
+
+
+class DjangoAdminLog(models.Model):
+    action_time = models.DateTimeField()
+    object_id = models.TextField(blank=True, null=True)
+    object_repr = models.CharField(max_length=200)
+    action_flag = models.SmallIntegerField()
+    change_message = models.TextField()
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'django_admin_log'
+
+
+class DjangoContentType(models.Model):
+    app_label = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'django_content_type'
+        unique_together = (('app_label', 'model'),)
+
+
+class DjangoMigrations(models.Model):
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    applied = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_migrations'
+
+
+class DjangoSession(models.Model):
+    session_key = models.CharField(primary_key=True, max_length=40)
+    session_data = models.TextField()
+    expire_date = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_session'
+
+
+class LazysignupLazyuser(models.Model):
+    created = models.DateTimeField()
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING, unique=True)
+
+    class Meta:
+        managed = False
+        db_table = 'lazysignup_lazyuser'
+
+
+class MainCollection(models.Model):
+    opendrawer = models.ForeignKey('MainDrawer', models.DO_NOTHING, db_column='openDrawer_id', blank=True, null=True)  # Field name made lowercase.
+    pinnednotespagenr = models.IntegerField(db_column='pinnedNotesPageNr')  # Field name made lowercase.
+    recentnotespagenr = models.IntegerField(db_column='recentNotesPageNr')  # Field name made lowercase.
+    allnotespagenr = models.IntegerField(db_column='allNotesPageNr')  # Field name made lowercase.
+    profile = models.ForeignKey('MainProfile', models.DO_NOTHING, unique=True)
+    searchterm = models.TextField(db_column='searchTerm', blank=True, null=True)  # Field name made lowercase.
+    sidebarcollapsed = models.BooleanField(db_column='sidebarCollapsed')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'main_collection'
+
+
+class MainCollectionOpennotes(models.Model):
+    collection = models.ForeignKey(MainCollection, models.DO_NOTHING)
+    note = models.ForeignKey('MainNote', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'main_collection_openNotes'
+        unique_together = (('collection', 'note'),)
+
+
+class MainCollectionPinnednotes(models.Model):
+    collection = models.ForeignKey(MainCollection, models.DO_NOTHING)
+    note = models.ForeignKey('MainNote', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'main_collection_pinnedNotes'
+        unique_together = (('collection', 'note'),)
+
+
+class MainCollectionhistory(models.Model):
+    addedat = models.DateTimeField(db_column='addedAt')  # Field name made lowercase.
+    collection = models.ForeignKey(MainCollection, models.DO_NOTHING)
+    note = models.ForeignKey('MainNote', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'main_collectionhistory'
+
+
+class MainDrawer(models.Model):
+    profile = models.ForeignKey('MainProfile', models.DO_NOTHING)
+    name = models.CharField(max_length=200)
+
+    class Meta:
+        managed = False
+        db_table = 'main_drawer'
+
+
+class MainNote(models.Model):
+    profile = models.ForeignKey('MainProfile', models.DO_NOTHING)
+    title = models.CharField(max_length=200)
+    content = models.TextField(blank=True, null=True)
+    drawer = models.ForeignKey(MainDrawer, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'main_note'
+
+
+class MainNoteReference(models.Model):
+    from_note = models.ForeignKey(MainNote, models.DO_NOTHING)
+    to_note = models.ForeignKey(MainNote, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'main_note_reference'
+        unique_together = (('from_note', 'to_note'),)
+
+
+class MainProfile(models.Model):
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING, unique=True)
+    stripeid = models.TextField(db_column='stripeID')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'main_profile'
+
+
+class ZettelkastenCollection(models.Model):
+    pinnednotespagenr = models.IntegerField(db_column='pinnedNotesPageNr')  # Field name made lowercase.
+    recentnotespagenr = models.IntegerField(db_column='recentNotesPageNr')  # Field name made lowercase.
+    allnotespagenr = models.IntegerField(db_column='allNotesPageNr')  # Field name made lowercase.
+    searchterm = models.TextField(db_column='searchTerm', blank=True, null=True)  # Field name made lowercase.
+    profile = models.ForeignKey('ZettelkastenProfile', models.DO_NOTHING, unique=True)
+    opendrawer = models.ForeignKey('ZettelkastenDrawer', models.DO_NOTHING, db_column='openDrawer_id', blank=True, null=True)  # Field name made lowercase.
+    sidebarcollapsed = models.BooleanField(db_column='sidebarCollapsed')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'zettelkasten_collection'
+
+
+class ZettelkastenCollectionOpennotes(models.Model):
+    collection = models.ForeignKey(ZettelkastenCollection, models.DO_NOTHING)
+    note = models.ForeignKey('ZettelkastenNote', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'zettelkasten_collection_openNotes'
+        unique_together = (('collection', 'note'),)
+
+
+class ZettelkastenCollectionPinnednotes(models.Model):
+    collection = models.ForeignKey(ZettelkastenCollection, models.DO_NOTHING)
+    note = models.ForeignKey('ZettelkastenNote', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'zettelkasten_collection_pinnedNotes'
+        unique_together = (('collection', 'note'),)
+
+
+class ZettelkastenCollectionhistory(models.Model):
+    addedat = models.DateTimeField(db_column='addedAt')  # Field name made lowercase.
+    collection = models.ForeignKey(ZettelkastenCollection, models.DO_NOTHING)
+    note = models.ForeignKey('ZettelkastenNote', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'zettelkasten_collectionhistory'
+
+
+class ZettelkastenDrawer(models.Model):
+    name = models.CharField(max_length=200)
+    profile = models.ForeignKey('ZettelkastenProfile', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'zettelkasten_drawer'
+
+
+class ZettelkastenNote(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField(blank=True, null=True)
+    drawer = models.ForeignKey(ZettelkastenDrawer, models.DO_NOTHING, blank=True, null=True)
+    profile = models.ForeignKey('ZettelkastenProfile', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'zettelkasten_note'
+
+
+class ZettelkastenNoteReference(models.Model):
+    from_note = models.ForeignKey(ZettelkastenNote, models.DO_NOTHING)
+    to_note = models.ForeignKey(ZettelkastenNote, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'zettelkasten_note_reference'
+        unique_together = (('from_note', 'to_note'),)
+
+
+class ZettelkastenProfile(models.Model):
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING, unique=True)
+    stripeid = models.TextField(db_column='stripeID')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'zettelkasten_profile'
