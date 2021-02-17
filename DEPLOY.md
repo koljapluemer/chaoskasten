@@ -47,6 +47,5 @@ sudo nginx -t && sudo systemctl restart nginx
 * Restart gunicorn
 
 ```
-sudo systemctl daemon-reload
-sudo systemctl restart gunicorn
+sudo systemctl daemon-reload && sudo systemctl restart gunicorn
 ```
