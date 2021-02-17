@@ -1,7 +1,8 @@
 # MY STUFF
 
 .idea/
-.env/
+.env
+.virtualenv
 .envvalues
 production.py
 

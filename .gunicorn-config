@@ -1,0 +1,12 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=brokkoli
+Group=www-data
+WorkingDirectory=/home/brokkoli/chaoskasten3
+ExecStart=/home/brokkoli/chaoskasten3/.env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/brokkoli/chaoskasten3/chaoskasten3.sock main.wsgi:application --env DJANGO_SETTINGS_MODULE='main.settings.production'
+
+[Install]
+WantedBy=multi-user.target                        
