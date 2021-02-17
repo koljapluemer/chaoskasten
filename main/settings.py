@@ -4,7 +4,7 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
-ALLOWED_HOSTS = env('ALLOWED_HOSTS')
+ALLOWED_HOSTS = ['chaoskasten.com', 'localhost']
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
