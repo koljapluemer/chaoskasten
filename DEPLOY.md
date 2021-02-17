@@ -35,6 +35,9 @@ The structure was in place for ages, I put the new cleaned up version recently a
 * I am now trying to manage stuff with `django-environ`
 * For that, you have to put an `.env` file in the same directory as the settings
 
+## Debugging
+* 
+`sudo journalctl -u gunicorn`
 
 ## every time
 
