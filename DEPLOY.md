@@ -31,9 +31,16 @@ The structure was in place for ages, I put the new cleaned up version recently a
 * Now nginx throws 502
 * The specifics (111 connection refused) imply that the db is wrongly configured
 * 30 minutes later: I think this absolute salad of secrets is fucking this up :/
+
 ### new day
 * I am now trying to manage stuff with `django-environ`
 * For that, you have to put an `.env` file in the same directory as the settings
+
+## in the end
+
+* In the end, I got that the database was connected fine, but Django named the tables appname_modelname
+* Obviously, I had changes the app name, so that was fucky
+* I tried a lot of dumb shit, but in the end just renamed the old tables and fucking voila, it works!
 
 ## Debugging
 * `sudo journalctl -u gunicorn`

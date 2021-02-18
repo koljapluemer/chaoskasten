@@ -1,0 +1,19 @@
+{% extends 'boilerplate/base.html' %}
+{% load i18n lazysignup_tags %}
+
+{% block content %}
+{% if user|is_lazy_user %}
+<div class="warning">
+  You are in test mode. Your notes may be lost when you close this window or restart the device. <br>
+  To make an account and permanently save your notes, <a href="/convert">click here</a> ($4/month)
+</div>
+{% endif %}
+
+<div class="">
+  {% for note in notes %}
+    {{ note.title }}
+ {% endfor %}
+</div>
+
+
+{% endblock %}

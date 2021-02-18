@@ -43,14 +43,12 @@ class Drawer(models.Model):
         super().save_model(request, obj, form, change)
 
 
-
 class Note(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     content = models.TextField(blank="true", null="true")
     reference = models.ManyToManyField('self')
     drawer = models.ForeignKey('Drawer', on_delete=models.CASCADE, null=True)
-
 
 
 class Collection(models.Model):
@@ -69,7 +67,6 @@ class Collection(models.Model):
     searchTerm = models.TextField(blank="true", null="true")
 
     sidebarCollapsed = models.BooleanField(default=False)
-
 
 
 class SignUpForm(UserCreationForm):
@@ -94,7 +91,6 @@ class CollectionHistory(models.Model):
     addedAt = models.DateTimeField(auto_now_add=True, blank=True)
     collection = models.ForeignKey('Collection', on_delete=models.CASCADE)
     note = models.ForeignKey('Note', on_delete=models.CASCADE)
-
 
 
 # Update our corresponding Profile model when the boilerplate User changes

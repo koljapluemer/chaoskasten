@@ -1,6 +1,10 @@
 from ..models import *
 from django.shortcuts import render, redirect
+import os
 
+from django.contrib.auth import (
+    authenticate, get_user_model, password_validation,
+)
 
 def profile(request):
     user = request.user
@@ -18,7 +22,6 @@ def profile(request):
             'noteCounter': user.profile.note_set.all().count(),
         }
     return render(request, 'pages/profile.html', context)
-
 
 def signup(request):
     stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
@@ -57,5 +60,3 @@ def deleteUser(request):
     user.delete()
 
     return redirect('/')
-
-
