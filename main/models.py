@@ -114,12 +114,12 @@ def create_user_profile(sender, instance, created, **kwargs):
         n = Note.objects.create(
             title="Welcome",
             content = WelcomeNote,
-            Drawer = d,
+            drawer = d,
             profile=p)
-        c.openZettelkastenNotes.add(n)
+        c.openNotes.add(n)
 
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-    instance.profile.Collection.save()
+    instance.profile.collection.save()
