@@ -8,6 +8,8 @@ from django.core.paginator import Paginator
 from lazysignup.templatetags.lazysignup_tags import *
 import random
 
+from django.http import HttpResponseRedirect
+
 
 def notes(request, sender = None, recipient = None, editmode = False, noteID = None):
     if not request.user:
@@ -36,7 +38,7 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
                 obj.profile = request.user.profile
                 obj.save()
                 # ensure the new note is open and on top of the recent list
-                return redirect("/open/{}".format(obj.id))
+                return redirect("/open/{}/notes".format(obj.id))
         # Form is only getting rendered, not saved
         else:
             if noteID:
@@ -155,7 +157,7 @@ class NoteForm(ModelForm):
         model = Note
         fields = ['title', 'content', 'drawer']
 
-def openNote(request, noteID):
+def openNote(request, noteID, redirectPath):
     # TODO: Slimmer random method
     if noteID == "-":
         notes = Note.objects.filter(profile=request.user.profile)
@@ -169,13 +171,15 @@ def openNote(request, noteID):
     collection.recentNotes.remove(note)
     collection.recentNotes.add(note)
 
-    return redirect('/notes')
+    return redirect('/' + redirectPath)
 
-def closeNote(request, noteID):
+def closeNote(request, noteID, redirectPath):
     note = Note.objects.get(id=int(noteID), profile=request.user.profile)
     collection = Collection.objects.get(profile=request.user.profile)
     collection.openNotes.remove(note)
-    return redirect('/notes')
+
+    return redirect('/' + redirectPath)
+
 
 def closeNotes(request):
     collection = Collection.objects.get(profile=request.user.profile)

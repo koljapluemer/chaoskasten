@@ -87,9 +87,9 @@
     {% for note in notes %}
 
     {% if note.isNoteOpen %}
-    <a href="/close{{note.id}}">
+    <a href="/close/{{note.id}}/drawerView" class="drawerView-link">
     {% else %}
-    <a href="/open/{{note.id}}">
+    <a href="/open/{{note.id}}/drawerView" class="drawerView-link">
     {% endif %}
     <div class="drawerView-note {% if note.isNoteOpen %}drawerView-note-open{% endif %}">
 

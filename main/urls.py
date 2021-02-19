@@ -34,8 +34,8 @@ urlpatterns = [
     # Notes view
     path('notes', views.notes),
     # slug is used to allow a symbol which opens a random note
-    path('open/<slug:noteID>', views.openNote),
-    path('close/<int:noteID>', views.closeNote),
+    path('open/<slug:noteID>/<str:redirectPath>', views.openNote),
+    path('close/<slug:noteID>/<str:redirectPath>', views.closeNote),
     path('closeNotes', views.closeNotes),
 
     # paginator url

@@ -30,7 +30,6 @@ def drawerSearch(request):
     collection = profile.collection
     # set search term
     collection.searchTerm = request.GET.get('searchTerm')
-    print(collection.searchTerm)
     # set drawer filter
     if Drawer.objects.filter(profile=profile, name=request.GET.get('drawer')):
         collection.openDrawer = Drawer.objects.filter(profile=profile, name=request.GET.get('drawer')).first()
