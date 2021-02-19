@@ -50,6 +50,12 @@ class Note(models.Model):
     reference = models.ManyToManyField('self')
     drawer = models.ForeignKey('Drawer', on_delete=models.CASCADE, null=True)
 
+    def isNoteOpen(self):
+        if self.openNotes.all().count() == 0:
+            return False
+        else:
+            return True
+
 
 class Collection(models.Model):
     openNotes = models.ManyToManyField('Note', related_name="openNotes", blank=True)

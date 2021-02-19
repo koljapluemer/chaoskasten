@@ -85,15 +85,24 @@
 
   <div class="drawerView-drawer">
     {% for note in notes %}
-    <div class="drawerView-note">
+
+    {% if note.isNoteOpen %}
+    <a href="/close{{note.id}}">
+    {% else %}
+    <a href="/open/{{note.id}}">
+    {% endif %}
+    <div class="drawerView-note {% if note.isNoteOpen %}drawerView-note-open{% endif %}">
+
       <span class="drawerView-title">{{ note.title }}</span>
 
       <p class="drawerView-body">
         {{ note.content|truncatechars:50 }}...
       </p>
     </div>
+      </a>
     {% endfor %}
   </div>
+
 
 
   {% endblock %}
