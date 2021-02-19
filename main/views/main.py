@@ -87,15 +87,6 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
     }
     return render(request, 'notes.html', context)
 
-def drawerView(request, drawerID):
-    profile = request.user.profile
-
-    context = {
-        'notes': Note.objects.filter(profile=profile, drawer_id=drawerID)
-    }
-
-    return render(request, 'drawerView.html', context)
-
 def changePage(request, section, pageNr):
     profile = request.user.profile
     collection = profile.collection

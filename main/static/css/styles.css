@@ -480,3 +480,43 @@ form {
   flex-direction: row;
   justify-content: space-around;
 }
+
+.drawerView-drawer {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  padding: 3px;
+  padding-bottom: 150px;
+  grid-gap: 3px;
+
+}
+
+.drawerView-body {
+  display: none;
+}
+
+.drawerView-note {
+  background: white;
+  padding: 4px;
+}
+
+.drawerView-note:hover .drawerView-title {
+  text-decoration: underline 2px;
+  text-decoration-color: #F18A60;
+  font-weight: bold;
+}
+
+.drawerView-note:hover .drawerView-body {
+  display: block;
+}
+
+.drawerView-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  padding: 30px;
+  border-top: 4px solid #F18A60;
+  box-shadow: -5px 0 5px black;
+  display: flex;
+  justify-content: space-around;
+}

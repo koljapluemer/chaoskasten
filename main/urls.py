@@ -53,7 +53,9 @@ urlpatterns = [
     path('editMode/<str:editmode>', views.notes),
     path('convert', include('lazysignup.urls'), {'template_name': 'pages/signup.html', 'redirect_field_name': 'payment'}),
 
-    path('drawerView/<int:drawerID>', views.drawerView),
+    # Drawer View
+    path('drawerView', views.drawerView),
+    path('drawerSearch', views.drawerSearch),
 
     # webhooks
     path('webhook', views.webhook),

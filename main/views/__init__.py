@@ -4,3 +4,4 @@ from .pages import *
 from .stripe import *
 from .upDown import *
 from .users import *
+from .drawerView import *

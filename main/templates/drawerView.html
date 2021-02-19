@@ -1,19 +1,99 @@
 {% extends 'boilerplate/base.html' %}
 {% load i18n lazysignup_tags %}
 
-{% block content %}
-{% if user|is_lazy_user %}
-<div class="warning">
-  You are in test mode. Your notes may be lost when you close this window or restart the device. <br>
-  To make an account and permanently save your notes, <a href="/convert">click here</a> ($4/month)
+
+
+{% block sidebar %}
+
+<div id="sidebar">
+  <a href="/sidebar">
+    <img src="static/ico/sm-arrow-circle-left.svg" alt="<" class="sidebar-manager" id="sidebar-collapse">
+  </a>
+
+
+  <header class="notes-sidebar">
+    <h1>Chaoskasten</h1>
+    <nav class="nav-header">
+      <li id="user">
+        {% if user.is_authenticated %}
+        <img src="static/ico/user.svg" alt="User" class="icon title-icon">
+        {% if not user|is_lazy_user %}
+        <a href="/profile">{{ user.username }}</a> (<a href="{% url 'logout' %}">logout</a>)
+        {% else %}
+        Temporary User (<a href="/convert">Sign Up</a>) <br>
+        <div class="spacer"></div>
+        <a href="{% url 'login' %}">Log into existing account</a> <br>
+        <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+        {% else %}
+        <div class="spacer"></div>
+        <a href="{% url 'login' %}">login</a>
+        {% endif %}
+      </li>
+
+    </nav>
+    <nav class="flex-around">
+      <a href="/notes">Desk</a>
+      <a href="/drawerView">Drawer</a>
+    </nav>
+  </header>
+  <div id="notes-sections">
+
+    <form action="/drawerSearch" class="form-search">
+      <input type="text" class="search-input" name="searchTerm" value="{% if searchTerm %}{{searchTerm}}{% endif %}">
+      <select name="drawer">
+        <option value="">- All -</option>
+        {% for drawer in drawers %}
+        {% if drawer == openDrawer %}<option value="{{drawer}}" selected >
+          {% else %}<option value="{{drawer}}"">
+            {% endif %}
+            {{drawer}}
+          </option>
+          {% endfor %}
+        </select>
+        <button class="">Search</button>
+      </form>
+
+  </div>
+
+
+    <footer class="notes-sidebar">
+
+      <nav class="nav-footer">
+
+        <li>
+          <a href="/about">About</a>
+        </li>
+        <li>
+          <a href="/settings">Settings</a>
+        </li>
+        <li>
+          <a href="#">Impressum</a>
+        </li>
+      </nav>
+  </footer>
 </div>
-{% endif %}
+  {% endblock %}
 
-<div class="">
-  {% for note in notes %}
-    {{ note.title }}
- {% endfor %}
-</div>
+  {% block content %}
+  {% if user|is_lazy_user %}
+  <div class="warning">
+    You are in test mode. Your notes may be lost when you close this window or restart the device. <br>
+    To make an account and permanently save your notes, <a href="/convert">click here</a> ($4/month)
+  </div>
+  {% endif %}
+
+  <div class="drawerView-drawer">
+    {% for note in notes %}
+    <div class="drawerView-note">
+      <span class="drawerView-title">{{ note.title }}</span>
+
+      <p class="drawerView-body">
+        {{ note.content|truncatechars:50 }}...
+      </p>
+    </div>
+    {% endfor %}
+  </div>
 
 
-{% endblock %}
+  {% endblock %}
