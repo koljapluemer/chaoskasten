@@ -93,7 +93,11 @@
     {% endif %}
     <div class="drawerView-note {% if note.isNoteOpen %}drawerView-note-open{% endif %}">
 
-      <span class="drawerView-title">{{ note.title }}</span>
+      <div class="drawerView-title-wrapper">
+        <span class="drawerView-title">{{ note.title }}</span>
+        <span class="{% if note.isNoteOpen %}dot{% endif %}"></span>
+      </div>
+
 
       <p class="drawerView-body">
         {{ note.content|truncatechars:50 }}...

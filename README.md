@@ -29,6 +29,7 @@
 * zwei Notes sind nicht gleichzeitig bearbeitbar; jedwede andere Aktion schließt unwiderruflich den aktuellen Edit einer Note -> Warnhinweis öffnen
 * die Größe beim Editieren einer Note sollte die selbe Größe behalten wie die Original Note
 * color gradient over scrollable text
+* optimize SQL
 
 
 ### bugs:
@@ -54,6 +55,9 @@
 `docker-compose -f docker-compose.prod.yml up -d --build`
 
 `docker-compose -f docker-compose.prod.yml logs -f`
+
+* locally, use *testaccount4* for lots of generated notes.
+* env is called `.virtualenv`
 
 ### deploy:
 
