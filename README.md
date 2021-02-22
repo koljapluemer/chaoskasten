@@ -30,6 +30,7 @@
 * die Größe beim Editieren einer Note sollte die selbe Größe behalten wie die Original Note
 * color gradient over scrollable text
 * optimize SQL
+* disallow SSH by password
 
 
 ### bugs:
