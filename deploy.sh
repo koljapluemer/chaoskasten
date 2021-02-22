@@ -1,4 +1,5 @@
 cd chaoskasten3/
+git pull
 source .virtualenv/bin/activate
 unset DJANGO_SETTINGS_MODULE
 pip install -r requirements.txt
