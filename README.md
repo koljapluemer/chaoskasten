@@ -1,8 +1,3 @@
-### evi sprint:
-
-* make a proper CI/CD
-
-
 ### sprint:
 
 * beim Bearbeiten von Notes: Zwischenspeichern ohne Edit-Modus zu verlassen
@@ -62,10 +57,4 @@
 
 ### deploy:
 
-* `collectstatic`
-* `nginx`
-* `gunicorn`
-* install requirements
-* migrate/make migrations
-* settings `DEBUG=FALSE`
-* check `~/.env`
+./chaoskasten3/deploy.sh 

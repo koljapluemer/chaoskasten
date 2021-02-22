@@ -115,7 +115,6 @@ SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = env('DEBUG')
 
-
 DATABASES = {
     'default': {
     # 'django.db.backends.postgresql_psycopg2' for production
