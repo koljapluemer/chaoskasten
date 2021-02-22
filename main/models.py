@@ -63,7 +63,6 @@ class Collection(models.Model):
 
     pinnedNotes = models.ManyToManyField('Note', related_name="pinnedNotes", blank=True)
     recentNotes = models.ManyToManyField('Note', related_name="recentNotes", blank=True, through='CollectionHistory')
-    noteConnectionSender = models.ForeignKey('Note', null=True, on_delete=models.SET_NULL)
 
     pinnedNotesPageNr = models.IntegerField(default = 1)
     recentNotesPageNr = models.IntegerField(default = 1)
