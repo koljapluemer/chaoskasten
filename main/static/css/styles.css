@@ -253,21 +253,16 @@ form {
   width: 50px;
 }
 
-.connect-sender {
-  background: orange;
+.connect-sender img {
+  background: #F18A60;
+  filter: none;
   border-radius: 50%;
 }
 
-.svg-object {
-  position: relative;
-  z-index: -1;
-  width: 25px;
-  padding: 8px;
-}
-
-.svg-small {
-  width: 16px;
-  padding: 0;
+.connect-receiver:hover img {
+  background: #F18A60;
+  filter: none;
+  border-radius: 50%;
 }
 
 .svg-link-wrapper {
@@ -276,13 +271,7 @@ form {
   z-index: 1;
 }
 
-.svg-wrapper {
-  display: inline-block;
-}
 
-.connect-receiver:hover {
-  background-color: blue;
-}
 
 .note-content h1 {
   font-size: 24px;
@@ -409,8 +398,8 @@ form {
 }
 
 .icon {
-  height: 20px;
-  margin-left: 8px;
+  padding: 2px;
+  height: 16px;
   filter: invert(19%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(91%) contrast(93%);
 }
 
@@ -423,7 +412,8 @@ form {
 }
 
 .title-icon {
-  height: 14px;
+  height: 24px;
+  padding: 6px;
 }
 
 .slogan {

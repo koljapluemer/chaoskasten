@@ -34,37 +34,39 @@
       <p class="note-drawer">{{ parentnote.drawer }}</p>
       <div class="note-buttons">
         <a href="/pin/{{parentnote.id}}" class="svg-link-wrapper">
-          <object class="svg-object" data="static/ico/tag.svg" type="image/svg+xml"></object>
+            <span class="svg-wrapper">
+          <img src="static/ico/tag.svg" alt="Pin" class="icon title-icon">
+          </span>
         </a>
         {% if sender %}
           {% if parentnote.id == sender %}
             <a href="/notes/deactiveConnectionMode" class="svg-link-wrapper">
-              <span class="svg-wrapper">
-                <object class="connect-sender svg-object" data="static/ico/link.svg" type="image/svg+xml"></object>
+              <span class="svg-wrapper connect-sender">
+                <img src="static/ico/link.svg" alt="Connect" class="icon title-icon  ">
               </span>
             </a>
           {% else %}
             <a href="/notes/r/{{ parentnote.id }}" class="svg-link-wrapper">
-              <span class="svg-wrapper">
-              <object class="connect-receiver svg-object" data="static/ico/link.svg" type="image/svg+xml"></object>
-            </span>
+              <span class="svg-wrapper connect-receiver">
+                <img src="static/ico/link.svg" alt="Connect" class="icon title-icon">
+              </span>
             </a>
           {% endif %}
         {% else %}
           <a href="/notes/s/{{parentnote.id}}" class="svg-link-wrapper">
             <span class="svg-wrapper">
-            <object class="svg-object" data="static/ico/link.svg" type="image/svg+xml"></object>
+            <img src="static/ico/link.svg" alt="Connect" class="icon title-icon">
           </span>
           </a>
         {% endif %}
         <a href="/delete/{{parentnote.id}}" class="svg-link-wrapper" onclick="return confirm('Delete this note?')">
           <span class="svg-wrapper">
-          <object class="svg-object" data="static/ico/trash-2.svg" type="image/svg+xml"></object>
+          <img src="static/ico/trash-2.svg" alt="Trash" class="icon title-icon">
         </span>
         </a>
         <a href="/editMode/{{parentnote.id}}/true" class="svg-link-wrapper">
           <span class="svg-wrapper">
-          <object class="svg-object" data="static/ico/edit.svg" type="image/svg+xml"></object>
+          <img src="static/ico/edit.svg" alt="Edit" class="icon title-icon">
         </span>
         </a>
       </div>

@@ -9,36 +9,36 @@
   {% if unpinnable %}
   <a href="/unpin/{{note.id}}" class="svg-link-wrapper">
     <span class="svg-wrapper">
-    <img src="static/ico/x-circle.svg" alt="Remove" class="icon title-icon">
+    <img src="static/ico/x-circle.svg" alt="Remove" class="icon">
     </span>
   </a>
   {% else %}
   <a href="/pin/{{note.id}}" class="svg-link-wrapper">
     <span class="svg-wrapper">
-    <img src="static/ico/tag.svg" alt="Pin" class="icon title-icon">
+    <img src="static/ico/tag.svg" alt="Pin" class="icon">
     </span>
   </a>
   {% endif %}
 
 
   {% if sender %}
-    {% if parentnote.id == sender %}
+    {% if note.id == sender %}
       <a href="/notes/deactiveConnectionMode" class="svg-link-wrapper">
-        <span class="svg-wrapper">
-          <img src="static/ico/link.svg" alt="Connect" class="icon title-icon">
+        <span class="svg-wrapper connect-sender">
+          <img src="static/ico/link.svg" alt="Connect" class="icon   ">
         </span>
       </a>
     {% else %}
-      <a href="/notes/r/{{ parentnote.id }}" class="svg-link-wrapper">
-        <span class="svg-wrapper">
-        <object class="connect-receiver svg-object svg-small" data="static/ico/link.svg" type="image/svg+xml"></object>
-      </span>
+      <a href="/notes/r/{{ note.id }}" class="svg-link-wrapper">
+        <span class="svg-wrapper connect-receiver">
+          <img src="static/ico/link.svg" alt="Connect" class="icon ">
+        </span>
       </a>
     {% endif %}
   {% else %}
-    <a href="/notes/s/{{parentnote.id}}" class="svg-link-wrapper">
+    <a href="/notes/s/{{ note.id}}" class="svg-link-wrapper">
       <span class="svg-wrapper">
-      <object class="svg-object svg-small" data="static/ico/link.svg" type="image/svg+xml"></object>
+      <img src="static/ico/link.svg" alt="Connect" class="icon ">
     </span>
     </a>
   {% endif %}
@@ -47,7 +47,7 @@
   <a href="/unconnect/{{parentnote.id}}/{{note.id}}"  class="svg-link-wrapper">
     <span class="svg-wrapper">
 
-    <object class="svg-object svg-small" data="static/ico/x-circle.svg" type="image/svg+xml"></object>
+    <img src="static/ico/x-circle.svg" alt="Remove" class="icon">
     </span>
   </a>
   {% endif %}
