@@ -7,7 +7,7 @@
 * code formatting in adjacent lines touches
 * blockquote formatting
 * Temporary user does not get redirect to his notes
-* weird bugging out of button icons
+* ~~ weird bugging out of button icons ~~
 
 ### backlog:
 
