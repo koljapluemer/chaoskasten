@@ -4,7 +4,8 @@
 .env
 .virtualenv
 .envvalues
-production.py
+
+deployLocally.sh
 
 # DJANGO BOILERPLATE STUFF
 

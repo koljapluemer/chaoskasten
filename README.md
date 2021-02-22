@@ -1,4 +1,8 @@
-### sprint:
+### next up:
+
+* debug=FALSE is ignored in deployment, why?
+
+### backlog:
 
 * beim Bearbeiten von Notes: Zwischenspeichern ohne Edit-Modus zu verlassen
 * Wenn in den Settings, dann kommt man nicht wieder zurück über Bedienfeld
@@ -7,9 +11,6 @@
 * Stripe
 * First note does not show up in recent
 * Temporary user does not get redirect to his notes
-
-### backlog:
-
 * split views and model file
 * unfuck static files
 * code formatting in adjacent lines touches
@@ -30,7 +31,13 @@
 
 ### bugs:
 
-* recent notes (check all cases)
+* recent notes (chec* `collectstatic`
+* `nginx`
+* `gunicorn`
+* install requirements
+* migrate/make migrations
+* settings `DEBUG=FALSE`
+* check `~/.env`k all cases)
 * weird bugging out of button icons
 * active users only counts logins, and includes temp users
 * password forgot connection problem
@@ -57,4 +64,4 @@
 
 ### deploy:
 
-./chaoskasten3/deploy.sh 
+./chaoskasten3/deploy.sh
