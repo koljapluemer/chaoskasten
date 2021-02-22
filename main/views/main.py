@@ -10,20 +10,50 @@ import random
 
 from django.http import HttpResponseRedirect
 
+# after the connection is made or the user aborts
+def deactiveConnectionMode(request):
+    if not request.user:
+        return redirect('login')
+    profile = request.user.profile
+    collection = profile.collection
+
+    collection.noteConnectionSender = None;
+    collection.save()
+
+    return redirect('/notes')
+
+# when the user wants to connect a note, we temporarily store the "sending" note in the db
+# maybe this will fix the weird bug where images not loading
+def activateConnectionSender(request, sender):
+    if not request.user:
+        return redirect('login')
+    profile = request.user.profile
+    collection = profile.collection
+
+    collection.noteConnectionSender = Note.objects.filter(id=sender).first()
+    collection.save()
+
+    return redirect('/notes')
+
+
+# attach the note the user just clicked to the one we saved in the database collection
+def attachConnectionRecipient(request, recipient):
+    if not request.user:
+        return redirect('login')
+    profile = request.user.profile
+    collection = profile.collection
+
+    if collection.noteConnectionSender:
+        collection.noteConnectionSender.reference.add(Note.objects.get(id = recipient, profile=profile))
+
+    return redirect('/notes/deactiveConnectionMode')
+
 
 def notes(request, sender = None, recipient = None, editmode = False, noteID = None):
     if not request.user:
         return redirect('login')
     profile = request.user.profile
     collection = profile.collection
-
-    # handle connection
-    if sender and recipient:
-        try:
-            Note.objects.get(id = sender, profile=profile).reference.add(Note.objects.get(id = recipient, profile=profile))
-            return redirect('/notes')
-        except:
-            return redirect('/notes')
 
     form = None
     if editmode:
@@ -73,6 +103,9 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
 
     allNotesPaginator = Paginator(allNotes, 5)
     allNotesPage = allNotesPaginator.get_page(profile.collection.allNotesPageNr)
+
+    if collection.noteConnectionSender:
+        sender = collection.noteConnectionSender.id
 
     context = {
         'notes': collection.openNotes.all(),

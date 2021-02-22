@@ -1,24 +1,55 @@
 <li class="note-list-item">
-<a class="note-list-title" href="/open/{{ note.id }}/notes">{{ note.title }}</a>
-  <div class="note-list-links">
-    <!-- when we are in the "Pinned" section, offer option to unpin stuff, otherwise allow pinning -->
-    {% if unpinnable %}
-    <a href="/unpin/{{note.id}}" class="border-r border-gray-400 px-2 "><img src="static/ico/x-circle.svg" alt="Remove" class="icon title-icon"></a>
-    {% else %}
-      <a href="/pin/{{note.id}}" class="border-r border-gray-400 px-2 "><img src="static/ico/tag.svg" alt="Pin" class="icon title-icon"></a>
-    {% endif %}
-    {% if sender %}
-    {% if note.id == sender %}
-    <a href="/notes" class="connect-sender"<img src="static/ico/link.svg" alt="Connect" class="icon title-icon"><img src="static/ico/link.svg" alt="Connect" class="icon title-icon"></a>
-    {% else %}
-    <a href="/notes/{{sender}}/{{ note.id }}" class="connect-receiver"><img src="static/ico/link.svg" alt="Connect" class="icon title-icon"></a>
-    {% endif %}
-    {% else %}
-    <a href="/notes/{{note.id}}" class="px-2"><img src="static/ico/link.svg" alt="Connect" class="icon title-icon"></a>
-    {% endif %}
+  {% load static %}
 
-    {% if unconnectable %}
-    <a href="/unconnect/{{parentnote.id}}/{{note.id}}" class="px-2"><img src="static/ico/x-circle.svg" alt="Remove" class="icon title-icon"></a>
+  <a class="note-list-title" href="/open/{{ note.id }}/notes">{{ note.title }}</a>
+
+  <div class="note-list-links">
+
+  <!-- when we are in the "Pinned" section, offer option to unpin stuff, otherwise allow pinning -->
+  {% if unpinnable %}
+  <a href="/unpin/{{note.id}}" class="svg-link-wrapper">
+    <span class="svg-wrapper">
+    <object class="svg-object svg-small" data="{% static '/ico/x-circle.svg' %}" type="image/svg+xml"></object>
+    </span>
+  </a>
+  {% else %}
+  <a href="/pin/{{note.id}}" class="svg-link-wrapper">
+    <span class="svg-wrapper">
+    <object class="svg-object svg-small" data="{% static 'static/ico/tag.svg' %}" type="image/svg+xml"></object>
+    </span>
+  </a>
+  {% endif %}
+
+
+  {% if sender %}
+    {% if parentnote.id == sender %}
+      <a href="/notes/deactiveConnectionMode" class="svg-link-wrapper">
+        <span class="svg-wrapper">
+          <object class="connect-sender svg-object svg-small" data="static/ico/link.svg" type="image/svg+xml"></object>
+        </span>
+      </a>
+    {% else %}
+      <a href="/notes/r/{{ parentnote.id }}" class="svg-link-wrapper">
+        <span class="svg-wrapper">
+        <object class="connect-receiver svg-object svg-small" data="static/ico/link.svg" type="image/svg+xml"></object>
+      </span>
+      </a>
     {% endif %}
+  {% else %}
+    <a href="/notes/s/{{parentnote.id}}" class="svg-link-wrapper">
+      <span class="svg-wrapper">
+      <object class="svg-object svg-small" data="static/ico/link.svg" type="image/svg+xml"></object>
+    </span>
+    </a>
+  {% endif %}
+
+  {% if unconnectable %}
+  <a href="/unconnect/{{parentnote.id}}/{{note.id}}"  class="svg-link-wrapper">
+    <span class="svg-wrapper">
+
+    <object class="svg-object svg-small" data="static/ico/x-circle.svg" type="image/svg+xml"></object>
+    </span>
+  </a>
+  {% endif %}
   </div>
 </li>

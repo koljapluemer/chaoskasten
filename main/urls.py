@@ -44,8 +44,9 @@ urlpatterns = [
     path('unpin/<int:noteID>', views.unpinNote),
 
     # Connecting in the notes view
-    path('notes/<int:sender>', views.notes),
-    path('notes/<int:sender>/<int:recipient>', views.notes),
+    path('notes/s/<int:sender>', views.activateConnectionSender),
+    path('notes/r/<int:recipient>', views.attachConnectionRecipient),
+    path('notes/deactiveConnectionMode', views.deactiveConnectionMode),
     path('unconnect/<int:sender>/<int:recipient>', views.unconnectNotes),
 
     # Editing/new Notes
