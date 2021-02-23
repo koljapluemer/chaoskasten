@@ -1,7 +1,10 @@
 import os
 import environ
 
-env = environ.Env()
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 environ.Env.read_env()
 
 ALLOWED_HOSTS = ['chaoskasten.com', 'localhost']
@@ -113,6 +116,7 @@ APPEND_SLASH=False
 
 SECRET_KEY = env('SECRET_KEY')
 
+# false when it does not exist (wtf)
 DEBUG = env('DEBUG')
 
 DATABASES = {
