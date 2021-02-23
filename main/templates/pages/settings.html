@@ -5,14 +5,14 @@
   <h1>Settings</h1>
   <p>[All features are experimental]</p>
 </div>
-<div id="about-notes">
+<div id="settings-notes">
   <div class="note">
     <h2>Export</h2>
     <a href="/download">Download my notes</a>
   </div>
 
-  <div class="note">
-    <h2>Drawers</h2>
+  <div class="note" id="note-drawers">
+    <h2>Your Drawers</h2>
     <ul>
       {% for drawer in drawers %}
       <li>{{drawer.name}}</li>

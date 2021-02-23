@@ -1,12 +1,12 @@
 ### Sprint 22.2 - 26.2 | Important Bugs
 
 * debug=FALSE is ignored in deployment, why?
-* Wenn in den Settings, dann kommt man nicht wieder zurück über Bedienfeld
+* ~~ Wenn in den Settings, dann kommt man nicht wieder zurück über Bedienfeld ~~
 * Redirect zur Homepage (Login-Seite), wenn auf einer anderen aber nicht eingeloggt
 * First note does not get sorted into drawer
 * code formatting in adjacent lines touches
 * blockquote formatting
-* Temporary user does not get redirect to his notes
+* ~~ Temporary user does not get redirect to his notes ~~
 * ~~ weird bugging out of button icons ~~
 
 ### backlog:

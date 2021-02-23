@@ -1,6 +1,8 @@
 from ..models import *
 from django.shortcuts import render, redirect
 from lazysignup.decorators import allow_lazy_user
+from django.utils import timezone
+from datetime import timedelta
 
 # The landing page
 @allow_lazy_user

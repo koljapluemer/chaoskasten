@@ -460,13 +460,33 @@ form {
 #about-notes {
   width: 70%;
   margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:
+    "a b"
+    "c c";
+}
+
+#note-pricing {
+  grid-area: c;
 }
 
 #profile-notes {
   display: flex;
+}
+
+#settings-notes {
+  width: 70%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas:
+    "a b"
+    "a c";
+}
+
+#note-drawers {
+  grid-area: a;
 }
 
 /* Sidebar Collapse */

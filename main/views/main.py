@@ -12,8 +12,11 @@ from django.http import HttpResponseRedirect
 
 # after the connection is made or the user aborts
 def deactiveConnectionMode(request):
-    if not request.user:
+    try:
+        request.user.profile
+    except:
         return redirect('login')
+
     profile = request.user.profile
     collection = profile.collection
 
@@ -25,6 +28,11 @@ def deactiveConnectionMode(request):
 # when the user wants to connect a note, we temporarily store the "sending" note in the db
 # maybe this will fix the weird bug where images not loading
 def activateConnectionSender(request, sender):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
     if not request.user:
         return redirect('login')
     profile = request.user.profile
@@ -38,7 +46,9 @@ def activateConnectionSender(request, sender):
 
 # attach the note the user just clicked to the one we saved in the database collection
 def attachConnectionRecipient(request, recipient):
-    if not request.user:
+    try:
+        request.user.profile
+    except:
         return redirect('login')
     profile = request.user.profile
     collection = profile.collection
@@ -50,7 +60,9 @@ def attachConnectionRecipient(request, recipient):
 
 
 def notes(request, sender = None, recipient = None, editmode = False, noteID = None):
-    if not request.user:
+    try:
+        request.user.profile
+    except:
         return redirect('login')
     profile = request.user.profile
     collection = profile.collection
@@ -123,6 +135,10 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
     return render(request, 'notes.html', context)
 
 def changePage(request, section, pageNr):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
     profile = request.user.profile
     collection = profile.collection
 
@@ -137,6 +153,11 @@ def changePage(request, section, pageNr):
     return redirect('/notes')
 
 def generateWelcomeNote(request):
+
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
     profile = request.user.profile
     collection = profile.collection
 
@@ -148,6 +169,11 @@ def generateWelcomeNote(request):
     return redirect('/notes')
 
 def pinNote(request, noteID):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
     profile = request.user.profile
     collection = profile.collection
     note = Note.objects.get(id=noteID, profile=profile)
@@ -155,6 +181,11 @@ def pinNote(request, noteID):
     return redirect('/notes')
 
 def unpinNote(request, noteID):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
     profile = request.user.profile
     collection = profile.collection
     note = Note.objects.get(id=noteID, profile=profile)
@@ -162,6 +193,11 @@ def unpinNote(request, noteID):
     return redirect('/notes')
 
 def unconnectNotes(request, sender = None, recipient = None):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
     profile = request.user.profile
     collection = profile.collection
 
@@ -172,6 +208,11 @@ def unconnectNotes(request, sender = None, recipient = None):
         return redirect('/notes')
 
 def search(request):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
     profile = request.user.profile
     collection = profile.collection
     # set search term
@@ -191,6 +232,10 @@ class NoteForm(ModelForm):
         fields = ['title', 'content', 'drawer']
 
 def openNote(request, noteID, redirectPath):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
     # TODO: Slimmer random method
     if noteID == "-":
         notes = Note.objects.filter(profile=request.user.profile)
@@ -207,6 +252,11 @@ def openNote(request, noteID, redirectPath):
     return redirect('/' + redirectPath)
 
 def closeNote(request, noteID, redirectPath):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
     note = Note.objects.get(id=int(noteID), profile=request.user.profile)
     collection = Collection.objects.get(profile=request.user.profile)
     collection.openNotes.remove(note)
@@ -215,15 +265,30 @@ def closeNote(request, noteID, redirectPath):
 
 
 def closeNotes(request):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
     collection = Collection.objects.get(profile=request.user.profile)
     collection.openNotes.clear()
     return redirect('/notes')
 
 def deleteNote(request, noteID):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
     Note.objects.get(id=noteID, profile=request.user.profile).delete()
     return redirect('/notes')
 
 def sidebar(request):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
     profile = request.user.profile
     collection = profile.collection
 
