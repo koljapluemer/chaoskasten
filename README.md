@@ -58,6 +58,9 @@
 * locally, use *testaccount4* for lots of generated notes.
 * env is called `.virtualenv`
 
+* The static files sometimes not loading has something to do with the static directory
+* For some reason, the server tries to serve the files from an url dependent on the current url we are on
+
 ### deploy:
 
 ./chaoskasten3/deploy.sh

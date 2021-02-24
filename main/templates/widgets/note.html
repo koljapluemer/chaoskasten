@@ -33,41 +33,29 @@
     <div class="note-bottombar">
       <p class="note-drawer">{{ parentnote.drawer }}</p>
       <div class="note-buttons">
-        <a href="/pin/{{parentnote.id}}" class="svg-link-wrapper">
-            <span class="svg-wrapper">
-          <img src="static/ico/tag.svg" alt="Pin" class="icon title-icon">
-          </span>
+        <a href="/pin/{{parentnote.id}}" class="icon-link">
+          <img src="{% static '/ico/tag.svg' %}" alt="Pin" class="icon title-icon">
         </a>
         {% if sender %}
           {% if parentnote.id == sender %}
-            <a href="/notes/deactiveConnectionMode" class="svg-link-wrapper">
-              <span class="svg-wrapper connect-sender">
-                <img src="static/ico/link.svg" alt="Connect" class="icon title-icon  ">
-              </span>
+            <a href="/notes/deactiveConnectionMode" class="icon-link connect-sender">
+                <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon  ">
             </a>
           {% else %}
-            <a href="/notes/r/{{ parentnote.id }}" class="svg-link-wrapper">
-              <span class="svg-wrapper connect-receiver">
-                <img src="static/ico/link.svg" alt="Connect" class="icon title-icon">
-              </span>
+            <a href="/notes/r/{{ parentnote.id }}" class="icon-link connect-receiver">
+                <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon">
             </a>
           {% endif %}
         {% else %}
-          <a href="/notes/s/{{parentnote.id}}" class="svg-link-wrapper">
-            <span class="svg-wrapper">
-            <img src="static/ico/link.svg" alt="Connect" class="icon title-icon">
-          </span>
+          <a href="/notes/s/{{parentnote.id}}" class="icon-link">
+            <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon">
           </a>
         {% endif %}
-        <a href="/delete/{{parentnote.id}}" class="svg-link-wrapper" onclick="return confirm('Delete this note?')">
-          <span class="svg-wrapper">
-          <img src="static/ico/trash-2.svg" alt="Trash" class="icon title-icon">
-        </span>
+        <a href="/delete/{{parentnote.id}}" class="icon-link" onclick="return confirm('Delete this note?')">
+          <img src="{% static '/ico/trash-2.svg' %}" alt="Trash" class="icon title-icon">
         </a>
-        <a href="/editMode/{{parentnote.id}}/true" class="svg-link-wrapper">
-          <span class="svg-wrapper">
-          <img src="static/ico/edit.svg" alt="Edit" class="icon title-icon">
-        </span>
+        <a href="/editMode/{{parentnote.id}}/true" class="icon-link">
+          <img src="{% static '/ico/edit.svg' %}" alt="Edit" class="icon title-icon">
         </a>
       </div>
     </div>

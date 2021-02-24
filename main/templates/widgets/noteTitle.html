@@ -7,48 +7,35 @@
 
   <!-- when we are in the "Pinned" section, offer option to unpin stuff, otherwise allow pinning -->
   {% if unpinnable %}
-  <a href="/unpin/{{note.id}}" class="svg-link-wrapper">
-    <span class="svg-wrapper">
-    <img src="static/ico/x-circle.svg" alt="Remove" class="icon">
-    </span>
+  <a href="/unpin/{{note.id}}" class="icon-link">
+    <img src="{% static '/ico/x-circle.svg' %}" alt="Remove" class="icon">
   </a>
   {% else %}
-  <a href="/pin/{{note.id}}" class="svg-link-wrapper">
-    <span class="svg-wrapper">
-    <img src="static/ico/tag.svg" alt="Pin" class="icon">
-    </span>
+  <a href="/pin/{{note.id}}" class="icon-link">
+    <img src="{% static '/ico/tag.svg' %}" alt="Pin" class="icon">
   </a>
   {% endif %}
 
 
   {% if sender %}
     {% if note.id == sender %}
-      <a href="/notes/deactiveConnectionMode" class="svg-link-wrapper">
-        <span class="svg-wrapper connect-sender">
-          <img src="static/ico/link.svg" alt="Connect" class="icon   ">
-        </span>
+      <a href="/notes/deactiveConnectionMode" class="icon-link connect-sender"">
+          <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon   ">
       </a>
     {% else %}
-      <a href="/notes/r/{{ note.id }}" class="svg-link-wrapper">
-        <span class="svg-wrapper connect-receiver">
-          <img src="static/ico/link.svg" alt="Connect" class="icon ">
-        </span>
+      <a href="/notes/r/{{ note.id }}" class="icon-link connect-receiver">
+          <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon ">
       </a>
     {% endif %}
   {% else %}
-    <a href="/notes/s/{{ note.id}}" class="svg-link-wrapper">
-      <span class="svg-wrapper">
-      <img src="static/ico/link.svg" alt="Connect" class="icon ">
-    </span>
+    <a href="/notes/s/{{ note.id}}" class="icon-link">
+      <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon ">
     </a>
   {% endif %}
 
   {% if unconnectable %}
-  <a href="/unconnect/{{parentnote.id}}/{{note.id}}"  class="svg-link-wrapper">
-    <span class="svg-wrapper">
-
-    <img src="static/ico/x-circle.svg" alt="Remove" class="icon">
-    </span>
+  <a href="/unconnect/{{parentnote.id}}/{{note.id}}"  class="icon-link">
+    <img src="{% static '/ico/x-circle.svg' %}" alt="Remove" class="icon">
   </a>
   {% endif %}
   </div>
