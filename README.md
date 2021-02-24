@@ -1,8 +1,8 @@
 ### Sprint 22.2 - 26.2 | Important Bugs
 
-* debug=FALSE is ignored in deployment, why?
+* ~~ debug=FALSE is ignored in deployment, why? ~~
 * ~~ Wenn in den Settings, dann kommt man nicht wieder zurück über Bedienfeld ~~
-* Redirect zur Homepage (Login-Seite), wenn auf einer anderen aber nicht eingeloggt
+* ~~ Redirect zur Homepage (Login-Seite), wenn auf einer anderen aber nicht eingeloggt ~~
 * First note does not get sorted into drawer
 * code formatting in adjacent lines touches
 * blockquote formatting

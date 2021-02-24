@@ -16,7 +16,7 @@ def home(request):
         profile=request.user.profile
         if request.method == 'POST':
             d = Drawer.objects.create(name=request.POST.get('drawer'), profile=profile)
-            n = Note.objects.create(title=request.POST.get('title'), content=request.POST.get('content'), profile=profile)
+            n = Note.objects.create(title=request.POST.get('title'), content=request.POST.get('content'), profile=profile, drawer=d)
             profile.collection.openNotes.add(n)
             profile.save()
             return redirect('/notes')
