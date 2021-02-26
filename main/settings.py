@@ -113,7 +113,7 @@ else:
     STRIPE_SECRET_KEY = env("STRIPE_TEST_SECRET_KEY")
 
 
-DJSTRIPE_WEBHOOK_SECRET = "whsec_kb9U8bjAmphHM44exYNx6hxdlMsbUAY5"  # Get it from the section in the Stripe dashboard where you added the webhook endpoint
+DJSTRIPE_WEBHOOK_SECRET = env("DJSTRIPE_WEBHOOK_SECRET")  # Get it from the section in the Stripe dashboard where you added the webhook endpoint
 
 APPEND_SLASH=False
 
