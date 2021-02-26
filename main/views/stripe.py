@@ -17,7 +17,7 @@ def payment(request):
             }],
         },
         success_url='http://chaoskasten.com/notes',
-        cancel_url='https://chaoskasten.com/signup',
+        cancel_url='https://chaoskasten.com/signup'
     )
     return render(request, 'payment.html', {'stripeSessionID': session.id})
 
