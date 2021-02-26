@@ -11,7 +11,7 @@ def profile(request):
     user = request.user
     context = {}
 
-    stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+    stripe.api_key = settings_conf.STRIPE_SECRET_KEY
 
     if user.profile.stripeID != '1':
         created = stripe.Customer.retrieve(user.profile.stripeID).subscriptions.data[0]["created"]
@@ -25,7 +25,7 @@ def profile(request):
     return render(request, 'pages/profile.html', context)
 
 def signup(request):
-    stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+    stripe.api_key = settings_conf.STRIPE_SECRET_KEY
 
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -53,7 +53,7 @@ def changeEmail(request):
     return render(request, 'registration/email_change.html', {'form': form})
 
 def deleteUser(request):
-    stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+    stripe.api_key = settings_conf.STRIPE_SECRET_KEY
 
     user = request.user
     if user.profile.stripeID != '1':
