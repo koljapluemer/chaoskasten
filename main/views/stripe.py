@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
+from django.conf import settings as settings_conf
+import stripe
 
 def payment(request):
     # Stripe
-    stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+    stripe.api_key = settings_conf.STRIPE_SECRET_KEY
 
     session = stripe.checkout.Session.create(
         customer=request.user.profile.stripeID,
@@ -14,17 +16,17 @@ def payment(request):
                 'plan': 'plan_Gu4VwViHu775Pj',
             }],
         },
-        success_url='http://7293aead.ngrok.io/notes',
+        success_url='http://chaoskasten.com/notes',
         cancel_url='https://chaoskasten.com/signup',
     )
     return render(request, 'payment.html', {'stripeSessionID': session.id})
 
 @csrf_exempt
 def webhook(request):
-    stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+    stripe.api_key = settings_conf.STRIPE_SECRET_KEY
 
     # You can find your endpoint's secret in your webhook settings
-    endpoint_secret = os.getenv("STRIPE_WEBHOOK")
+    endpoint_secret = settings_conf.STRIPE_WEBHOOK
 
 
     payload = request.body

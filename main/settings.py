@@ -3,7 +3,8 @@ import environ
 
 env = environ.Env(
     # set casting, default value
-    DEBUG=(bool, False)
+    DEBUG=(bool, False),
+    STRIPE_LIVE_MODE=(bool, False)
 )
 environ.Env.read_env()
 
@@ -104,12 +105,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOGIN_REDIRECT_URL = '/notes'
 LOGOUT_REDIRECT_URL = '/'
 
-STRIPE_LIVE_PUBLIC_KEY = env('STRIPE_LIVE_PUBLIC_KEY')
-STRIPE_LIVE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY')
+if env.get_value("STRIPE_LIVE_MODE"):
+    STRIPE_PUBLIC_KEY = env('STRIPE_LIVE_PUBLIC_KEY')
+    STRIPE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY')
+else:
+    STRIPE_PUBLIC_KEY = env("STRIPE_TEST_PUBLIC_KEY")
+    STRIPE_SECRET_KEY = env("STRIPE_TEST_SECRET_KEY")
 
-STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_CBM7HhIYdjePmccQsSqDHpxZ00eBDyU9YD")
-STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_saz48OVpTahMj8ZhFNKu4PBo00tqeXobcv")
-STRIPE_LIVE_MODE = env('STRIPE_LIVE_MODE')  # Change to True in production
+
 DJSTRIPE_WEBHOOK_SECRET = "whsec_kb9U8bjAmphHM44exYNx6hxdlMsbUAY5"  # Get it from the section in the Stripe dashboard where you added the webhook endpoint
 
 APPEND_SLASH=False

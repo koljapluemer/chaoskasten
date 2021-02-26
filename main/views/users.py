@@ -3,8 +3,9 @@ from django.shortcuts import render, redirect
 import os
 
 from django.contrib.auth import (
-    authenticate, get_user_model, password_validation,
+    authenticate, get_user_model, password_validation, login
 )
+
 
 def profile(request):
     user = request.user
