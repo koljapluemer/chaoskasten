@@ -1,17 +1,17 @@
 ### next up
 
-Design new Sprint!!
+Just get a fucking Django Stripe tutorial and work through it, it smells like uncatched edge cases around here.
 
-### Sprint 22.2 - 26.2 | Important Bugs
+After putting in signup data, we are getting:
+`Request req_Hnmrx8Ke6uGAHZ: No such customer: 'cus_J1DmwfT668tExA'; a similar object exists in test mode, but a live mode key was used to make this request.`
 
-* ~~ debug=FALSE is ignored in deployment, why? ~~
-* ~~ Wenn in den Settings, dann kommt man nicht wieder zurück über Bedienfeld ~~
-* ~~ Redirect zur Homepage (Login-Seite), wenn auf einer anderen aber nicht eingeloggt ~~
-* ~~ First note does not get sorted into drawer ~~
-* ~~ code formatting in adjacent lines touches ~~
-* ~~ blockquote formatting ~~
-* ~~ Temporary user does not get redirect to his notes ~~
-* ~~ weird bugging out of button icons ~~
+I thought it was environments problems, but putting everything into .env did not help...
+...There is a key hardcoded into html...
+
+### Sprint 26.2 - 2.3
+
+* Get the normal signup process going!
+* allow free access codes
 
 ### backlog:
 
