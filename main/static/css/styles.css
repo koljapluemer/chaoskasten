@@ -154,6 +154,7 @@ form {
 }
 
 .note-buttons{
+  display: flex;
 }
 
 #notes-sections {
@@ -232,11 +233,6 @@ form {
   display: flex;
 }
 
-.note-list-links * {
-  margin-right: 4px;
-}
-
-
 .note-related {
   font-size: 0.9em;
   margin: 8px;
@@ -253,6 +249,7 @@ form {
 
 .note-list-title {
   font-size: 1em;
+  line-height: 1em;
   margin: 0;
   padding-right: 8px;
   text-decoration-color: #bbb;
@@ -409,12 +406,15 @@ form {
 }
 
 .icon-link {
-  height: 20px;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-left: 8px;
+
 }
 
 .icon {
-  padding: 2px;
   height: 16px;
   filter: invert(19%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(91%) contrast(93%);
 }
