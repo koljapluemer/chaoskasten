@@ -67,6 +67,13 @@ blockquote {
   border-bottom: 1px solid #333;
 }
 
+.button-as-link {
+  background: none;
+  border: none;
+
+  cursor: pointer;
+}
+
 #user {
   display: flex;
   align-items: center;

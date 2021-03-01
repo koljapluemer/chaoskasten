@@ -22,8 +22,13 @@
     </div>
   </div>
 
-  <h2 class="index-font"><a href="#" class="index-font">...or sign up first ($3/month)</a></h2>
+  <button class="index-font button-as-link" id="submitBtn" type="submit"><h2>...or sign up first ($3/month)</h2></button>
 
 
 </main>
+
+{% load static %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static "js/stripe.js" %}"></script>
+
 {% endblock content %}
