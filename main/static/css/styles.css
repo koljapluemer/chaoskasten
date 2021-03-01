@@ -62,11 +62,6 @@ blockquote {
   margin-bottom: 0;
 }
 
-.nav-header {
-  padding-bottom: 16px;
-  border-bottom: 1px solid #333;
-}
-
 .button-as-link {
   background: none;
   border: none;
@@ -78,6 +73,8 @@ blockquote {
   display: flex;
   align-items: center;
   margin-top: 6px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #333;
 }
 
 .links-footer {

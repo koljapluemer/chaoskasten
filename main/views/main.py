@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.forms import ModelForm
 from ..models import *
+from django.conf import settings as cfg
 
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -9,6 +10,8 @@ from lazysignup.templatetags.lazysignup_tags import *
 import random
 
 from django.http import HttpResponseRedirect
+
+import stripe
 
 # after the connection is made or the user aborts
 def deactiveConnectionMode(request):
@@ -119,6 +122,14 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
     if collection.noteConnectionSender:
         sender = collection.noteConnectionSender.id
 
+    # Retrieve the subscription & product
+    if profile.stripeSubscriptionID:
+        stripe.api_key = cfg.STRIPE_SECRET_KEY
+        subscription = stripe.Subscription.retrieve(profile.stripeSubscriptionID)
+        product = stripe.Product.retrieve(subscription.plan.product)
+    else:
+        product = "No subscription"
+
     context = {
         'notes': collection.openNotes.all(),
         'pinnedNotes': pinnedNotesPage,
@@ -131,6 +142,7 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
         'drawers': profile.drawer_set.all(),
         'openDrawer': collection.openDrawer,
         'sidebarCollapsed': collection.sidebarCollapsed,
+        'product': product,
     }
     return render(request, 'notes.html', context)
 

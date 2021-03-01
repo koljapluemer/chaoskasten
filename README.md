@@ -1,5 +1,9 @@
 ### next up
 
+* Put all those things like redirect if not logged in etc etc in a function I guess?
+* The Webhook does not really create/activate an account (obviously, if you go through the stripe process, you never sign up, lol)
+* Also includes: Stripe subscription data
+
 Just get a fucking Django Stripe tutorial and work through it, it smells like uncatched edge cases around here.
 
 After putting in signup data, we are getting:

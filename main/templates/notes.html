@@ -18,11 +18,15 @@
 
   <header class="notes-sidebar">
     <h1>Chaoskasten</h1>
-    <nav class="nav-header">
-      <li id="user">
+      <div id="user">
         {% if user.is_authenticated %}
         <img src="{% static '/ico/user.svg' %}" alt="User" class="icon title-icon">
         {% if not user|is_lazy_user %}
+
+        <div>
+          Stripe Subscription: {{ product }}
+        </div>
+
         <a href="/profile">{{ user.username }}</a> (<a href="{% url 'logout' %}">logout</a>)
         {% else %}
         Temporary User (<a href="/convert">Sign Up</a>) <br>
@@ -34,9 +38,8 @@
         <div class="spacer"></div>
         <a href="{% url 'login' %}">login</a>
         {% endif %}
-      </li>
+      </div>
 
-    </nav>
     <nav class="flex-around">
       <a href="/notes">Desk</a>
       <a href="/drawerView">Drawer</a>
