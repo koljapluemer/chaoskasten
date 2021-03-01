@@ -20,7 +20,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/changeEmail', views.changeEmail),
     path('signup', views.signup),
-    path('payment', views.payment),
+    # path('payment', views.payment),
     path('profile', views.profile),
     path('deleteUser', views.deleteUser),
 
@@ -52,14 +52,15 @@ urlpatterns = [
     # Editing/new Notes
     path('editMode/<int:noteID>/<str:editmode>', views.notes),
     path('editMode/<str:editmode>', views.notes),
-    path('convert', include('lazysignup.urls'), {'template_name': 'pages/signup.html', 'redirect_field_name': 'payment'}),
+
+    # path('convert', include('lazysignup.urls'), {'template_name': 'pages/signup.html', 'redirect_field_name': 'payment'}),
 
     # Drawer View
     path('drawerView', views.drawerView),
     path('drawerSearch', views.drawerSearch),
 
     # webhooks
-    path('webhook', views.webhook),
+    # path('webhook', views.webhook),
 
     # collapse sidebar
     path('sidebar', views.sidebar),

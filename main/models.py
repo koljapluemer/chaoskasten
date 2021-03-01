@@ -29,6 +29,7 @@ To manage your Drawers, you may want to check out the `Settings` link.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     stripeID = models.TextField()
+    stripeSubscriptionID = models.TextField() 
 
 
 class Drawer(models.Model):
