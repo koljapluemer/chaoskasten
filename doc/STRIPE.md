@@ -30,5 +30,7 @@
 6. The form redirection goes over URL and `views/stripe` into an basically empty template which loads a Stripe Checkout form with the relevant parameters
 7. The Stripe form then redirects to either success or cancel template
 8. No matter whether the payment was successful, the user now has an account in which he is logged in
-9. At the creation of the *profile*, we set a flag which tells us whether this user has paid
-10. A webhook in `stripe.py` sets this flag to true once Stripe server confirms payment 
+9. We can check whether the subscription is active fairly easily (check the settings page). From this indicator, we can build nudges and locks later (who cares).
+
+if we are converting an existing user, the process is essentially the same. We are still using the `signup.html` page, we are just using the redirect value stored
+within the submit button.

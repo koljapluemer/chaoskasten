@@ -19,8 +19,11 @@ urlpatterns = [
     # Users
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/changeEmail', views.changeEmail),
+    # signup is direct, convert is for people who had a temporary acc
     path('signup', views.signup),
-    # path('payment', views.payment),
+    path('convert', include('lazysignup.urls'), {'template_name': 'pages/signup.html'}),
+    path('convertdone', views.payment_form),
+
     path('profile', views.profile),
     path('deleteUser', views.deleteUser),
 
@@ -53,7 +56,6 @@ urlpatterns = [
     path('editMode/<int:noteID>/<str:editmode>', views.notes),
     path('editMode/<str:editmode>', views.notes),
 
-    # path('convert', include('lazysignup.urls'), {'template_name': 'pages/signup.html', 'redirect_field_name': 'payment'}),
 
     # Drawer View
     path('drawerView', views.drawerView),
@@ -68,7 +70,6 @@ urlpatterns = [
     # new attempt to get stripe running
     path('success/', views.success),
     path('cancel/', views.cancel),
-    path('webhook', views.stripe_webhook),
 
     # yet another attempt to stripe
     path('payment_form', views.payment_form),

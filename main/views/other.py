@@ -15,13 +15,13 @@ def settings(request):
     stripe_id = profile.stripeCustomerID
     stripe_customer = stripe.Customer.retrieve(stripe_id)
     stripe_email = stripe_customer.email
-    subscription = stripe_customer.subscriptions.data
+    # TODO: Can a user ever have more than one subscription
+    subscription_status = stripe_customer.subscriptions.data[0].status
 
     context = {
         'drawers': Drawer.objects.filter(profile=request.user.profile),
-        'stripe_id': stripe_id,
         'stripe_email': stripe_email,
-        'subscription': subscription,
+        'subscription_status': subscription_status,
     }
     return render(request, 'pages/settings.html', context)
 

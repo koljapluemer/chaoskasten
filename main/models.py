@@ -31,7 +31,6 @@ To manage your Drawers, you may want to check out the `Settings` link.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     stripeCustomerID = models.TextField()
-
 class Drawer(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
