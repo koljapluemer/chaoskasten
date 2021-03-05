@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+from django.conf import settings as cfg
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -29,8 +31,6 @@ To manage your Drawers, you may want to check out the `Settings` link.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     stripeCustomerID = models.TextField()
-    stripeSubscriptionID = models.TextField()
-
 
 class Drawer(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
@@ -105,13 +105,13 @@ class CollectionHistory(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        stripe.api_key = 'sk_test_saz48OVpTahMj8ZhFNKu4PBo00tqeXobcv'
+        stripe.api_key = cfg.STRIPE_SECRET_KEY
         p = Profile.objects.create(user=instance)
         customer = stripe.Customer.create(
             description="",
             name="",
         )
-        p.stripeID = customer.id
+        p.stripeCustomerID = customer.id
         p.save()
         c = Collection.objects.create(profile=p)
         d = Drawer.objects.create(name="Help", profile=p)

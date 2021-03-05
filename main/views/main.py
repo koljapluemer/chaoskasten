@@ -122,14 +122,6 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
     if collection.noteConnectionSender:
         sender = collection.noteConnectionSender.id
 
-    # Retrieve the subscription & product
-    if profile.stripeSubscriptionID:
-        stripe.api_key = cfg.STRIPE_SECRET_KEY
-        subscription = stripe.Subscription.retrieve(profile.stripeSubscriptionID)
-        product = stripe.Product.retrieve(subscription.plan.product)
-    else:
-        product = "No subscription"
-
     context = {
         'notes': collection.openNotes.all(),
         'pinnedNotes': pinnedNotesPage,
@@ -142,7 +134,6 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
         'drawers': profile.drawer_set.all(),
         'openDrawer': collection.openDrawer,
         'sidebarCollapsed': collection.sidebarCollapsed,
-        'product': product,
     }
     return render(request, 'notes.html', context)
 

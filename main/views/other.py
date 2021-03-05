@@ -1,12 +1,27 @@
+import stripe
+
 from ..models import *
 from django.shortcuts import render, redirect
-
 from django.forms.models import modelformset_factory
-
+from django.conf import settings as cfg
 
 def settings(request):
+    try:
+        profile = request.user.profile
+    except:
+        return redirect('login')
+
+    stripe.api_key = cfg.STRIPE_SECRET_KEY
+    stripe_id = profile.stripeCustomerID
+    stripe_customer = stripe.Customer.retrieve(stripe_id)
+    stripe_email = stripe_customer.email
+    subscription = stripe_customer.subscriptions.data
+
     context = {
-        'drawers': Drawer.objects.filter(profile=request.user.profile)
+        'drawers': Drawer.objects.filter(profile=request.user.profile),
+        'stripe_id': stripe_id,
+        'stripe_email': stripe_email,
+        'subscription': subscription,
     }
     return render(request, 'pages/settings.html', context)
 

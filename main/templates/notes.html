@@ -22,11 +22,6 @@
         {% if user.is_authenticated %}
         <img src="{% static '/ico/user.svg' %}" alt="User" class="icon title-icon">
         {% if not user|is_lazy_user %}
-
-        <div>
-          Stripe Subscription: {{ product }}
-        </div>
-
         <a href="/profile">{{ user.username }}</a> (<a href="{% url 'logout' %}">logout</a>)
         {% else %}
         Temporary User (<a href="/convert">Sign Up</a>) <br>

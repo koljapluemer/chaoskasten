@@ -27,22 +27,17 @@
     Use this if you deleted or modified your "Welcome" note and want it restored:
     <a href="generateWelcomeNote">Get new Welcome note</a>
   </div>
+
+  <div class="note">
+    <h2>Account & Payment</h2>
+    <ul>
+      <li>Stripe ID: {{ stripe_id }}</li>
+      <li>Stripe Email: {{ stripe_email }} </li>
+      <li>Subscription: {{ subscription }}</li>
+    </ul>
+
+  </div>
 </div>
-<!-- <h2>Import</h2>
-<form action="/upload" method="POST" enctype="multipart/form-data" class="form-horizontal">
-{% csrf_token %}
-<div class="form-group">
-<label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label">File: </label>
-<div class="col-md-8">
-<input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
-</div>
-</div> -->
-<!-- <div class="form-group">
-<div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
-<button class="btn btn-primary"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
-</div>
-</div>
-</form> -->
 
 
 

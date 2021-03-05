@@ -8,50 +8,44 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from main.models import Profile
 
+# the stripe checkout form where the user inputs his credit card data
 @csrf_exempt
-def stripe_config(request):
-    if request.method == 'GET':
-        stripe_config = {'publicKey': cfg.STRIPE_PUBLIC_KEY}
-        return JsonResponse(stripe_config, safe=False)
+def payment_form(request):
+    stripe_public_key= cfg.STRIPE_PUBLIC_KEY
+    stripe.api_key = cfg.STRIPE_SECRET_KEY
+
+    # TODO: make this a setting
+    domain_url = 'http://localhost:8000/'
+
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            customer=request.user.profile.stripeCustomerID,
+            success_url=domain_url + 'success/',
+            cancel_url=domain_url + 'cancel/',
+            payment_method_types=['card'],
+            mode='subscription',
+            line_items=[
+                {
+                    'price': cfg.STRIPE_PRICE_ID,
+                    'quantity': 1,
+                }
+            ]
+        )
+        return render(request, 'registration/payment_form.html', {'stripe_public_key': stripe_public_key, 'stripeSessionID': checkout_session['id']})
+    except Exception as e:
+        # TODO: Redirect to error page
+        return JsonResponse({'error': str(e)})
 
 
-@csrf_exempt
-def create_checkout_session(request):
-    if request.method == 'GET':
-        domain_url = 'http://localhost:8000/'
-        stripe.api_key = cfg.STRIPE_SECRET_KEY
-        try:
-            checkout_session = stripe.checkout.Session.create(
-                client_reference_id=request.user.id if request.user.is_authenticated else None,
-                # success_url=domain_url + 'success/session_id={CHECKOUT_SESSION_ID}',
-                success_url=domain_url + 'success/',
-                cancel_url=domain_url + 'cancel/',
-                payment_method_types=['card'],
-                mode='subscription',
-                line_items=[
-                    {
-                        'price': cfg.STRIPE_PRICE_ID,
-                        'quantity': 1,
-                    }
-                ]
-            )
-            return JsonResponse({'sessionId': checkout_session['id']})
-        except Exception as e:
-            return JsonResponse({'error': str(e)})
-
-
-# @login_required
 def success(request):
     return render(request, 'payment/success.html')
 
 
-# @login_required
 def cancel(request):
     return render(request, 'payment/cancel.html')
 
 
-# actually confirm the payment and create a user profile
-
+# actually confirm the payment
 @csrf_exempt
 def stripe_webhook(request):
     stripe.api_key = cfg.STRIPE_SECRET_KEY
@@ -88,7 +82,6 @@ def stripe_webhook(request):
         Profile.objects.create(
             user=user,
             stripeCustomerID=stripe_customer_id,
-            stripeSubscriptionID=stripe_subscription_id,
         )
         print(user.username + ' just subscribed.')
 
