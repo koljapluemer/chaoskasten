@@ -14,8 +14,7 @@ def payment_form(request):
     stripe_public_key= cfg.STRIPE_PUBLIC_KEY
     stripe.api_key = cfg.STRIPE_SECRET_KEY
 
-    # TODO: make this a setting
-    domain_url = 'http://localhost:8000/'
+    domain_url = cfg.DOMAIN_URL
 
     try:
         checkout_session = stripe.checkout.Session.create(
