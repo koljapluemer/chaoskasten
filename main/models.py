@@ -55,7 +55,7 @@ class LearningData(models.Model):
     easiness = models.FloatField(null=True)
     interval = models.IntegerField(null=True)
     repetitions = models.IntegerField(null=True)
-    review_date = models.DateTimeField(null=True)
+    review_date = models.DateTimeField(null=True, auto_now_add=True)
 
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
 
