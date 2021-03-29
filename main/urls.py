@@ -76,4 +76,5 @@ urlpatterns = [
 
     # Learning
     path('learning', views.learning_queue),
+    path('learning/delete/<int:pk>', views.remove_learning_object),
 ]

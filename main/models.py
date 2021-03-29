@@ -45,6 +45,11 @@ class Drawer(models.Model):
         obj.profile = request.user.profile
         super().save_model(request, obj, form, change)
 
+class Score(models.Model):
+    datetime = models.DateTimeField(auto_now_add=True, blank=True)
+    value = models.IntegerField()
+    learning_data = models.ForeignKey('LearningData', on_delete=models.CASCADE)
+
 
 class LearningData(models.Model):
     easiness = models.FloatField(null=True)
@@ -53,7 +58,6 @@ class LearningData(models.Model):
     review_date = models.DateTimeField(null=True)
 
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-
 
 
 class Note(models.Model):
