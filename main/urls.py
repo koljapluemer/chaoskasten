@@ -73,4 +73,7 @@ urlpatterns = [
 
     # yet another attempt to stripe
     path('payment_form', views.payment_form),
+
+    # Learning
+    path('learning', views.learning_queue),
 ]

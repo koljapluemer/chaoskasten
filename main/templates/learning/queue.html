@@ -1,0 +1,123 @@
+{% extends 'boilerplate/base.html' %}
+{% load i18n lazysignup_tags %}
+
+
+
+{% block sidebar %}
+
+<div id="sidebar">
+  <a href="/sidebar">
+    <img src="static/ico/sm-arrow-circle-left.svg" alt="<" class="sidebar-manager" id="sidebar-collapse">
+  </a>
+
+
+  <header class="notes-sidebar">
+    <h1>Chaoskasten</h1>
+    <nav class="nav-header">
+      <li id="user">
+        {% if user.is_authenticated %}
+        <img src="static/ico/user.svg" alt="User" class="icon title-icon">
+        {% if not user|is_lazy_user %}
+        <a href="/profile">{{ user.username }}</a> (<a href="{% url 'logout' %}">logout</a>)
+        {% else %}
+        Temporary User (<a href="/convert">Sign Up</a>) <br>
+        <div class="spacer"></div>
+        <a href="{% url 'login' %}">Log into existing account</a> <br>
+        <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+        {% else %}
+        <div class="spacer"></div>
+        <a href="{% url 'login' %}">login</a>
+        {% endif %}
+      </li>
+
+    </nav>
+    <nav class="flex-around">
+      <a href="/notes">Desk</a>
+      <a href="/drawerView">Drawer</a>
+      <a href="/learning">Learn</a>
+    </nav>
+  </header>
+
+  <div></div>
+
+
+
+  <footer class="notes-sidebar">
+
+    <nav class="nav-footer">
+
+      <li>
+        <a href="/about">About</a>
+      </li>
+      <li>
+        <a href="/settings">Settings</a>
+      </li>
+
+    </nav>
+  </footer>
+</div>
+{% endblock %}
+
+{% block content %}
+{% if user|is_lazy_user %}
+<div class="warning">
+  You are in test mode. Your notes may be lost when you close this window or restart the device. <br>
+  To make an account and permanently save your notes, <a href="/convert">click here</a> ($3/month)
+</div>
+{% endif %}
+<div class="note">
+  {% include 'widgets/note.html' with parentnote=note %}
+</div>
+
+<div class="note">
+  <form action="" method="post" class="">
+    {% csrf_token %}
+    {{ form }}
+    <input type="hidden"  id="note-id" name="note-id" value="{{note.id}}">
+    <div class="form-buttons" id="quality-rating">
+
+      <span>
+        <input type="radio" name="easiness" id="0" value="0" checked="checked">
+        <label for="0">Complete blackout</label>
+      </span>
+
+      <span>
+        <input type="radio" name="easiness" id="1" value="1">
+        <label for="1">Incorrect, correct one remembered</label>
+      </span>
+
+      <span>
+        <input type="radio" name="easiness" id="2" value="2">
+        <label for="2">Incorrect, correct one easily recalled</label>
+      </span>
+
+      <span>
+        <input type="radio" name="easiness" id="3" value="3">
+        <label for="3">Correct with serious difficulty</label>
+      </span>
+
+      <span>
+        <input type="radio" name="easiness" id="4" value="4">
+        <label for="4">Correct after hesistation</label>
+      </span>
+
+      <span>
+        <input type="radio" name="easiness" id="5" value="5">
+        <label for="5">Perfect Response</label>
+      </span>
+
+    </div>
+    <p>
+      {% if not has_learning_items_left %}
+      You are out of notes to learn today. You are currently learning notes that would be due on a future day.
+      {% endif %}
+    </p>
+    <button type="submit" value="Submit" class="button-primary form-submit">Submit & Next</button>
+
+  </form>
+</div>
+
+
+
+{% endblock %}

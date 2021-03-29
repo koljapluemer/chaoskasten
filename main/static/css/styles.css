@@ -599,3 +599,12 @@ form {
   border-radius: 50%;
   display: inline-block;
 }
+
+/* LEARNING */
+
+#quality-rating {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 32px;
+}

@@ -33,7 +33,7 @@ class Profile(models.Model):
     has_free_account = models.BooleanField(default=False)
     stripeCustomerID = models.TextField()
 
-    
+
 class Drawer(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
@@ -46,12 +46,24 @@ class Drawer(models.Model):
         super().save_model(request, obj, form, change)
 
 
+class LearningData(models.Model):
+    easiness = models.FloatField(null=True)
+    interval = models.IntegerField(null=True)
+    repetitions = models.IntegerField(null=True)
+    review_date = models.DateTimeField(null=True)
+
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
+
+
+
 class Note(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     content = models.TextField(blank="true", null="true")
     reference = models.ManyToManyField('self')
     drawer = models.ForeignKey('Drawer', on_delete=models.CASCADE, null=True)
+
+    learning_data = models.OneToOneField(LearningData, null=True, on_delete=models.SET_NULL)
 
     def isNoteOpen(self):
         if self.openNotes.all().count() == 0:
@@ -67,6 +79,9 @@ class Collection(models.Model):
     pinnedNotes = models.ManyToManyField('Note', related_name="pinnedNotes", blank=True)
     recentNotes = models.ManyToManyField('Note', related_name="recentNotes", blank=True, through='CollectionHistory')
     noteConnectionSender = models.ForeignKey('Note', null=True, on_delete=models.SET_NULL)
+
+    learning_objects = models.ManyToManyField('LearningData', blank=True)
+
 
     pinnedNotesPageNr = models.IntegerField(default = 1)
     recentNotesPageNr = models.IntegerField(default = 1)

@@ -75,12 +75,19 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
         # Form is getting saved
         if request.method == 'POST':
             if noteID:
-                form = NoteForm(request.POST, instance=Note.objects.get(id=noteID))
+                note = Note.objects.get(id=noteID)
+                form = NoteForm(request.POST, instance=note)
+                learning_object = note.learning_data
             else:
                 form = NoteForm(request.POST)
+                learning_object = LearningData.objects.create(profile=profile)
+
             if form.is_valid():
                 obj = form.save(commit=False)
+                obj.learning_data = learning_object
+                print(obj.learning_data)
                 obj.profile = request.user.profile
+
                 obj.save()
                 # ensure the new note is open and on top of the recent list
                 return redirect("/open/{}/notes".format(obj.id))
@@ -283,7 +290,9 @@ def deleteNote(request, noteID):
     except:
         return redirect('login')
 
-    Note.objects.get(id=noteID, profile=request.user.profile).delete()
+    note = Note.objects.get(id=noteID, profile=request.user.profile)
+    note.learning_data.delete()
+    note.delete()
     return redirect('/notes')
 
 def sidebar(request):
