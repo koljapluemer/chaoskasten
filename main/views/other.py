@@ -11,18 +11,25 @@ def settings(request):
     except:
         return redirect('login')
 
-    stripe.api_key = cfg.STRIPE_SECRET_KEY
-    stripe_id = profile.stripeCustomerID
-    stripe_customer = stripe.Customer.retrieve(stripe_id)
-    stripe_email = stripe_customer.email
-    # TODO: Can a user ever have more than one subscription
-    subscription_status = stripe_customer.subscriptions.data[0].status
+    if not profile.has_free_account:
 
-    context = {
-        'drawers': Drawer.objects.filter(profile=request.user.profile),
-        'stripe_email': stripe_email,
-        'subscription_status': subscription_status,
-    }
+        stripe.api_key = cfg.STRIPE_SECRET_KEY
+        stripe_id = profile.stripeCustomerID
+        stripe_customer = stripe.Customer.retrieve(stripe_id)
+        stripe_email = stripe_customer.email
+        # TODO: Can a user ever have more than one subscription
+        subscription_status = stripe_customer.subscriptions.data[0].status
+
+        context = {
+            'drawers': Drawer.objects.filter(profile=request.user.profile),
+            'stripe_email': stripe_email,
+            'subscription_status': subscription_status,
+        }
+
+    else:
+        context = {
+            'drawers': Drawer.objects.filter(profile=request.user.profile),
+        }
     return render(request, 'pages/settings.html', context)
 
 
