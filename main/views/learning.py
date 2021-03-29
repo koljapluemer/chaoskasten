@@ -41,6 +41,7 @@ def learning_queue(request):
         old_learning_object.interval = review.interval
         old_learning_object.repetitions = review.repetitions
         old_learning_object.review_date = review.review_date
+        old_learning_object.save()
         old_note.save()
 
         score = Score.objects.create(value = review.easiness, learning_data=old_learning_object)

@@ -67,6 +67,7 @@
 </div>
 {% endif %}
 <div class="note">
+  <p>Due: {% if note.learning_data.review_date %}{{ note.learning_data.review_date|date:"Y/m/d"  }}{% else %}Not yet set{% endif %}</p>
   {% include 'widgets/note.html' with parentnote=note %}
   <a href="learning/delete/{{note.learning_data.id}}">Remove Note from learning rotation</a>
 </div>
