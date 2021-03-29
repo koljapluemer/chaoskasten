@@ -20,7 +20,7 @@ def profile(request):
             createdAsDate = datetime.utcfromtimestamp(created).strftime('%Y-%m-%d %H:%M')
             context['created'] = createdAsDate
 
-    context['noteCounter']: user.profile.note_set.all().count(),
+    context['noteCounter']: user.profile.note_set.all().count()
 
     return render(request, 'pages/profile.html', context)
 
