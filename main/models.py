@@ -32,6 +32,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     has_free_account = models.BooleanField(default=False)
     stripeCustomerID = models.TextField()
+
+    
 class Drawer(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
