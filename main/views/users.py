@@ -18,11 +18,9 @@ def profile(request):
         if user.profile.stripeID != '1':
             created = stripe.Customer.retrieve(user.profile.stripeID).subscriptions.data[0]["created"]
             createdAsDate = datetime.utcfromtimestamp(created).strftime('%Y-%m-%d %H:%M')
+            context['created'] = createdAsDate
 
-    context = {
-        'created': createdAsDate,
-        'noteCounter': user.profile.note_set.all().count(),
-    }
+    context['noteCounter']: user.profile.note_set.all().count(),
 
     return render(request, 'pages/profile.html', context)
 
