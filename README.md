@@ -1,16 +1,22 @@
+### release
+
+* TOS
+* Cookie Check
+* Delete Account
+* Refund Policy?
+* Basic Documentation
+* SSH Security
+* Fix user flow
+* DEBUG False
+* Password Reset
+* optimize SQL
+* Feedback
+* Connection Visualization
+* Free membership codes
+
 ### next up
 
-* Put all those things like redirect if not logged in etc etc in a function I guess?
-* The Webhook does not really create/activate an account (obviously, if you go through the stripe process, you never sign up, lol)
-* Also includes: Stripe subscription data
-
-Just get a fucking Django Stripe tutorial and work through it, it smells like uncatched edge cases around here.
-
-After putting in signup data, we are getting:
-`Request req_Hnmrx8Ke6uGAHZ: No such customer: 'cus_J1DmwfT668tExA'; a similar object exists in test mode, but a live mode key was used to make this request.`
-
-I thought it was environments problems, but putting everything into .env did not help...
-...There is a key hardcoded into html...
+* make a todo list until I can release :)
 
 ### Sprint 26.2 - 2.3
 
@@ -21,7 +27,6 @@ I thought it was environments problems, but putting everything into .env did not
 
 * beim Bearbeiten von Notes: Zwischenspeichern ohne Edit-Modus zu verlassen
 * Sendgrid
-* Stripe
 * First note does not show up in recent
 * spellcheck für Texte
 * der tag zum Drawer bei offener Note sieht sehr ähnlich aus, wie die Kästen der dazu connecteten notes
@@ -30,7 +35,6 @@ I thought it was environments problems, but putting everything into .env did not
 * neuen Drawer auch beim Erstelle/ Edititeren einer Note
 * die Größe beim Editieren einer Note sollte die selbe Größe behalten wie die Original Note
 * color gradient over scrollable text
-* optimize SQL
 * disallow SSH by password
 
 ### wontfix

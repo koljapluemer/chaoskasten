@@ -14,15 +14,15 @@ def profile(request):
 
     stripe.api_key = settings_conf.STRIPE_SECRET_KEY
 
-    if user.profile.stripeID != '1':
+    if user.profile.stripeID != '1' and not user.profile.has_free_account:
         created = stripe.Customer.retrieve(user.profile.stripeID).subscriptions.data[0]["created"]
         createdAsDate = datetime.utcfromtimestamp(created).strftime('%Y-%m-%d %H:%M')
 
+    context = {
+        'created': createdAsDate,
+        'noteCounter': user.profile.note_set.all().count(),
+    }
 
-        context = {
-            'created': createdAsDate,
-            'noteCounter': user.profile.note_set.all().count(),
-        }
     return render(request, 'pages/profile.html', context)
 
 def signup(request):
@@ -57,7 +57,7 @@ def deleteUser(request):
     stripe.api_key = settings_conf.STRIPE_SECRET_KEY
 
     user = request.user
-    if user.profile.stripeID != '1':
+    if user.profile.stripeID != '1' and not user.profile.has_free_account:
         stripe.Customer.delete(user.profile.stripeID)
     user.delete()
 

@@ -30,6 +30,7 @@ To manage your Drawers, you may want to check out the `Settings` link.
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    has_free_account = models.BooleanField(default=False)
     stripeCustomerID = models.TextField()
 class Drawer(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
