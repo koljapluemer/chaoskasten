@@ -70,7 +70,7 @@
 <div id="learning-grid">
 
   <div class="note">
-    <p>Due: {% if note.learning_data.review_date %}{{ note.learning_data.review_date|date:"Y/m/d"  }}{% else %}Not yet set{% endif %}</p>
+    <p>Due: {% if review_date %}{{ review_date|date:"Y/m/d"  }}{% else %}Not yet set{% endif %}</p>
 
     <div class="note-topbar">
       <h2 class="single-note-title">{{ title }}</h2>
@@ -133,7 +133,13 @@
 
       </div>
 
-      <button type="submit" value="Submit" class="button-primary form-submit">Submit & Next</button>
+      <button
+        type="submit"
+        value="Submit"
+        class="button-primary form-submit"
+        {% if not show_backsite %}disabled="disabled"{% endif %}
+      >Submit & Next
+      </button>
 
     </form>
   </div>

@@ -66,6 +66,7 @@ hr {
   color: #F18A60;
 }
 
+
 .button-as-link {
   background: none;
   border: none;
@@ -331,6 +332,11 @@ form {
   color: white;
   text-decoration: none;
   border: 0;
+}
+
+.button-primary:disabled,
+.button-primary[disabled]{
+  background: #ccc;
 }
 
 .form-submit {

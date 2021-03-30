@@ -67,14 +67,20 @@ def learning_queue(request, show_backsite):
 
     # check how much seperators the note has, and adapt the preview accordingly
     content_divided = note.content.split("---")
-    front_site = "Testcontent"
-    back_site = note.content
+    area_count = len(content_divided)
+    if area_count == 1:
+        front_site = ""
+        back_site = note.content
+    else:
+        front_site = content_divided[-2]
+        back_site = content_divided[-1]
 
     context = {
         'title': note.title,
         'front_site': front_site,
         'back_site': back_site,
-        'show_backsite': show_backsite
+        'show_backsite': show_backsite,
+        'review_date': learning_object.review_date
     }
 
     return render(request, 'learning/queue.html', context)
