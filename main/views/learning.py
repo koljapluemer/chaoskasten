@@ -15,59 +15,66 @@ def remove_learning_object(request, pk):
 
     return redirect("/learning")
 
-def learning_queue(request):
+def open_new_learning_object(request):
     profile = request.user.profile
     collection = profile.collection
+
+    learning_objects = LearningData.objects.filter(profile=profile).order_by('review_date')
+    learning_object = learning_objects.first()
+
+    collection.open_learning_object = learning_object
+    collection.save()
+
+    return redirect ("/learning")
+
+
+
+def learning_queue(request, show_backsite):
+    profile = request.user.profile
+    collection = profile.collection
+
+    learning_object = collection.open_learning_object
+
+    if not learning_object:
+        return redirect("/learning/get_new")
 
     # handle form submittal
     # meaning the user answering how hard a given note was
     if request.method == 'POST':
-        # print(request.POST["note-id"] + ": " + request.POST["easiness"])
-        old_note = Note.objects.get(id=int(request.POST["note-id"]))
-        old_learning_object = old_note.learning_data
         # check whether the card already has learning data, act accordingly
         review = ""
-        if old_learning_object.easiness:
+        if learning_object.easiness:
             review = SMTwo(
-                old_learning_object.easiness,
-                old_learning_object.interval,
-                old_learning_object.repetitions
+                learning_object.easiness,
+                learning_object.interval,
+                learning_object.repetitions
             ).review(int(request.POST["easiness"]))
         else:
             review = SMTwo.first_review(int(request.POST["easiness"]))
 
 
-        old_learning_object.easiness = review.easiness
-        old_learning_object.interval = review.interval
-        old_learning_object.repetitions = review.repetitions
-        old_learning_object.review_date = review.review_date
-        old_learning_object.save()
-        old_note.save()
+        learning_object.easiness = review.easiness
+        learning_object.interval = review.interval
+        learning_object.repetitions = review.repetitions
+        learning_object.review_date = review.review_date
+        learning_object.save()
 
-        score = Score.objects.create(value = review.easiness, learning_data=old_learning_object)
-        print(old_learning_object.score_set.all())
+        score = Score.objects.create(value = review.easiness, learning_data=learning_object)
 
-        return redirect ("/learning")
-
-    # handle getting of new note
-
-    has_learning_items_left = True
-
-    today = localtime(now()).date()
-    # try getting todays data, otherwise just get all, sorted by date
-    learning_objects = LearningData.objects.filter(review_date = today, profile=profile)
-    if not learning_objects:
-        learning_objects = LearningData.objects.filter(profile=profile).order_by('review_date')
-        has_learning_items_left = False
-
-    learning_object = learning_objects.first()
+        return redirect ("/learning/get_new")
 
     note = learning_object.note
 
+    # check how much seperators the note has, and adapt the preview accordingly
+    content_divided = note.content.split("---")
+    front_site = "Testcontent"
+    back_site = note.content
 
     context = {
-        'note': note,
-        'has_learning_items_left': has_learning_items_left
+        'title': note.title,
+        'front_site': front_site,
+        'back_site': back_site,
+        'show_backsite': show_backsite
     }
 
     return render(request, 'learning/queue.html', context)

@@ -62,6 +62,10 @@ blockquote {
   margin-bottom: 0;
 }
 
+hr {
+  color: #F18A60;
+}
+
 .button-as-link {
   background: none;
   border: none;
@@ -606,5 +610,23 @@ form {
   width: 100%;
   display: flex;
   justify-content: space-around;
-  margin-bottom: 32px;
+}
+
+#learning-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "a b"
+    "c c";
+}
+
+#learning-rating-wrapper {
+  grid-area: c;
+}
+
+#note-backsite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }

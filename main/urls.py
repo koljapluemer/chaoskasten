@@ -75,6 +75,8 @@ urlpatterns = [
     path('payment_form', views.payment_form),
 
     # Learning
-    path('learning', views.learning_queue),
+    path('learning', views.learning_queue, {'show_backsite': False}),
+    path('learning/show_backsite', views.learning_queue, {'show_backsite': True}),
+    path('learning/get_new', views.open_new_learning_object),
     path('learning/delete/<int:pk>', views.remove_learning_object),
 ]
