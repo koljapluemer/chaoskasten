@@ -68,7 +68,10 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
     except:
         return redirect('login')
     profile = request.user.profile
-    collection = profile.collection
+    try:
+        collection = profile.collection
+    except:
+        collection = Collection.objects.create(profile=profile)
 
     form = None
     if editmode:

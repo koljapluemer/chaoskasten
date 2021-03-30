@@ -84,8 +84,7 @@ class Collection(models.Model):
     recentNotes = models.ManyToManyField('Note', related_name="recentNotes", blank=True, through='CollectionHistory')
     noteConnectionSender = models.ForeignKey('Note', null=True, on_delete=models.SET_NULL)
 
-    open_learning_object = models.ForeignKey('LearningData', null=True, on_delete=models.CASCADE)
-
+    open_learning_object = models.ForeignKey('LearningData', null=True, on_delete=models.SET_NULL)
 
     pinnedNotesPageNr = models.IntegerField(default = 1)
     recentNotesPageNr = models.IntegerField(default = 1)
