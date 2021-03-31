@@ -62,7 +62,7 @@ def attachConnectionRecipient(request, recipient):
     return redirect('/notes/deactiveConnectionMode')
 
 
-def notes(request, sender = None, recipient = None, editmode = False, noteID = None):
+def notes(request, sender = None, recipient = None, editmode = False, noteID = None, from_learning = False):
     try:
         request.user.profile
     except:
@@ -73,6 +73,11 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
     except:
         collection = Collection.objects.create(profile=profile)
 
+    # if note is opened from learning mode, it might not be opned
+    if from_learning:
+        note = Note.objects.get(id=noteID)
+        collection.openNotes.add(note)
+
     form = None
     if editmode:
         # Form is getting saved
@@ -80,6 +85,7 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
             if noteID:
                 note = Note.objects.get(id=noteID)
                 form = NoteForm(request.POST, instance=note)
+
                 learning_object = note.learning_data
             else:
                 form = NoteForm(request.POST)

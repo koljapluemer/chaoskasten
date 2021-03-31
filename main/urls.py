@@ -54,6 +54,7 @@ urlpatterns = [
 
     # Editing/new Notes
     path('editMode/<int:noteID>/<str:editmode>', views.notes),
+    path('editMode/<int:noteID>/<str:editmode>/from-learning', views.notes, {'from_learning': True}),
     path('editMode/<str:editmode>', views.notes),
 
 

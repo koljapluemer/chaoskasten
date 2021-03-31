@@ -1,6 +1,6 @@
 {% extends 'boilerplate/base.html' %}
 {% load i18n lazysignup_tags %}
-
+{% load static %}
 
 
 {% block sidebar %}
@@ -73,7 +73,7 @@
     <p>Due: {% if review_date %}{{ review_date|date:"Y/m/d"  }}{% else %}Not yet set{% endif %}</p>
 
     <div class="note-topbar">
-      <h2 class="single-note-title">{{ title }}</h2>
+      <h2 class="single-note-title">{{ note.title }}</h2>
       <span></span>
     </div>
 
@@ -82,63 +82,77 @@
     <div class="note-content">{{ front_site|markdown|safe}}</div>
 
 
-    <a href="learning/delete/{{note.learning_data.id}}">Remove Note from learning rotation</a>
-  </div>
+    <div class="note-bottombar">
+      <p class=>
 
-  <div class="note" {% if not show_backsite %} id="note-backsite"{% endif %}>
-    {% if show_backsite %}
-    <div class="note-content">{{ back_site|markdown|safe}}</div>
-    {% else %}
-    <a href="/learning/show_backsite">Show Answer</a>
-    {% endif %}
-  </div>
+        <a href="learning/delete/{{note.learning_data.id}}">Remove Note from learning rotation</a>
 
+      </p>
+      <div class="note-buttons">
 
-  <div class="note" id="learning-rating-wrapper">
-    <form action="" method="post" class="">
-      {% csrf_token %}
-      {{ form }}
-      <input type="hidden"  id="note-id" name="note-id" value="{{note.id}}">
-      <div class="form-buttons" id="quality-rating">
-
-        <span>
-          <input type="radio" name="easiness" id="0" value="0" checked="checked">
-          <label for="0">Complete blackout</label>
-        </span>
-
-        <span>
-          <input type="radio" name="easiness" id="1" value="1">
-          <label for="1">Incorrect, correct one remembered</label>
-        </span>
-
-        <span>
-          <input type="radio" name="easiness" id="2" value="2">
-          <label for="2">Incorrect, correct one easily recalled</label>
-        </span>
-
-        <span>
-          <input type="radio" name="easiness" id="3" value="3">
-          <label for="3">Correct with serious difficulty</label>
-        </span>
-
-        <span>
-          <input type="radio" name="easiness" id="4" value="4">
-          <label for="4">Correct after hesistation</label>
-        </span>
-
-        <span>
-          <input type="radio" name="easiness" id="5" value="5">
-          <label for="5">Perfect Response</label>
-        </span>
-
+        <a href="/editMode/{{note.id}}/true/from-learning" class="icon-link">
+          <img src="{% static '/ico/edit.svg' %}" alt="Edit" class="icon title-icon">
+        </a>
       </div>
 
-      <button
+    </div>
+  </div>
+
+    <div class="note" {% if not show_backsite %} id="note-backsite"{% endif %}>
+      {% if show_backsite %}
+      <div class="note-content">{{ back_site|markdown|safe}}</div>
+      {% else %}
+      <a href="/learning/show_backsite">Show Answer</a>
+      {% endif %}
+    </div>
+
+
+
+    <div class="note" id="learning-rating-wrapper">
+      <form action="" method="post" class="">
+        {% csrf_token %}
+        {{ form }}
+        <input type="hidden"  id="note-id" name="note-id" value="{{note.id}}">
+        <div class="form-buttons" id="quality-rating">
+
+          <span>
+            <input type="radio" name="easiness" id="0" value="0" checked="checked">
+            <label for="0">Complete blackout</label>
+          </span>
+
+          <span>
+            <input type="radio" name="easiness" id="1" value="1">
+            <label for="1">Incorrect, correct one remembered</label>
+          </span>
+
+          <span>
+            <input type="radio" name="easiness" id="2" value="2">
+            <label for="2">Incorrect, correct one easily recalled</label>
+          </span>
+
+          <span>
+            <input type="radio" name="easiness" id="3" value="3">
+            <label for="3">Correct with serious difficulty</label>
+          </span>
+
+          <span>
+            <input type="radio" name="easiness" id="4" value="4">
+            <label for="4">Correct after hesistation</label>
+          </span>
+
+          <span>
+            <input type="radio" name="easiness" id="5" value="5">
+            <label for="5">Perfect Response</label>
+          </span>
+
+        </div>
+
+        <button
         type="submit"
         value="Submit"
         class="button-primary form-submit"
         {% if not show_backsite %}disabled="disabled"{% endif %}
-      >Submit & Next
+        >Submit & Next
       </button>
 
     </form>

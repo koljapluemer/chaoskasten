@@ -76,11 +76,12 @@ def learning_queue(request, show_backsite):
         back_site = content_divided[-1]
 
     context = {
-        'title': note.title,
+        'note': note,
         'front_site': front_site,
         'back_site': back_site,
         'show_backsite': show_backsite,
-        'review_date': learning_object.review_date
+        'review_date': learning_object.review_date,
+
     }
 
     return render(request, 'learning/queue.html', context)
