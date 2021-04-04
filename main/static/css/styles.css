@@ -66,6 +66,9 @@ hr {
   color: #F18A60;
 }
 
+.note img {
+  max-width: 100%;
+}
 
 .button-as-link {
   background: none;

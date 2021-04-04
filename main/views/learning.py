@@ -3,8 +3,7 @@ from django.db.models import Q
 from ..models import *
 
 from supermemo2 import SMTwo, mon_day_year
-from django.utils.timezone import localtime, now
-
+import datetime
 
 def remove_learning_object(request, pk):
     profile = request.user.profile
@@ -19,8 +18,22 @@ def open_new_learning_object(request):
     profile = request.user.profile
     collection = profile.collection
 
-    learning_objects = LearningData.objects.filter(profile=profile).order_by('review_date')
-    learning_object = learning_objects.first()
+    # make a static learning queue for a certain time span
+    # whole days would be icky, because of timezones and stuff
+    # so we just get 20 new ones and all those we actually should learn today
+    # and if it's empty, same thing again
+    if not collection.current_learning_objects.exists():
+        new = LearningData.objects.filter(profile=profile, score__isnull=True)[:20]
+        date_cutoff = datetime.date.today() + datetime.timedelta(days=1)
+        current = LearningData.objects.filter(profile=profile, review_date__lt = date_cutoff, score__isnull=False)
+        collection.current_learning_objects.add(*new)
+        collection.current_learning_objects.add(*current)
+
+    # if still empty, there is nothing left to learn
+    if not collection.current_learning_objects.exists():
+        return redirect("/")
+
+    learning_object = collection.current_learning_objects.last()
 
     collection.open_learning_object = learning_object
     collection.save()
@@ -35,7 +48,7 @@ def learning_queue(request, show_backsite):
 
     learning_object = collection.open_learning_object
 
-    if not learning_object:
+    if not learning_object or not collection.current_learning_objects.exists():
         return redirect("/learning/get_new")
 
     # handle form submittal
@@ -61,6 +74,7 @@ def learning_queue(request, show_backsite):
 
         score = Score.objects.create(value = review.easiness, learning_data=learning_object)
 
+        collection.current_learning_objects.remove(learning_object)
         return redirect ("/learning/get_new")
 
     note = learning_object.note
@@ -81,7 +95,8 @@ def learning_queue(request, show_backsite):
         'back_site': back_site,
         'show_backsite': show_backsite,
         'review_date': learning_object.review_date,
-
+        'count': collection.current_learning_objects.count(),
+        'count_new': collection.current_learning_objects.filter(score__isnull=True).count(),
     }
 
     return render(request, 'learning/queue.html', context)

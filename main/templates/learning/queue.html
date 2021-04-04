@@ -7,7 +7,7 @@
 
 <div id="sidebar">
   <a href="/sidebar">
-    <img src="static/ico/sm-arrow-circle-left.svg" alt="<" class="sidebar-manager" id="sidebar-collapse">
+    <img src="{% static '/ico/sm-arrow-circle-left.svg' %}" alt="<" class="sidebar-manager" id="sidebar-collapse">
   </a>
 
 
@@ -16,7 +16,7 @@
     <nav class="nav-header">
       <li id="user">
         {% if user.is_authenticated %}
-        <img src="static/ico/user.svg" alt="User" class="icon title-icon">
+        <img src="{% static '/ico/user.svg' %}" alt="User" class="icon title-icon">
         {% if not user|is_lazy_user %}
         <a href="/profile">{{ user.username }}</a> (<a href="{% url 'logout' %}">logout</a>)
         {% else %}
@@ -85,7 +85,7 @@
     <div class="note-bottombar">
       <p class=>
 
-        <a href="learning/delete/{{note.learning_data.id}}">Remove Note from learning rotation</a>
+        <a href="/learning/delete/{{note.learning_data.id}}">Remove Note from learning rotation</a>
 
       </p>
       <div class="note-buttons">
@@ -157,7 +157,11 @@
 
     </form>
   </div>
+  <div class="note">
+  {{ count }} notes left to learn in this block. <br>
+  Of those, {{ count_new }} are new.
 
+    </div>
 
 </div>
 

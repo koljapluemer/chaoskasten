@@ -94,7 +94,6 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
             if form.is_valid():
                 obj = form.save(commit=False)
                 obj.learning_data = learning_object
-                print(obj.learning_data)
                 obj.profile = request.user.profile
 
                 obj.save()

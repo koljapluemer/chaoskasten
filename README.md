@@ -25,6 +25,7 @@
 
 ### backlog:
 
+* when learning queue is exhausted, we are currently just jumping back to root w/o explaination
 * beim Bearbeiten von Notes: Zwischenspeichern ohne Edit-Modus zu verlassen
 * Sendgrid
 * First note does not show up in recent
