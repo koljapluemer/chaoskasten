@@ -33,7 +33,7 @@ def open_new_learning_object(request):
     if not collection.current_learning_objects.exists():
         return redirect("/")
 
-    learning_object = collection.current_learning_objects.last()
+    learning_object = collection.current_learning_objects.first()
 
     collection.open_learning_object = learning_object
     collection.save()
