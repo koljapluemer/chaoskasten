@@ -67,10 +67,6 @@ def attachConnectionRecipient(request, recipient):
 
 def notes(request, sender = None, recipient = None, editmode = False, noteID = None, from_learning = False):
 
-
-    send_mail('Subject here', 'Here is the message.', 'chaoskasten.mail@gmail.com', ['pluemer_subs@fastmail.com'], fail_silently=False)
-
-
     try:
         request.user.profile
     except:

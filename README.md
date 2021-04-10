@@ -2,13 +2,10 @@
 
 * TOS
 * Cookie Check
-* Delete Account
 * Refund Policy?
 * Basic Documentation
 * SSH Security
-* Fix user flow
-* DEBUG False
-* Password Reset
+
 
 ### next up
 
