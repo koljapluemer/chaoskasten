@@ -1,8 +1,6 @@
 ### release
 
 * TOS
-* Cookie Check
-* Refund Policy?
 * Basic Documentation
 * SSH Security
 

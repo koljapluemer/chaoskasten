@@ -28,3 +28,6 @@ def about(request):
         'countLoginsWeekly': User.objects.filter(last_login__gt = timezone.now() - timedelta(days=7)).count()
     }
     return render(request, 'pages/about.html', stats)
+
+def doc(request):
+    return render(request, 'pages/doc.html')

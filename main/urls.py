@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.home, name='index'),
     path('accounts/reset/done/', views.home),
     path('about', views.about),
+    path('doc', views.doc),
 
     # settings
     path('settings', views.settings),

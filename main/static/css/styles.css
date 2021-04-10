@@ -78,6 +78,15 @@ hr {
   cursor: pointer;
 }
 
+#cookies {
+  font-size: 12px;
+}
+
+#doc-notes {
+  max-width: 70%;
+  padding-top: 24px;
+}
+
 #user {
   display: flex;
   align-items: center;
