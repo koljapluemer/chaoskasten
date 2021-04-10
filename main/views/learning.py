@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from ..models import *
 
+import random
+
 from supermemo2 import SMTwo, mon_day_year
 import datetime
 
@@ -33,7 +35,9 @@ def open_new_learning_object(request):
     if not collection.current_learning_objects.exists():
         return redirect("/")
 
-    learning_object = collection.current_learning_objects.first()
+    learning_objects_key = collection.current_learning_objects.values_list('pk', flat=True)
+    random_key = random.choice(learning_objects_key)
+    learning_object = LearningData.objects.get(id=random_key)
 
     collection.open_learning_object = learning_object
     collection.save()

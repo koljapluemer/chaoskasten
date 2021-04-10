@@ -99,7 +99,7 @@ class Collection(models.Model):
 
 
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField(max_length=254, help_text='Required. Only used when you have to restore your password. Never sold, never spammed.')
+    email = forms.EmailField(max_length=254, help_text='Required. Only used for confirmation or when you have to restore your password. Never sold, never spammed.')
 
     class Meta:
         model = User

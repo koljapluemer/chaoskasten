@@ -9,10 +9,6 @@
 * Fix user flow
 * DEBUG False
 * Password Reset
-* optimize SQL
-* Feedback
-* Connection Visualization
-* Free membership codes
 
 ### next up
 
@@ -21,10 +17,13 @@
 ### Sprint 26.2 - 2.3
 
 * Get the normal signup process going!
-* allow free access codes
 
 ### backlog:
 
+* optimize SQL
+* Feedback
+* Connection Visualization
+* Free membership codes
 * when learning queue is exhausted, we are currently just jumping back to root w/o explaination
 * beim Bearbeiten von Notes: Zwischenspeichern ohne Edit-Modus zu verlassen
 * Sendgrid

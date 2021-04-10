@@ -13,6 +13,9 @@ from django.http import HttpResponseRedirect
 
 import stripe
 
+from django.core.mail import send_mail
+
+
 # after the connection is made or the user aborts
 def deactiveConnectionMode(request):
     try:
@@ -63,6 +66,11 @@ def attachConnectionRecipient(request, recipient):
 
 
 def notes(request, sender = None, recipient = None, editmode = False, noteID = None, from_learning = False):
+
+
+    send_mail('Subject here', 'Here is the message.', 'chaoskasten.mail@gmail.com', ['pluemer_subs@fastmail.com'], fail_silently=False)
+
+
     try:
         request.user.profile
     except:
@@ -256,8 +264,9 @@ def openNote(request, noteID, redirectPath):
         return redirect('login')
     # TODO: Slimmer random method
     if noteID == "-":
-        notes = Note.objects.filter(profile=request.user.profile)
-        note = random.choice(notes)
+        notes_keys = Note.objects.filter(profile=request.user.profile).values_list('pk', flat=True)
+        random_key = random.choice(notes_keys)
+        note = Note.objects.get(id=random_key)
     else:
         note = Note.objects.get(id=int(noteID), profile=request.user.profile)
     collection = Collection.objects.get(profile=request.user.profile)
