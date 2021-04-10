@@ -1,10 +1,10 @@
 {% extends 'boilerplate/page.html' %}
 {% block content %}
 {% load static %}
-<main id="main-index">
+<main >
   <h1 class="index-font slogan">Chaoskasten: Plaintext notes for productive people.</h1>
 
-  <div id="doc-notes" >
+  <div class="notes">
     <div class="note" id="">
       <h2 class="note-title single-note-title">Notes</h2>
       <div class="note-content">
@@ -66,7 +66,7 @@
         If you don't want to "learn" the contents of a given note, you can use the "Remove Note from learning rotation" function.
 
         This algorithm works by creating learning blocks which slowly introduces new notes into your rotation while making sure the existing ones aren't forgotten.
-<br>
+        <br>
         We built this feature with optimal automatical flash card creation in mind, but if you wan't to optimize your learning, here is how it determines what gets shown initally and what is hidden behind "Show Answer":
 
         <ul>
@@ -89,55 +89,9 @@
 
     <div class="note">
 
+      <h2 class="note-title single-note-title">Learning</h2>
       <div class="note-content">
-
-        <h3> Properties </h3>
-
-        Each note has a title, an optional content body, a drawer and a collection of connected notes.
-
-        <ul>
-          <li>
-            Titles work best if kept short and concise. The title of a note is used to quickly find it in the sidebar.
-          </li>
-          <li>
-            The content body is optional - a note may just be title. However, the body also may contain text, enriched with Markdown lists, images, links, text formatting more.
-            A good guide for Markdown can be found <a href="https://guides.github.com/features/mastering-markdown/">here</a>. If you don't know Markdown, don't worry: You can just write good old text as well.
-          </li>
-          <li>
-            The drawer is a means of ordering your notes. You can add drawers in the Settings view. Drawers can be structured however you want (just like drawers in your personal cabinet): You can use one for everything, or make specific ones for projects, years, media types or anything else.
-          </li>
-          <li>
-            Connecting notes is a central feature of Chaoskasten. Every note can have a number of other notes connected to it (how to connect notes is described in the next section). Connect a given note with other notes that are relevant or related to the topic, that you are reminded of, etc. That way you can explore your knowledge, strengthen your transfer knowledge and explore new ideas.
-            Connected notes show up in a list at the bottom of the note once you added them.
-          </li>
-        </ul>
-
-
-        <h3>Operations</h3>
-        Apart from creating new notes, there are five important operations:
-
-        <h4>Pinning</h4>
-        <img src="{% static '/ico/tag.svg' %}" alt="Pin" class="icon title-icon">
-        Clicking the little paperclip icon adds the note to a section on the sidebar called "Pinned". From there, it is always just a click away and you won't ever not remember it.
-        If you want to remove a note from this section, you can do that with the "Remove" button:   <img src="{% static '/ico/x-circle.svg' %}" alt="Remove" class="icon">
-        <h4>Connecting</h4>
-        <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon  ">
-        As discussed in the section above, notes works best when they are embedded in a net of other notes. You can connect two notes by clicking the chain icon on both of them after each other (order does not matter).
-        For ease of use, you will find the chain icon for an icon on the note itself, but also next to the title in the sidebar. Use whichever is convenient to you.
-
-        <h4>Delete</h4>
-        <img src="{% static '/ico/trash-2.svg' %}" alt="Trash" class="icon title-icon">
-        If a note ever outlives its usefulness, you can delete it. You cannot undo this operation, but you will be asked to confirm the deletion when you click the trash can icon.
-
-        <h4>Edit</h4>
-        <img src="{% static '/ico/edit.svg' %}" alt="Edit" class="icon title-icon">
-        Opens an UI where you can edit the title, contents and all other relevant properties of a note.
-
-        <h4>Close</h4>
-
-        X Closes the note - you can open it back up anytime from the sidebar.
-
-        <h2 class="note-title single-note-title">Learning</h2>
+        <br>
 
         In the sidebar, you can go to the "Learn" view. Here, each of your notes is converted into a flash card akin to those you might have used to study for a test at one point.
         Try to remember what's on the card - after all, just having a note without remembering it has limited use. After you compare your mental answer to the correct one, answer below how easy it was.
@@ -146,7 +100,7 @@
         If you don't want to "learn" the contents of a given note, you can use the "Remove Note from learning rotation" function.
 
         This algorithm works by creating learning blocks which slowly introduces new notes into your rotation while making sure the existing ones aren't forgotten.
-    <br>
+        <br>
         We built this feature with optimal automatical flash card creation in mind, but if you wan't to optimize your learning, here is how it determines what gets shown initally and what is hidden behind "Show Answer":
 
         <ul>
@@ -160,12 +114,7 @@
             If the note contains several separators `---`, the algorithm splits the content body into blocks, separated by the `---`. Only the last two blocks are used: The former is shown initally, and the latter will be hidden behind "Show Answer". You may use this to exclude e.g. a lengthy book summary from your learning and only challenge yourself with a few key questions and answers.
           </li>
         </ul>
-
-
-
       </div>
-
-
     </div>
   </div>
 
