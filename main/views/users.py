@@ -35,7 +35,15 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('/payment_form')
+
+            voucher_code = request.POST.get('voucher')
+            # skip the payment form when voucher is correct
+            if request.POST.get('voucher') == "CHAOTISCH69":
+                user.profile.has_free_account = True
+                user.profile.save()
+                return redirect('/notes')
+            else:
+                return redirect('/payment_form')
     else:
         form = SignUpForm()
     return render(request, 'pages/signup.html', {'form': form})

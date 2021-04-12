@@ -656,3 +656,11 @@ form {
   align-items: center;
   text-align: center;
 }
+
+#signup-voucher {
+  margin: 12px 0;
+  border-top: 2px dotted #bbb;
+  border-bottom: 2px dotted #bbb;
+  padding: 12px 0;
+
+}

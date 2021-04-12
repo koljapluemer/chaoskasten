@@ -113,6 +113,7 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
                 form = NoteForm()
                 # limit drawer select to only own drawers
                 form.fields['drawer'].queryset = Drawer.objects.filter(profile=request.user.profile)
+
     # All the sidebar list paginators
     # PINNED
     pinnedNotes = collection.pinnedNotes.order_by('-id')
@@ -154,6 +155,7 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
         'openDrawer': collection.openDrawer,
         'sidebarCollapsed': collection.sidebarCollapsed,
     }
+
     return render(request, 'notes.html', context)
 
 def changePage(request, section, pageNr):
