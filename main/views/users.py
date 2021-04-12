@@ -24,10 +24,27 @@ def profile(request):
 
     return render(request, 'pages/profile.html', context)
 
+def voucher(request):
+    user = request.user
+
+    if request.method == 'POST':
+        # skip the payment form when voucher is correct
+        voucher_code = request.POST.get('voucher')
+        print("VOUCHER", voucher_code)
+        if voucher_code == "CHAOTISCH69":
+            user.profile.has_free_account = True
+            user.profile.save()
+            return redirect('/notes')
+
+    return render(request, 'registration/voucher.html')
+
+
 def signup(request):
+
     stripe.api_key = settings_conf.STRIPE_SECRET_KEY
 
     if request.method == 'POST':
+        print("SIGNUP STARTED")
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
@@ -37,15 +54,14 @@ def signup(request):
             login(request, user)
 
             voucher_code = request.POST.get('voucher')
-            # skip the payment form when voucher is correct
-            if request.POST.get('voucher') == "CHAOTISCH69":
-                user.profile.has_free_account = True
-                user.profile.save()
-                return redirect('/notes')
-            else:
-                return redirect('/payment_form')
+            print("CODE", voucher_code)
+
+            return redirect('/voucher')
+
+
     else:
         form = SignUpForm()
+
     return render(request, 'pages/signup.html', {'form': form})
 
 def changeEmail(request):

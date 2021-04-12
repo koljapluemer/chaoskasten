@@ -74,6 +74,7 @@ pre code {
   justify-content: space-around;
 }
 
+
 .note {
   color: #333;
   padding: 26px;
@@ -123,17 +124,9 @@ form {
 
 .note-bottombar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-top: 12px;
-}
-
-.note-drawer {
-  color: #333;
-  border: 1px solid #bbb;
-  padding: 2px 4px;
-  margin: 0;
-  border-radius: 8px;
 }
 
 .note-buttons{
@@ -327,6 +320,7 @@ form {
   top: 12px;
   left: 12px;
   width: 200px;
+
 }
 
 #note-indexlinks {
@@ -343,16 +337,6 @@ form {
 .main-content {
   width: 55%;
   margin: auto;
-}
-
-.forms-drawer-form {
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-}
-
-.forms-drawer-form > * {
-  margin-right: 12px;
 }
 
 /* NOTES VIEW */
@@ -489,70 +473,6 @@ form {
   flex-direction: row;
   justify-content: space-around;
 }
-
-.drawerView-drawer {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  padding: 3px;
-  padding-bottom: 150px;
-  grid-gap: 3px;
-
-}
-
-.drawerView-body {
-  display: none;
-}
-
-.drawerView-note {
-  background: #dfdfdf;
-  box-shadow: #111 3px 3px 12px;
-  border-right: 3px solid #555;
-  border-bottom: 3px solid #333;
-  padding: 4px 12px;
-}
-
-.drawerView-note-open {
-    background: white;
-    background: #fbfbfb;
-}
-
-.drawerView-note:hover .drawerView-title {
-  text-decoration: underline 2px;
-  text-decoration-color: #F18A60;
-  font-weight: bold;
-}
-
-.drawerView-note:hover {
-  background: white;
-}
-
-.drawerView-note:hover .drawerView-body {
-  display: block;
-}
-
-.drawerView-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: white;
-  padding: 30px;
-  border-top: 4px solid #F18A60;
-  box-shadow: -5px 0 5px black;
-  display: flex;
-  justify-content: space-around;
-}
-
-
-.drawerView-link {
-  text-decoration: none;
-}
-
-.drawerView-title-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .dot {
   height: 12px;
   width: 12px;

@@ -11,9 +11,9 @@ def download(request):
     response['Content-Disposition'] = 'attachment; filename="chaosnotes.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['id', 'title', 'content', 'drawer', 'reference'])
+    writer.writerow(['id', 'title', 'content', 'reference'])
     for note in Note.objects.filter(profile=request.user.profile):
-        writer.writerow([note.id, note.title, note.content, note.drawer, list(note.reference.all().values_list('id', flat=True))])
+        writer.writerow([note.id, note.title, note.content, list(note.reference.all().values_list('id', flat=True))])
     return response
 
 
@@ -37,11 +37,7 @@ def upload(request):
         fields = line.split(",")
         try:
             if not Note.objects.filter(title=fields[1], profile=request.user.profile).exists():
-                if not Drawer.objects.filter(name=fields[3], profile=request.user.profile).exists():
-                    d = Drawer.objects.create(name=fields[3], profile=request.user.profile)
-                else:
-                    d = Drawer.objects.filter(name=fields[3], profile=request.user.profile).first()
-                Note.objects.create(title=fields[1], content=fields[2], drawer=d, profile=request.user.profile)
+                Note.objects.create(title=fields[1], content=fields[2], profile=request.user.profile)
         except:
             pass
 

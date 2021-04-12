@@ -1,0 +1,25 @@
+{% extends 'boilerplate/page.html' %}
+{% block content %}
+
+<main id="main-index">
+  <h1 class="index-font slogan">Chaoskasten: Plaintext notes for productive people.</h1>
+
+    <article class="note" id="">
+      <h2 class="note-title single-note-title">Payment</h2>
+      <div class="note-content">
+        <form method="post">
+          {% csrf_token %}
+          
+          <summary>Do you have a free voucher code?</summary>
+          <label for="voucher">Code:</label> <br>
+          <input type="text" id="voucher" name="voucher">
+          <button type="submit" class="button-primary"  name="redirect_to" value="/payment_form">Submit</button>
+        </form>
+
+        <a href="/payment_form">Go to payment instead</a>
+
+      </div>
+
+    </article>
+</main>
+{% endblock content %}

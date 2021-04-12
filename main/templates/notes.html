@@ -24,20 +24,19 @@
         {% if not user|is_lazy_user %}
         <a href="/profile">{{ user.username }}</a> (<a href="{% url 'logout' %}">logout</a>)
         {% else %}
-        Temporary User (<a href="/convert">Sign Up</a>) <br>
-        <div class="spacer"></div>
-        <a href="{% url 'login' %}">Log into existing account</a> <br>
+        <div id="user-temporary">
+        <span>Temporary User (<a href="/convert">Sign Up</a>)</span>
+        <a href="{% url 'login' %}">Log into existing account</a>
         <a href="{% url 'logout' %}">Logout</a>
+        </div>
         {% endif %}
         {% else %}
-        <div class="spacer"></div>
         <a href="{% url 'login' %}">login</a>
         {% endif %}
       </div>
 
     <nav class="flex-around">
       <a href="/notes">Desk</a>
-      <a href="/drawerView">Drawer</a>
       <a href="/learning">Learn</a>
     </nav>
   </header>
@@ -72,16 +71,6 @@
       <h2 class="note-section-title">All Notes</h2>
       <form action="/search" class="form-search">
         <input type="text" class="search-input" name="searchTerm" value="{% if searchTerm %}{{searchTerm}}{% endif %}">
-        <select name="drawer">
-          <option value="">- All -</option>
-          {% for drawer in drawers %}
-          {% if drawer == openDrawer %}<option value="{{drawer}}" selected >
-            {% else %}<option value="{{drawer}}"">
-              {% endif %}
-              {{drawer}}
-            </option>
-            {% endfor %}
-          </select>
           <button class="">Search</button>
         </form>
         <ul class="note-related-list">

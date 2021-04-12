@@ -9,13 +9,9 @@
   <form method="post">
     {% csrf_token %}
     {{ form }}
-    <details id="signup-voucher">
-      <summary>I have a voucher code:</summary>
-      <label for="voucher">Code:</label> <br>
-      <input type="text" id="voucher" name="voucher">
-    </details>
+
     <!-- the redirect is only relevant if we are converting a user -->
-    <button type="submit" class="button-primary"  name="redirect_to" value="/payment_form">Save & continue to payment</button>
+    <button type="submit" class="button-primary"  name="redirect_to" value="/voucher">Save & continue to payment</button>
   </form>
 
 </div>

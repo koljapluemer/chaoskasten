@@ -11,7 +11,6 @@ urlpatterns = [
 
     # settings
     path('settings', views.settings),
-    path('settings/editDrawers', views.editDrawers),
     path('generateWelcomeNote', views.generateWelcomeNote),
 
     # Search
@@ -23,7 +22,9 @@ urlpatterns = [
     # signup is direct, convert is for people who had a temporary acc
     path('signup', views.signup),
     path('convert', include('lazysignup.urls'), {'template_name': 'pages/signup.html'}),
-    path('convertdone', views.payment_form),
+    path('convertdone', views.voucher),
+    # voucher for free accounts
+    path('voucher', views.voucher),
 
     path('profile', views.profile),
     path('deleteUser', views.deleteUser),
@@ -57,11 +58,6 @@ urlpatterns = [
     path('editMode/<int:noteID>/<str:editmode>', views.notes),
     path('editMode/<int:noteID>/<str:editmode>/from-learning', views.notes, {'from_learning': True}),
     path('editMode/<str:editmode>', views.notes),
-
-
-    # Drawer View
-    path('drawerView', views.drawerView),
-    path('drawerSearch', views.drawerSearch),
 
     # webhooks
     # path('webhook', views.webhook),

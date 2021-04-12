@@ -12,10 +12,8 @@
 * Sendgrid
 * First note does not show up in recent
 * spellcheck für Texte
-* der tag zum Drawer bei offener Note sieht sehr ähnlich aus, wie die Kästen der dazu connecteten notes
 * Links immer in neuem Tab öffnen lassen
 * einbauen von Latexformeln (pandoc?)
-* neuen Drawer auch beim Erstelle/ Edititeren einer Note
 * die Größe beim Editieren einer Note sollte die selbe Größe behalten wie die Original Note
 * color gradient over scrollable text
 * disallow SSH by password

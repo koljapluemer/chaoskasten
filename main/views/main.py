@@ -107,12 +107,8 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
         else:
             if noteID:
                 form = NoteForm(instance=Note.objects.get(id=noteID))
-                # limit drawer select to only own drawers
-                form.fields['drawer'].queryset = Drawer.objects.filter(profile=request.user.profile)
             else:
                 form = NoteForm()
-                # limit drawer select to only own drawers
-                form.fields['drawer'].queryset = Drawer.objects.filter(profile=request.user.profile)
 
     # All the sidebar list paginators
     # PINNED
@@ -126,12 +122,8 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
     recentNotesPage = recentNotesPaginator.get_page(profile.collection.recentNotesPageNr)
 
     # ALL/SEARCH
-    # first filter by drawer (if exists), then by search term)
 
     allNotes = Note.objects.filter(profile=request.user.profile).order_by('-id')
-
-    if collection.openDrawer:
-        allNotes = allNotes.filter(drawer=Drawer.objects.filter(profile=profile, name=collection.openDrawer).first())
 
     if collection.searchTerm:
         allNotes = allNotes.filter(Q(content__icontains=collection.searchTerm) | Q(title__icontains=collection.searchTerm))
@@ -151,8 +143,6 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
         'form': form,
         'editableNote': noteID,
         'searchTerm': collection.searchTerm,
-        'drawers': profile.drawer_set.all(),
-        'openDrawer': collection.openDrawer,
         'sidebarCollapsed': collection.sidebarCollapsed,
     }
 
@@ -185,8 +175,7 @@ def generateWelcomeNote(request):
     profile = request.user.profile
     collection = profile.collection
 
-    d, created = Drawer.objects.get_or_create(name="Help", profile=profile)
-    n, created = Note.objects.get_or_create(title = "Welcome", content=WelcomeNote, drawer = d, profile=profile)
+    n, created = Note.objects.get_or_create(title = "Welcome", content=WelcomeNote, profile=profile)
 
     collection.openNotes.add(n)
 
@@ -241,11 +230,6 @@ def search(request):
     collection = profile.collection
     # set search term
     collection.searchTerm = request.GET.get('searchTerm')
-    # set drawer filter
-    if Drawer.objects.filter(profile=profile, name=request.GET.get('drawer')):
-        collection.openDrawer = Drawer.objects.filter(profile=profile, name=request.GET.get('drawer')).first()
-    else:
-        collection.openDrawer = None
 
     collection.save()
     return redirect('/notes')
@@ -253,7 +237,7 @@ def search(request):
 class NoteForm(ModelForm):
     class Meta:
         model = Note
-        fields = ['title', 'content', 'drawer']
+        fields = ['title', 'content']
 
 def openNote(request, noteID, redirectPath):
     try:
