@@ -1,7 +1,8 @@
 ### release
 
 * TOS
-* Basic Documentation
+* Basic Documentation/Fix Layout, correct
+* Lock up user data
 * SSH Security
 
 
