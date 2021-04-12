@@ -57,33 +57,6 @@
 
         X Closes the note - you can open it back up anytime from the sidebar.
 
-        <h2 class="note-title single-note-title">Learning</h2>
-
-        In the sidebar, you can go to the "Learn" view. Here, each of your notes is converted into a flash card akin to those you might have used to study for a test at one point.
-        Try to remember what's on the card - after all, just having a note without remembering it has limited use. After you compare your mental answer to the correct one, answer below how easy it was.
-        An algorithm will then determine the ideal time to show you the card again.
-
-        If you don't want to "learn" the contents of a given note, you can use the "Remove Note from learning rotation" function.
-
-        This algorithm works by creating learning blocks which slowly introduces new notes into your rotation while making sure the existing ones aren't forgotten.
-        <br>
-        We built this feature with optimal automatical flash card creation in mind, but if you wan't to optimize your learning, here is how it determines what gets shown initally and what is hidden behind "Show Answer":
-
-        <ul>
-          <li>
-            The default mode is to just show you the title and hide the content body of the note behind "Show Answer"
-          </li>
-          <li>
-            If the note contains a separator `---`, the title and everything before the separator will be shown while everything that comes after it will be hidden initially. You could use this to write out a question prompt that gets shown to you while learning, for example.
-          </li>
-          <li>
-            If the note contains several separators `---`, the algorithm splits the content body into blocks, separated by the `---`. Only the last two blocks are used: The former is shown initally, and the latter will be hidden behind "Show Answer". You may use this to exclude e.g. a lengthy book summary from your learning and only challenge yourself with a few key questions and answers.
-          </li>
-        </ul>
-
-        Chaoskasten is all about notes. Each note contains a thought, a quote or a book you want to read - there are no restrictions.
-
-
       </div>
     </div>
 
@@ -92,7 +65,7 @@
       <h2 class="note-title single-note-title">Learning</h2>
       <div class="note-content">
         <br>
-
+<p>
         In the sidebar, you can go to the "Learn" view. Here, each of your notes is converted into a flash card akin to those you might have used to study for a test at one point.
         Try to remember what's on the card - after all, just having a note without remembering it has limited use. After you compare your mental answer to the correct one, answer below how easy it was.
         An algorithm will then determine the ideal time to show you the card again.
@@ -100,9 +73,10 @@
         If you don't want to "learn" the contents of a given note, you can use the "Remove Note from learning rotation" function.
 
         This algorithm works by creating learning blocks which slowly introduces new notes into your rotation while making sure the existing ones aren't forgotten.
-        <br>
+</p>
+        <p>
         We built this feature with optimal automatical flash card creation in mind, but if you wan't to optimize your learning, here is how it determines what gets shown initally and what is hidden behind "Show Answer":
-
+</p>
         <ul>
           <li>
             The default mode is to just show you the title and hide the content body of the note behind "Show Answer"

@@ -510,10 +510,10 @@ form {
   margin: auto;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-template-rows:  30vh 30vh;
+  grid-template-rows:  40vh 33vh;
   grid-template-areas:
     "a b"
-    "c c";
+    "c d";
 }
 
 #note-pricing {

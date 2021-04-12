@@ -1,8 +1,6 @@
 ### release
 
 * Basic Documentation editorialize
-* Impressum
-* Free membership codes
 
 ### backlog:
 
