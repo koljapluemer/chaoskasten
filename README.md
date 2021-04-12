@@ -1,25 +1,14 @@
 ### release
 
-* TOS
-* Basic Documentation/Fix Layout, correct
-* Lock up user data
-* SSH Security
-
-
-### next up
-
-* make a todo list until I can release :)
-
-### Sprint 26.2 - 2.3
-
-* Get the normal signup process going!
+* Basic Documentation editorialize
+* Impressum
+* Free membership codes
 
 ### backlog:
 
-* optimize SQL
+* Lock up user data
 * Feedback
 * Connection Visualization
-* Free membership codes
 * when learning queue is exhausted, we are currently just jumping back to root w/o explaination
 * beim Bearbeiten von Notes: Zwischenspeichern ohne Edit-Modus zu verlassen
 * Sendgrid

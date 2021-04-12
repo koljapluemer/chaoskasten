@@ -460,6 +460,7 @@ form {
 
 .slogan {
   font-size: 4rem;
+  line-height: 4rem;
 }
 
 .index-font {
@@ -472,6 +473,11 @@ form {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
   grid-template-rows: repeat(2, auto);
+}
+
+#doc-notes {
+  grid-template-columns: repeat(auto-fill, 1fr);
+  grid-template-rows: 70vh;
 }
 
 .index-noteholder {
@@ -504,6 +510,7 @@ form {
   margin: auto;
   display: grid;
   grid-template-columns: 2fr 1fr;
+  grid-template-rows:  30vh 30vh;
   grid-template-areas:
     "a b"
     "c c";
