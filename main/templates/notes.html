@@ -18,22 +18,22 @@
 
   <header class="notes-sidebar">
     <h1>Chaoskasten</h1>
-      <div id="user">
-        {% if user.is_authenticated %}
-        <img src="{% static '/ico/user.svg' %}" alt="User" class="icon title-icon">
-        {% if not user|is_lazy_user %}
-        <a href="/profile">{{ user.username }}</a> (<a href="{% url 'logout' %}">logout</a>)
-        {% else %}
-        <div id="user-temporary">
+    <div id="user">
+      {% if user.is_authenticated %}
+      <img src="{% static '/ico/user.svg' %}" alt="User" class="icon title-icon">
+      {% if not user|is_lazy_user %}
+      <a href="/profile">{{ user.username }}</a> (<a href="{% url 'logout' %}">logout</a>)
+      {% else %}
+      <div id="user-temporary">
         <span>Temporary User (<a href="/convert">Sign Up</a>)</span>
         <a href="{% url 'login' %}">Log into existing account</a>
         <a href="{% url 'logout' %}">Logout</a>
-        </div>
-        {% endif %}
-        {% else %}
-        <a href="{% url 'login' %}">login</a>
-        {% endif %}
       </div>
+      {% endif %}
+      {% else %}
+      <a href="{% url 'login' %}">login</a>
+      {% endif %}
+    </div>
 
     <nav class="flex-around">
       <a href="/notes">Desk</a>
@@ -70,70 +70,77 @@
     <div class="note-section">
       <h2 class="note-section-title">All Notes</h2>
       <form action="/search" class="form-search">
-        <input type="text" class="search-input" name="searchTerm" value="{% if searchTerm %}{{searchTerm}}{% endif %}">
+        <div class="form-search-div">
+          <input type="text" class="search-input" name="searchTerm" value="{% if searchTerm %}{{searchTerm}}{% endif %}">
           <button class="">Search</button>
-        </form>
-        <ul class="note-related-list">
-          {% for note in allNotes %}
-          {% include 'widgets/noteTitle.html' %}
-          {% endfor %}
-        </ul>
-        {% include 'widgets/paginator.html' with page=allNotes section='all' %}
-      </div>
-
+        </div>
+        <details {% if search_only_removed %}open{% endif %}>
+          <summary>More</summary>
+          <input type="checkbox" id="no-learning" name="no-learning" {% if search_only_removed %}checked="checked"{% endif %}>
+          <label for="no-learning" id="no-learning-label">Only notes removed from learning</label>
+        </details>
+      </form>
+      <ul class="note-related-list">
+        {% for note in allNotes %}
+        {% include 'widgets/noteTitle.html' %}
+        {% endfor %}
+      </ul>
+      {% include 'widgets/paginator.html' with page=allNotes section='all' %}
     </div>
 
-    <footer class="notes-sidebar">
-      <ul class="links-footer">
-        <li>
-          <a href="/editMode/true" class="button-primary">New Note</a>
-        </li>
-        <li>
-          <a href="/open/-/notes">Open random note</a>
-        </li>
-        <li>
-          <a href="/closeNotes">Close all notes</a>
-        </li>
-      </ul>
-      <nav class="nav-footer">
+  </div>
 
-        <li><a href="/about">About</a></li>
-        <li><a href="/settings">Settings</a></li>
-      </nav>
+  <footer class="notes-sidebar">
+    <ul class="links-footer">
+      <li>
+        <a href="/editMode/true" class="button-primary">New Note</a>
+      </li>
+      <li>
+        <a href="/open/-/notes">Open random note</a>
+      </li>
+      <li>
+        <a href="/closeNotes">Close all notes</a>
+      </li>
+    </ul>
+    <nav class="nav-footer">
+
+      <li><a href="/about">About</a></li>
+      <li><a href="/settings">Settings</a></li>
+    </nav>
   </footer>
 </div>
 {% endif %}
 
-  {% endblock %}
-  {% block content %}
-  {% if user|is_lazy_user %}
-  <div class="warning">
-    You are in test mode. Your notes may be lost when you close this window or restart the device. <br>
-    To make an account and permanently save your notes, <a href="/convert">click here</a> ($3/month)
+{% endblock %}
+{% block content %}
+{% if user|is_lazy_user %}
+<div class="warning">
+  You are in test mode. Your notes may be lost when you close this window or restart the device. <br>
+  To make an account and permanently save your notes, <a href="/convert">click here</a> ($3/month)
+</div>
+{% endif %}
+<div class="notes">
+  <!-- use parentnote syntax to differenciate between the surrounding notes and specific nodes listed by title -->
+  {% for parentnote in notes %}
+  <div class="note">
+    {% include 'widgets/note.html' %}
+  </div>
+  {% endfor %}
+  <!-- Add a new note -->
+  {% if form and not editableNote %}
+  <div class="note">
+    <form action="" method="post" class="">
+      {% csrf_token %}
+      {{ form }}
+      <div class="form-buttons">
+        <a href="/notes" onclick="return confirm('Discard the change to your note?')">Discard</a>
+        <button type="submit" value="Submit" class="button-primary form-submit">Submit</button>
+      </div>
+
+    </form>
   </div>
   {% endif %}
-  <div class="notes">
-    <!-- use parentnote syntax to differenciate between the surrounding notes and specific nodes listed by title -->
-    {% for parentnote in notes %}
-    <div class="note">
-      {% include 'widgets/note.html' %}
-    </div>
-    {% endfor %}
-    <!-- Add a new note -->
-    {% if form and not editableNote %}
-    <div class="note">
-      <form action="" method="post" class="">
-        {% csrf_token %}
-        {{ form }}
-        <div class="form-buttons">
-          <a href="/notes" onclick="return confirm('Discard the change to your note?')">Discard</a>
-          <button type="submit" value="Submit" class="button-primary form-submit">Submit</button>
-        </div>
-
-      </form>
-    </div>
-    {% endif %}
-  </div>
+</div>
 
 
-  {% endblock %}
+{% endblock %}

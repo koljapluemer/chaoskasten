@@ -78,6 +78,7 @@ class Collection(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
 
     searchTerm = models.TextField(blank="true", null="true")
+    search_only_removed_from_learning = models.BooleanField(default=False)
 
     sidebarCollapsed = models.BooleanField(default=False)
 

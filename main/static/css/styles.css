@@ -24,6 +24,13 @@ h1, h2, h3, form label {
   text-decoration-color: #F18A60;
 }
 
+#no-learning-label {
+  font-weight: normal;
+  text-decoration: none;
+  font-family: 'Source Sans Pro', sans-serif;
+
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -269,7 +276,7 @@ form {
   text-decoration-color: #bbb;
 }
 
-.form-search {
+.form-search-div {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;

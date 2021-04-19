@@ -1,9 +1,10 @@
 ### release
 
-* Basic Documentation editorialize
 
 ### backlog:
 
+* Basic Documentation editorialize
+* Email validation?
 * Lock up user data
 * Feedback
 * Connection Visualization

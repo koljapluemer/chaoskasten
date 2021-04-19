@@ -128,6 +128,9 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
     if collection.searchTerm:
         allNotes = allNotes.filter(Q(content__icontains=collection.searchTerm) | Q(title__icontains=collection.searchTerm))
 
+    if collection.search_only_removed_from_learning:
+        allNotes = allNotes.filter(Q(learning_data__isnull=True))
+
     allNotesPaginator = Paginator(allNotes, 5)
     allNotesPage = allNotesPaginator.get_page(profile.collection.allNotesPageNr)
 
@@ -143,6 +146,7 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
         'form': form,
         'editableNote': noteID,
         'searchTerm': collection.searchTerm,
+        'search_only_removed': collection.search_only_removed_from_learning,
         'sidebarCollapsed': collection.sidebarCollapsed,
     }
 
@@ -230,6 +234,10 @@ def search(request):
     collection = profile.collection
     # set search term
     collection.searchTerm = request.GET.get('searchTerm')
+    print(request.GET.get('no-learning'))
+    # check whether notes *with* a learning object should be excluded
+    # to offer an opportunity to check out otherwise forgotten notes
+    collection.search_only_removed_from_learning = 'no-learning' in request.GET
 
     collection.save()
     return redirect('/notes')
