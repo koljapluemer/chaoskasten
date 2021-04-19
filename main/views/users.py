@@ -9,7 +9,13 @@ from django.contrib.auth import (
 
 
 def profile(request):
-    user = request.user
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
+    profile = request.user.profile
+    collection = profile.collection
     context = {}
 
     stripe.api_key = settings_conf.STRIPE_SECRET_KEY
@@ -20,7 +26,7 @@ def profile(request):
             createdAsDate = datetime.utcfromtimestamp(created).strftime('%Y-%m-%d %H:%M')
             context['created'] = createdAsDate
 
-    context['noteCounter']: user.profile.note_set.all().count()
+    context['noteCounter'] = profile.note_set.all().count()
 
     return render(request, 'pages/profile.html', context)
 
