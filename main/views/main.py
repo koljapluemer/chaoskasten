@@ -298,7 +298,8 @@ def deleteNote(request, noteID):
         return redirect('login')
 
     note = Note.objects.get(id=noteID, profile=request.user.profile)
-    note.learning_data.delete()
+    if note.learning_data:
+        note.learning_data.delete()
     note.delete()
     return redirect('/notes')
 
