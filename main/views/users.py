@@ -32,7 +32,7 @@ def profile(request):
         except:
             pass
 
-    context['note_counter_all'] = profile.note_set.all().count()
+    context['note_counter_all'] = profile.note_set.all().count() - 1
     context['note_counter_learning'] = profile.learningdata_set.all().count()
     context['note_counter_unlearned'] = profile.learningdata_set.filter(score__isnull=True).count()
 
