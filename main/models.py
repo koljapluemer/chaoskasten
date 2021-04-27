@@ -17,7 +17,7 @@ Create a new Note by clicking the `New Note` button.
 
 With an open Note itself you can do the following:
 
-* `Pin:` Your Note will be displayed in the "Pinned" section in the sidebar, allowing you quick access at any time
+* `Favorite:` Your Note will be displayed in the "Favorite" section in the sidebar, allowing you quick access at any time
 * `Connect:` By clicking the *Connect* button, you can connect two Notes with each other, creating references to each other on each Note. This is the primary tool to organize your knowledge - try it!
 * `Delete:` You may delete the Note - but watch out, this cannot be undone. You can this Note as a test run, since you can always get a new *Welcome Note* in the `Settings`.
 * `Edit:` Change the properties of your Notes at anytime. You can test the function with this very Note you are reading to find out how all the fancy formatting tricks work (Spoiler: It's Markdown)

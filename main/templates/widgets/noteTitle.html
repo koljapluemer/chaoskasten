@@ -7,34 +7,34 @@
 
   <!-- when we are in the "Pinned" section, offer option to unpin stuff, otherwise allow pinning -->
   {% if unpinnable %}
-  <a href="/unpin/{{note.id}}" class="icon-link">
+  <a href="/unpin/{{note.id}}" title="Remove from Favorites" class="icon-link">
     <img src="{% static '/ico/x-circle.svg' %}" alt="Remove" class="icon">
   </a>
   {% else %}
-  <a href="/pin/{{note.id}}" class="icon-link">
-    <img src="{% static '/ico/tag.svg' %}" alt="Pin" class="icon">
+  <a href="/pin/{{note.id}}" title="Add to Favorites" class="icon-link">
+    <img src="{% static '/ico/star.svg' %}" alt="Pin" class="icon">
   </a>
   {% endif %}
 
 
   {% if sender %}
     {% if note.id == sender %}
-      <a href="/notes/deactiveConnectionMode" class="icon-link connect-sender"">
+      <a href="/notes/deactiveConnectionMode" title="Connecting To Other Note..." class="icon-link connect-sender"">
           <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon   ">
       </a>
     {% else %}
-      <a href="/notes/r/{{ note.id }}" class="icon-link connect-receiver">
+      <a href="/notes/r/{{ note.id }}" title="...connect To This Note" class="icon-link connect-receiver">
           <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon ">
       </a>
     {% endif %}
   {% else %}
-    <a href="/notes/s/{{ note.id}}" class="icon-link">
+    <a href="/notes/s/{{ note.id}}" title="Connect this note to other Note"  class="icon-link">
       <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon ">
     </a>
   {% endif %}
 
   {% if unconnectable %}
-  <a href="/unconnect/{{parentnote.id}}/{{note.id}}"  class="icon-link">
+  <a href="/unconnect/{{parentnote.id}}/{{note.id}}"  title="Remove Connection to Note" class="icon-link">
     <img src="{% static '/ico/x-circle.svg' %}" alt="Remove" class="icon">
   </a>
   {% endif %}

@@ -85,6 +85,11 @@ hr {
   cursor: pointer;
 }
 
+.errorlist {
+  padding: 6px;
+  background: #F18A60;   
+}
+
 #cookies {
   font-size: 12px;
 }
@@ -266,6 +271,7 @@ form {
   margin: 6px 0;
   padding: 0;
   border-bottom: #666 solid 1px;
+  list-style: none;
 }
 
 .note-list-title {

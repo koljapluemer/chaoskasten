@@ -89,7 +89,7 @@
       </p>
       <div class="note-buttons">
 
-        <a href="/editMode/{{note.id}}/true/from-learning" class="icon-link">
+        <a href="/editMode/{{note.id}}/true/from-learning" class="icon-link" title="Edit Contents">
           <img src="{% static '/ico/edit.svg' %}" alt="Edit" class="icon title-icon">
         </a>
       </div>
@@ -100,6 +100,18 @@
     <div class="note" {% if not show_backsite %} id="note-backsite"{% endif %}>
       {% if show_backsite %}
       <div class="note-content">{{ back_site|markdown|safe}}</div>
+
+      {% if note.reference.all %}
+        <ul class="note-related-list">
+          {% for reference in note.reference.all %}
+          <li>
+          <a class="note-list-title" href="/open/{{ note.id }}/notes">{{ reference.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+
       {% else %}
       <a href="/learning/show_backsite">Show Answer</a>
       {% endif %}

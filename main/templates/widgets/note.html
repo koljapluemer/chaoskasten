@@ -32,28 +32,28 @@
 
     <div class="note-bottombar">
       <div class="note-buttons">
-        <a href="/pin/{{parentnote.id}}" class="icon-link">
-          <img src="{% static '/ico/tag.svg' %}" alt="Pin" class="icon title-icon">
+        <a href="/pin/{{parentnote.id}}" class="icon-link" title="Add to Favorites">
+          <img src="{% static '/ico/star.svg' %}" alt="Favorite" class="icon title-icon">
         </a>
         {% if sender %}
           {% if parentnote.id == sender %}
-            <a href="/notes/deactiveConnectionMode" class="icon-link connect-sender">
+            <a href="/notes/deactiveConnectionMode" title="Connecting To Other Note..." class="icon-link connect-sender">
                 <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon  ">
             </a>
           {% else %}
-            <a href="/notes/r/{{ parentnote.id }}" class="icon-link connect-receiver">
+            <a href="/notes/r/{{ parentnote.id }}"  title="...connect To This Note" class="icon-link connect-receiver">
                 <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon">
             </a>
           {% endif %}
         {% else %}
-          <a href="/notes/s/{{parentnote.id}}" class="icon-link">
+          <a href="/notes/s/{{parentnote.id}}" title="Connect this note to other Note" class="icon-link">
             <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon">
           </a>
         {% endif %}
-        <a href="/delete/{{parentnote.id}}" class="icon-link" onclick="return confirm('Delete this note?')">
+        <a href="/delete/{{parentnote.id}}"  title="Delete" class="icon-link" onclick="return confirm('Delete this note?')">
           <img src="{% static '/ico/trash-2.svg' %}" alt="Trash" class="icon title-icon">
         </a>
-        <a href="/editMode/{{parentnote.id}}/true" class="icon-link">
+        <a href="/editMode/{{parentnote.id}}/true"  title="Edit Title and Content" class="icon-link">
           <img src="{% static '/ico/edit.svg' %}" alt="Edit" class="icon title-icon">
         </a>
       </div>

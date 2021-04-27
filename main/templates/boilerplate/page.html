@@ -26,7 +26,11 @@
     <a href="/profile">{{ user.username }}</a>
     <a href="{% url 'logout' %}">logout</a>
     {% else %}
+    {% if not user|is_lazy_user %}
     <a href="/signup">signup</a>
+    {% else %}
+    <a href="/convert">signup</a>
+    {% endif %}
     <a href="{% url 'login' %}">login</a>
     {% endif %}
     {% else %}

@@ -17,6 +17,11 @@ def home(request):
         if request.method == 'POST':
             n = Note.objects.create(title=request.POST.get('title'), content=request.POST.get('content'), profile=profile)
             profile.collection.openNotes.add(n)
+
+            learning_object = LearningData.objects.create(profile=profile)
+            n.learning_data = learning_object
+            n.save()
+
             profile.save()
             return redirect('/notes')
         return render(request, 'pages/index.html', {})
