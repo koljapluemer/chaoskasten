@@ -77,7 +77,7 @@
         <details {% if search_only_removed %}open{% endif %}>
           <summary>More</summary>
           <input type="checkbox" id="no-learning" name="no-learning" {% if search_only_removed %}checked="checked"{% endif %}>
-          <label for="no-learning" id="no-learning-label">Only notes removed from learning</label>
+          <label for="no-learning" id="no-learning-label">Only notes removed from learning</label> <br>
         </details>
       </form>
       <ul class="note-related-list">
@@ -97,6 +97,9 @@
       </li>
       <li>
         <a href="/open/-/notes">Open random note</a>
+      </li>
+      <li>
+        <a href="/openRandomFromSearch">Open random note from search</a>
       </li>
       <li>
         <a href="/closeNotes">Close all notes</a>

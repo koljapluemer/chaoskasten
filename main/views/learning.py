@@ -27,7 +27,7 @@ def open_new_learning_object(request):
     if not collection.current_learning_objects.exists():
         new = LearningData.objects.filter(profile=profile, score__isnull=True)[:20]
         date_cutoff = datetime.date.today() + datetime.timedelta(days=1)
-        current = LearningData.objects.filter(profile=profile, review_date__lt = date_cutoff, score__isnull=False)[:35]
+        current = LearningData.objects.filter(profile=profile, review_date__lt = date_cutoff, score__isnull=False)
         collection.current_learning_objects.add(*new)
         collection.current_learning_objects.add(*current)
 

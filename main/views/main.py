@@ -252,7 +252,7 @@ def openNote(request, noteID, redirectPath):
         request.user.profile
     except:
         return redirect('login')
-    # TODO: Slimmer random method
+
     if noteID == "-":
         notes_keys = Note.objects.filter(profile=request.user.profile).values_list('pk', flat=True)
         random_key = random.choice(notes_keys)
@@ -267,6 +267,26 @@ def openNote(request, noteID, redirectPath):
     collection.recentNotes.add(note)
 
     return redirect('/' + redirectPath)
+
+def openRandomFromSearch(request):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
+    collection = Collection.objects.get(profile=request.user.profile)
+    allNotes = Note.objects.filter(profile=request.user.profile).all()
+
+    if collection.searchTerm:
+        allNotes = allNotes.filter(Q(content__icontains=collection.searchTerm) | Q(title__icontains=collection.searchTerm))
+
+    if collection.search_only_removed_from_learning:
+        allNotes = allNotes.filter(Q(learning_data__isnull=True))
+
+    note = random.choice(allNotes)
+    collection.openNotes.add(note)
+
+    return redirect ('/')
 
 def closeNote(request, noteID, redirectPath):
     try:
@@ -314,5 +334,9 @@ def sidebar(request):
 
     collection.sidebarCollapsed = not collection.sidebarCollapsed
     collection.save()
+
+    note = Note.objects.get(id=int(noteID), profile=request.user.profile)
+    collection.openNotes.add(note)
+
 
     return redirect('/notes')
