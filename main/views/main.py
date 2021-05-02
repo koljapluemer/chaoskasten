@@ -232,9 +232,11 @@ def search(request):
 
     profile = request.user.profile
     collection = profile.collection
+    # check if we should reset the page counter of the results
+    if collection.searchTerm is not request.GET.get('searchTerm'):
+        collection.allNotesPageNr = 1;
     # set search term
     collection.searchTerm = request.GET.get('searchTerm')
-    print(request.GET.get('no-learning'))
     # check whether notes *with* a learning object should be excluded
     # to offer an opportunity to check out otherwise forgotten notes
     collection.search_only_removed_from_learning = 'no-learning' in request.GET
