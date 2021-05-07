@@ -1,62 +1,72 @@
 <div class="note-main">
-{% load static %}
+  {% load static %}
   {% if parentnote.id == editableNote %}
-    <form action="" method="post" class="">
-      {% csrf_token %}
-      {{ form }}
-      <div class="form-buttons">
-        <a href="/notes" onclick="return confirm('Discard the change to your card?')">Discard</a>
-        <button type="submit" value="Submit" class="button-primary form-submit">Submit</button>
-      </div>
+  <form action="" method="post" class="">
+    {% csrf_token %}
+    {{ form }}
+    {% if parentnote.learning_data is None %}
+    <fieldset>
+      <legend>
+        Learning
+      </legend>
+      <input type="checkbox" id="add-to-learning" name="add-to-learning">
+      <label for="add-to-learning">Put note in your learning queue</label>
+    </fieldset>
+    {% endif %}
 
-    </form>
+    <div class="form-buttons">
+      <a href="/notes" onclick="return confirm('Discard the change to your card?')">Discard</a>
+      <button type="submit" value="Submit" class="button-primary form-submit">Submit</button>
+    </div>
+
+  </form>
   {% else %}
 
-    <div class="note-topbar">
-      <h2 class="single-note-title">{{ parentnote.title }}</h2>
-      <a href="/close/{{ parentnote.id }}/notes">X</a>
+  <div class="note-topbar">
+    <h2 class="single-note-title">{{ parentnote.title }}</h2>
+    <a href="/close/{{ parentnote.id }}/notes">X</a>
+  </div>
+
+  {% load markdown %}
+
+  <div class="note-content">{{ parentnote.content|markdown|safe}}</div>
+
+  {% if parentnote.reference.all %}
+  <ul class="note-related-list">
+    {% for reference in parentnote.reference.all %}
+    {% include 'widgets/noteTitle.html' with note=reference unconnectable='True' %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+
+  <div class="note-bottombar">
+    <div class="note-buttons">
+      <a href="/pin/{{parentnote.id}}" class="icon-link" title="Add to Favorites">
+        <img src="{% static '/ico/star.svg' %}" alt="Favorite" class="icon title-icon">
+      </a>
+      {% if sender %}
+      {% if parentnote.id == sender %}
+      <a href="/notes/deactiveConnectionMode" title="Connecting To Other Note..." class="icon-link connect-sender">
+        <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon  ">
+      </a>
+      {% else %}
+      <a href="/notes/r/{{ parentnote.id }}"  title="...connect To This Note" class="icon-link connect-receiver">
+        <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon">
+      </a>
+      {% endif %}
+      {% else %}
+      <a href="/notes/s/{{parentnote.id}}" title="Connect this note to other Note" class="icon-link">
+        <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon">
+      </a>
+      {% endif %}
+      <a href="/delete/{{parentnote.id}}"  title="Delete" class="icon-link" onclick="return confirm('Delete this note?')">
+        <img src="{% static '/ico/trash-2.svg' %}" alt="Trash" class="icon title-icon">
+      </a>
+      <a href="/editMode/{{parentnote.id}}/true"  title="Edit Title and Content" class="icon-link">
+        <img src="{% static '/ico/edit.svg' %}" alt="Edit" class="icon title-icon">
+      </a>
     </div>
-
-    {% load markdown %}
-
-    <div class="note-content">{{ parentnote.content|markdown|safe}}</div>
-
-    {% if parentnote.reference.all %}
-      <ul class="note-related-list">
-        {% for reference in parentnote.reference.all %}
-        {% include 'widgets/noteTitle.html' with note=reference unconnectable='True' %}
-        {% endfor %}
-      </ul>
-    {% endif %}
-
-
-    <div class="note-bottombar">
-      <div class="note-buttons">
-        <a href="/pin/{{parentnote.id}}" class="icon-link" title="Add to Favorites">
-          <img src="{% static '/ico/star.svg' %}" alt="Favorite" class="icon title-icon">
-        </a>
-        {% if sender %}
-          {% if parentnote.id == sender %}
-            <a href="/notes/deactiveConnectionMode" title="Connecting To Other Note..." class="icon-link connect-sender">
-                <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon  ">
-            </a>
-          {% else %}
-            <a href="/notes/r/{{ parentnote.id }}"  title="...connect To This Note" class="icon-link connect-receiver">
-                <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon">
-            </a>
-          {% endif %}
-        {% else %}
-          <a href="/notes/s/{{parentnote.id}}" title="Connect this note to other Note" class="icon-link">
-            <img src="{% static '/ico/link.svg' %}" alt="Connect" class="icon title-icon">
-          </a>
-        {% endif %}
-        <a href="/delete/{{parentnote.id}}"  title="Delete" class="icon-link" onclick="return confirm('Delete this note?')">
-          <img src="{% static '/ico/trash-2.svg' %}" alt="Trash" class="icon title-icon">
-        </a>
-        <a href="/editMode/{{parentnote.id}}/true"  title="Edit Title and Content" class="icon-link">
-          <img src="{% static '/ico/edit.svg' %}" alt="Edit" class="icon title-icon">
-        </a>
-      </div>
-    </div>
-    {% endif %}
+  </div>
+  {% endif %}
 </div>

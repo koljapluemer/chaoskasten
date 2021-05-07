@@ -89,8 +89,12 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
             if noteID:
                 note = Note.objects.get(id=noteID)
                 form = NoteForm(request.POST, instance=note)
-
-                learning_object = note.learning_data
+                # make new learning object
+                # when the checkbox is checked (the box only shows up on notes where the learning object was removed)
+                if request.POST.get("add-to-learning"):
+                    learning_object = LearningData.objects.create(profile=profile)
+                else:
+                    learning_object = note.learning_data
             else:
                 form = NoteForm(request.POST)
                 learning_object = LearningData.objects.create(profile=profile)
