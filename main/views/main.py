@@ -141,8 +141,12 @@ def notes(request, sender = None, recipient = None, editmode = False, noteID = N
     if collection.noteConnectionSender:
         sender = collection.noteConnectionSender.id
 
+    open_notes = collection.openNotes.all()
+
     context = {
-        'notes': collection.openNotes.all(),
+        'notes': open_notes,
+        'open_notes_count': open_notes.count,
+        'notes_count': profile.note_set.all().count,
         'pinnedNotes': pinnedNotesPage,
         'recentNotes': recentNotesPage,
         'allNotes': allNotesPage,

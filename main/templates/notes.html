@@ -95,12 +95,14 @@
       <li>
         <a href="/editMode/true" class="button-primary">New Note</a>
       </li>
+      {% if notes_count > open_notes_count %}
       <li>
         <a href="/open/-/notes">Open random note</a>
       </li>
       <li>
         <a href="/openRandomFromSearch">Open random note from search</a>
       </li>
+      {% endif %}
       <li>
         <a href="/closeNotes">Close all notes</a>
       </li>
