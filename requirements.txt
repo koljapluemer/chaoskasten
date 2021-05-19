@@ -18,3 +18,4 @@ sqlparse==0.3.0
 stripe==2.43.0
 urllib3==1.26.3
 supermemo2==2.0.0
+djangorestframework-3.12.4
