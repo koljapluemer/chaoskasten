@@ -5,4 +5,3 @@ from .stripe import *
 from .upDown import *
 from .users import *
 from .learning import *
-from .api import *
