@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lazysignup',
     'stripe',
+    'rest_framework',
 ]
 
 AUTHENTICATION_BACKENDS = (

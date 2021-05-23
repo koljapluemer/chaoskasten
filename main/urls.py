@@ -78,4 +78,7 @@ urlpatterns = [
     path('learning/show_backsite', views.learning_queue, {'show_backsite': True}),
     path('learning/get_new', views.open_new_learning_object),
     path('learning/delete/<int:pk>', views.remove_learning_object),
+
+    # API
+    path('hello/', views.HelloView.as_view(), name="hello"),
 ]
