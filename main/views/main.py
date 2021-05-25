@@ -347,7 +347,7 @@ def mergeSearch(request):
     )
     collection.openNotes.add(super_note)
     for note in allNotes:
-        super_note.content += "\n\n##" + note.title + "\n\n"
+        super_note.content += "\n\n---\n#" + note.title + "\n\n"
         super_note.content += note.content
     super_note.save()
 
