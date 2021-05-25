@@ -321,6 +321,38 @@ def closeNotes(request):
     collection.openNotes.clear()
     return redirect('/notes')
 
+def mergeSearch(request):
+    try:
+        request.user.profile
+    except:
+        return redirect('login')
+
+    profile = request.user.profile
+    collection = Collection.objects.get(profile=profile)
+    allNotes = Note.objects.filter(profile=profile).all()
+
+    if collection.searchTerm:
+        allNotes = allNotes.filter(Q(content__icontains=collection.searchTerm) | Q(title__icontains=collection.searchTerm))
+
+    if collection.search_only_removed_from_learning:
+        allNotes = allNotes.filter(Q(learning_data__isnull=True))
+
+    learning_object = LearningData.objects.create(profile=profile)
+
+    super_note = Note.objects.create(
+        title="Combined note ",
+        profile=profile,
+        learning_data = learning_object,
+        content = ""
+    )
+    collection.openNotes.add(super_note)
+    for note in allNotes:
+        super_note.content += "##" + note.title + "\n\n"
+        super_note.content += note.content
+    super_note.save()
+
+    return redirect("/")
+
 def deleteNote(request, noteID):
     try:
         request.user.profile

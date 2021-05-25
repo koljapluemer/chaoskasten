@@ -43,6 +43,7 @@ urlpatterns = [
     path('open/<slug:noteID>/<str:redirectPath>', views.openNote),
     path('close/<slug:noteID>/<str:redirectPath>', views.closeNote),
     path('closeNotes', views.closeNotes),
+    path('mergeSearch', views.mergeSearch),
 
     # paginator url
     path('changePage/<str:section>/<int:pageNr>', views.changePage),
