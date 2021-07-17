@@ -3,6 +3,7 @@ from django.db.models import Q
 from ..models import *
 
 import random
+from django.utils import timezone
 
 from supermemo2 import SMTwo, mon_day_year
 import datetime
@@ -25,11 +26,19 @@ def open_new_learning_object(request):
     # so we just get 20 new ones and all those we actually should learn today
     # and if it's empty, same thing again
     if not collection.current_learning_objects.exists():
-        new = LearningData.objects.filter(profile=profile, score__isnull=True)[:20]
+        collection.learning_block_created_at = datetime.datetime.now(datetime.timezone.utc)
+        # max. half of the learning block data may be new
+        new = LearningData.objects.filter(profile=profile, score__isnull=True)[:((collection.learning_block_size / 2))]
         date_cutoff = datetime.date.today() + datetime.timedelta(days=1)
-        current = LearningData.objects.filter(profile=profile, review_date__lt = date_cutoff, score__isnull=False)
+        current = LearningData.objects.filter(profile=profile, review_date__lt = date_cutoff, score__isnull=False)[:(int(collection.learning_block_size / 2))]
         collection.current_learning_objects.add(*new)
         collection.current_learning_objects.add(*current)
+
+        # we just always make the learning block bigger.
+        # if this part of the code gets triggered by the learning block getting stale
+        # so that we want to make it smaller, we will just counteract the increase in the given function
+        collection.learning_block_size += 2
+        collection.save()
 
     # if still empty, there is nothing left to learn
     if not collection.current_learning_objects.exists():
@@ -51,6 +60,15 @@ def learning_queue(request, show_backsite):
     collection = profile.collection
 
     learning_object = collection.open_learning_object
+
+    # check how stale the learning data is and resize the block for motivation
+    if (timezone.now() - collection.learning_block_created_at) > datetime.timedelta(hours = 24):
+        collection.learning_block_size = max(8, int(collection.learning_block_size / 2))
+        collection.learning_block_size -= 2
+        collection.current_learning_objects.clear()
+        collection.open_learning_object = None
+        collection.save()
+        return redirect("/learning/get_new")
 
     if not learning_object or not collection.current_learning_objects.exists():
         return redirect("/learning/get_new")
