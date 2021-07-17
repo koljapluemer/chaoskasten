@@ -62,7 +62,7 @@ def learning_queue(request, show_backsite):
     learning_object = collection.open_learning_object
 
     # check how stale the learning data is and resize the block for motivation
-    if (timezone.now() - collection.learning_block_created_at) > datetime.timedelta(minutes=1):
+    if (timezone.now() - collection.learning_block_created_at) > datetime.timedelta(hours=12):
         collection.learning_block_size = max(8, int(collection.learning_block_size / 2))
         collection.learning_block_size -= 2
         collection.current_learning_objects.clear()
