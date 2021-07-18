@@ -1,5 +1,13 @@
 import django_heroku
 import os
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False),
+    STRIPE_LIVE_MODE=(bool, False)
+)
+environ.Env.read_env()
 
 USE_TZ = True
 
@@ -11,25 +19,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*pn5tp97vgmt@k(+ao87n9%q80&jyk7@j=9odo8yxgtg4g0jk6'
+SECRET_KEY = '*pn5tp97vgmt@k(+ao87n9%q80&jyk7@jefjewfewpofodo8yxgtg4g0jk6'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chaoskasten.com', 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'main',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'webapp',
-    'django_extensions',
+    'lazysignup',
+    'stripe',
 ]
 
 MIDDLEWARE = [
@@ -42,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'webapp.urls'
+ROOT_URLCONF = 'main.urls'
 
 TEMPLATES = [
     {
@@ -60,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'webapp.wsgi.application'
+WSGI_APPLICATION = 'main.wsgi.application'
 
 
 # Database
@@ -106,10 +113,41 @@ USE_L10N = True
 
 USE_TZ = True
 
-SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
-STATICFILES_DIRS = (
-  os.path.join(SITE_ROOT, 'static/'),
-)
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+LOGIN_REDIRECT_URL = '/notes'
+LOGOUT_REDIRECT_URL = '/'
+
+
+DOMAIN_URL = env('DOMAIN_URL')
+
+if env.get_value("STRIPE_LIVE_MODE"):
+    STRIPE_PUBLIC_KEY = env('STRIPE_LIVE_PUBLIC_KEY')
+    STRIPE_SECRET_KEY = env('STRIPE_LIVE_SECRET_KEY')
+else:
+    STRIPE_PUBLIC_KEY = env("STRIPE_TEST_PUBLIC_KEY")
+    STRIPE_SECRET_KEY = env("STRIPE_TEST_SECRET_KEY")
+
+
+STRIPE_PRICE_ID = env("STRIPE_PRICE_ID")
+
+APPEND_SLASH=False
+
+SECRET_KEY = env('SECRET_KEY')
+
+# false when it does not exist (wtf)
+DEBUG = env('DEBUG')
+
+
+SENDGRID_API_KEY = env('SENDGRID_API_KEY')
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+
+# Activate Django-Heroku.
 django_heroku.settings(locals())
