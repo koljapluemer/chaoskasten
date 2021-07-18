@@ -1,6 +1,8 @@
 import os
 import environ
 
+import django_heroku
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False),
@@ -144,3 +146,6 @@ EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
