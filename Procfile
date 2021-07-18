@@ -1,1 +1,1 @@
-web: gunicorn chaoskasten.wsgi
+web: gunicorn main.wsgi

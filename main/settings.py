@@ -3,7 +3,7 @@ import os
 
 USE_TZ = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ALLOWED_HOSTS = ['chaoskasten.com', 'localhost']
+ALLOWED_HOSTS = ['chaoskasten.com', 'localhost', 'chaoskasten.herokuapp.com']
 
 # Application definition
 
