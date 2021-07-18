@@ -97,7 +97,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 DOMAIN_URL = os.getenv('DOMAIN_URL', "https://chaoskasten.herokuapp.com")
 
-if env.get_value("STRIPE_LIVE_MODE"):
+if os.getenv("STRIPE_LIVE_MODE"):
     STRIPE_PUBLIC_KEY = os.getenv('STRIPE_LIVE_PUBLIC_KEY')
     STRIPE_SECRET_KEY = os.getenv('STRIPE_LIVE_SECRET_KEY')
 else:
