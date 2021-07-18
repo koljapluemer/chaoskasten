@@ -71,7 +71,7 @@ class Collection(models.Model):
     open_learning_object = models.ForeignKey('LearningData', null=True, on_delete=models.SET_NULL)
     current_learning_objects = models.ManyToManyField('LearningData', related_name="learning_queue")
     learning_block_size = models.IntegerField(default = 20)
-    learning_block_created_at = models.DateTimeField(blank=True, default=timezone.now())
+    learning_block_created_at = models.DateTimeField(blank=True, default=timezone.now)
 
     pinnedNotesPageNr = models.IntegerField(default = 1)
     recentNotesPageNr = models.IntegerField(default = 1)
