@@ -7,6 +7,8 @@ html, body, main {
   padding: 0;
   margin: 0;
   font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1em;
+  line-height: 1.6em;
 }
 
 h1, h2, form label {
@@ -20,6 +22,13 @@ h1, h2, h3, form label {
   font-weight: normal;
   text-decoration: underline 2px;
   text-decoration-color: #F18A60;
+}
+
+#no-learning-label {
+  font-weight: normal;
+  text-decoration: none;
+  font-family: 'Source Sans Pro', sans-serif;
+
 }
 
 body {
@@ -53,7 +62,47 @@ pre code {
   padding: 0;
 }
 
-.nav-header {
+blockquote {
+  border-left: 5px solid #eee;
+  padding-left: 12px;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+hr {
+  color: #F18A60;
+}
+
+.note img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.button-as-link {
+  background: none;
+  border: none;
+
+  cursor: pointer;
+}
+
+.errorlist {
+  padding: 6px;
+  background: #F18A60;   
+}
+
+#cookies {
+  font-size: 12px;
+}
+
+#doc-notes {
+  max-width: 70%;
+  padding-top: 24px;
+}
+
+#user {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
   padding-bottom: 16px;
   border-bottom: 1px solid #333;
 }
@@ -73,7 +122,6 @@ pre code {
   display: flex;
   justify-content: space-around;
 }
-
 
 .note {
   color: #333;
@@ -108,6 +156,8 @@ form {
 .note-title{
   /* box-shadow: inset 0 0 4px #bbb; */
   margin: 0;
+  line-height: .9rem;
+  font-size: .9rem;
 }
 
 .single-note-title {
@@ -124,12 +174,13 @@ form {
 
 .note-bottombar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   margin-top: 12px;
 }
 
 .note-buttons{
+  display: flex;
 }
 
 #notes-sections {
@@ -208,11 +259,6 @@ form {
   display: flex;
 }
 
-.note-list-links * {
-  margin-right: 4px;
-}
-
-
 .note-related {
   font-size: 0.9em;
   margin: 8px;
@@ -225,16 +271,18 @@ form {
   margin: 6px 0;
   padding: 0;
   border-bottom: #666 solid 1px;
+  list-style: none;
 }
 
 .note-list-title {
   font-size: 1em;
+  line-height: 1em;
   margin: 0;
   padding-right: 8px;
   text-decoration-color: #bbb;
 }
 
-.form-search {
+.form-search-div {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
@@ -256,12 +304,6 @@ form {
   background: #F18A60;
   filter: none;
   border-radius: 50%;
-}
-
-.icon-link {
-  display: inline-block;
-  position: relative;
-  z-index: 1;
 }
 
 
@@ -310,6 +352,11 @@ form {
   border: 0;
 }
 
+.button-primary:disabled,
+.button-primary[disabled]{
+  background: #ccc;
+}
+
 .form-submit {
   margin-left: 6px;
 }
@@ -320,7 +367,6 @@ form {
   top: 12px;
   left: 12px;
   width: 200px;
-
 }
 
 #note-indexlinks {
@@ -381,8 +427,16 @@ form {
   text-decoration: none;
 }
 
+.icon-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-left: 8px;
+
+}
+
 .icon {
-  padding: 2px;
   height: 16px;
   filter: invert(19%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(91%) contrast(93%);
 }
@@ -397,11 +451,11 @@ form {
 
 .title-icon {
   height: 24px;
-  padding: 6px;
 }
 
 .slogan {
   font-size: 4rem;
+  line-height: 4rem;
 }
 
 .index-font {
@@ -416,8 +470,18 @@ form {
   grid-template-rows: repeat(2, auto);
 }
 
+#doc-notes {
+  grid-template-columns: repeat(auto-fill, 1fr);
+  grid-template-rows: 70vh;
+}
+
 .index-noteholder {
   width: 60%;
+}
+
+
+#index-ul {
+  list-style: none;
 }
 
 .index-buttonbar {
@@ -444,13 +508,29 @@ form {
 #about-notes {
   width: 70%;
   margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows:  40vh 33vh;
+  grid-template-areas:
+    "a b"
+    "c d";
+}
+
+#note-pricing {
+  grid-area: c;
 }
 
 #profile-notes {
   display: flex;
+}
+
+#settings-notes {
+  width: 70%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas:
+    "a c";
 }
 
 /* Sidebar Collapse */
@@ -473,10 +553,46 @@ form {
   flex-direction: row;
   justify-content: space-around;
 }
+
 .dot {
   height: 12px;
   width: 12px;
   background-color: #F18A60;
   border-radius: 50%;
   display: inline-block;
+}
+
+/* LEARNING */
+
+#quality-rating {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+#learning-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "a b"
+    "c c";
+}
+
+#learning-rating-wrapper {
+  grid-area: c;
+}
+
+#note-backsite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#signup-voucher {
+  margin: 12px 0;
+  border-top: 2px dotted #bbb;
+  border-bottom: 2px dotted #bbb;
+  padding: 12px 0;
+
 }
