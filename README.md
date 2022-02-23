@@ -1,10 +1,13 @@
-### release sprint/evi feedback
+## About 
+
+Notetaking Tool. Deployed at <https://www.chaoskasten.com>
+
+## Organisation
+
+### user feedback - seems fixed
 
 * Password Requirements are shown badly
-* Redirect von Password Reset dumb
-
-### evi - seems fixed
-
+* Redirect von Password Reset broken
 * Delete fails for help note and first note
 * Settings broken (fuck)
 * Settings -> Signup does not convert (because its not a dynamic covnert/signup thing)
@@ -16,7 +19,7 @@
 ### backlog:
 
 * Pricing not too clear
-* Random note weird am Anfang
+* Random note weird 
 * Formatting not too discoverable
 * Initial user question: what's a good note to test?
 * Basic Documentation editorialize
@@ -59,10 +62,6 @@
 
 * Hypercard
 * needs attention button
-
-### future:
-
-* write HN dude
 
 ### deploy:
 
