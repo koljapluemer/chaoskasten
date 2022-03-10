@@ -36,7 +36,6 @@ class Score(models.Model):
     value = models.IntegerField()
     learning_data = models.ForeignKey('LearningData', on_delete=models.CASCADE)
 
-
 class LearningData(models.Model):
     easiness = models.FloatField(null=True)
     interval = models.IntegerField(null=True)
@@ -44,7 +43,6 @@ class LearningData(models.Model):
     review_date = models.DateTimeField(null=True, auto_now_add=True)
 
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-
 
 class Note(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
