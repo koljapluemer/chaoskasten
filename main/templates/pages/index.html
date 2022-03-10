@@ -22,8 +22,6 @@
         </div>
 
         <div class="form-buttons">
-
-
           <p id="cookies">We are using functional cookies to ensure secure login and payment.</p>
           <button type="submit" value="Submit" class="button-primary form-submit">Save my
             first note</button>
@@ -45,19 +43,19 @@
 </main>
 
 <script>
-// To disable the form from submitting
-const form = document.querySelector('#form');
-// To display the error message
-const specialInput = document.querySelector('#input-field-special');
+  // To disable the form from submitting
+  const form = document.querySelector('#form');
+  // To display the error message
+  const specialInput = document.querySelector('#input-field-special');
 
-form.addEventListener('submit', (error) => {
-  // if special input is filled, block default, else submit
-  if (specialInput.value != '') {
-    error.preventDefault();
-  } else {
-    return true;
-  }
-});
+  form.addEventListener('submit', (error) => {
+    // if special input is filled, block default, else submit
+    if (specialInput.value != '') {
+      error.preventDefault();
+    } else {
+      return true;
+    }
+  });
 </script>
 {% load static %}
 
