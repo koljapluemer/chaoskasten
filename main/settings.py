@@ -118,7 +118,8 @@ APPEND_SLASH=False
 SECRET_KEY = os.getenv('SECRET_KEY', "*pn5tp97vgmt@k(+ao87n9%q80&jyk7@jefjewfewpofodo8yxgtg4g0jk6")
 
 # false when it does not exist (wtf)
-DEBUG = os.getenv('DEBUG')
+DEBUG = True
+# DEBUG = os.getenv('DEBUG')
 
 
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')

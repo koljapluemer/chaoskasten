@@ -6,33 +6,59 @@
 
   <div class="index-noteholder">
     <div class="note">
-      <form action="" method="post" class="">
+      <form action="" method="post" class="" id="form">
         {% csrf_token %}
         <label for="title">Title:</label>
-        <input type="text" name="title" placeholder="Give your note a title to reference it later - like 'Recipe Recommendations from John'">
+        <input type="text" name="title"
+          placeholder="Give your note a title to reference it later - like 'Recipe Recommendations from John'">
         <label for="content">Content:</label>
-        <textarea name="content" rows="8" cols="80" placeholder="You may write anything here! If you want, you can use Markdown syntax to format your text."></textarea>
+        <textarea name="content" rows="8" cols="80"
+          placeholder="You may write anything here! If you want, you can use Markdown syntax to format your text."></textarea>
+        <div id="captcha">
+          <div id="input-field-special-wrapper">
+            Please leave this blank
+            <input type="text" name="contact" id="input-field-special" value="" />
+          </div>
+        </div>
+
         <div class="form-buttons">
 
+
           <p id="cookies">We are using functional cookies to ensure secure login and payment.</p>
-          <button type="submit" value="Submit" class="button-primary form-submit">Save my first note</button>
+          <button type="submit" value="Submit" class="button-primary form-submit">Save my
+            first note</button>
         </div>
 
       </form>
     </div>
   </div>
 
-    <ul id="index-ul">
-      <li>
-        <a  href="/signup" class="index-font">...sign up first ($3/month)</a>
-      </li>
-      <li>
-        <a href="/about" class="index-font">...learn what makes us special</a>
-      </li>
-    </ul>
+  <ul id="index-ul">
+    <li>
+      <a href="/signup" class="index-font">...sign up first ($3/month)</a>
+    </li>
+    <li>
+      <a href="/about" class="index-font">...learn what makes us special</a>
+    </li>
+  </ul>
 
 </main>
 
+<script>
+// To disable the form from submitting
+const form = document.querySelector('#form');
+// To display the error message
+const specialInput = document.querySelector('#input-field-special');
+
+form.addEventListener('submit', (error) => {
+  // if special input is filled, block default, else submit
+  if (specialInput.value != '') {
+    error.preventDefault();
+  } else {
+    return true;
+  }
+});
+</script>
 {% load static %}
 
 {% endblock content %}

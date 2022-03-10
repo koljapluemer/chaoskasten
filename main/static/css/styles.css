@@ -596,3 +596,9 @@ form {
   padding: 12px 0;
 
 }
+
+/* Honeypot */
+
+#input-field-special-wrapper {
+  display: none;
+}
