@@ -66,3 +66,14 @@ Notetaking Tool. Deployed at <https://www.chaoskasten.com>
 ### deploy:
 
 ./chaoskasten3/deploy.sh
+
+
+
+### check for real users:
+
+```
+heroku run python manage.py shell -a chaoskasten
+
+from django.db.models import Count
+Profile.objects.annotate(notes_num=Count('note')).filter(notes_num__gt=2).count()
+```
