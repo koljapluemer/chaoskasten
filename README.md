@@ -19,12 +19,10 @@ Notetaking Tool. Deployed at <https://www.chaoskasten.com>
 ### backlog:
 
 * Pricing not too clear
-* Random note weird 
 * Formatting not too discoverable
 * Initial user question: what's a good note to test?
 * Basic Documentation editorialize
 * Email validation?
-* Lock up user data
 * Feedback
 * Connection Visualization
 * when learning queue is exhausted, we are currently just jumping back to root w/o explaination
