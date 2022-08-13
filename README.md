@@ -71,7 +71,7 @@ Notetaking Tool. Deployed at <https://www.chaoskasten.com>
 
 ```
 heroku run python manage.py shell -a chaoskasten
-
+from main.models import *
 from django.db.models import Count
 Profile.objects.annotate(notes_num=Count('note')).filter(notes_num__gt=2).count()
 ```
@@ -87,5 +87,4 @@ python3 -m venv .env
 source .env/bin/activate
 pip install -r requirements.txt
 python manage.py runserver
-
 ```
