@@ -1,47 +1,66 @@
 <!DOCTYPE html>
-<html lang="en" class=" h-full">
-<head>
-  <meta charset="utf-8" />
-  <title>Chaoskasten Beta</title>
-  <!-- <link
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <title>Chaoskasten Beta</title>
+    <!-- <link
   href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
   rel="stylesheet"
   /> -->
-  {% load static %}
-  <link href="https://fonts.googleapis.com/css?family=Oswald|Source+Sans+Pro&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
-  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
-  <meta name="description" property="og:description" content="Online app for personal note-taking, research and learning using Luhmann's Zettelkasten and Spaced Repetition.">
-  <meta name="keywords" content="note, notes, note-taking, notetaking, research, bookmarks, knowledge, research, learning, vocabulary">
-</head>
-{% load i18n lazysignup_tags %}
+    {% load static %}
+    <link
+      href="https://fonts.googleapis.com/css?family=Oswald|Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="{% static 'favicon.ico' %}"
+    />
+    <meta
+      name="description"
+      property="og:description"
+      content="Online app for personal note-taking, research and learning using Luhmann's Zettelkasten and Spaced Repetition."
+    />
+    <meta
+      name="keywords"
+      content="note, notes, note-taking, notetaking, research, bookmarks, knowledge, research, learning, vocabulary"
+    />
+  </head>
+  {% load i18n lazysignup_tags %}
 
-<body class="page-content content ">
+  <body class="page-content content">
+    {% block content %} {% endblock content %}
 
-  {% block content %}
-  {% endblock content %}
+    <nav class="index-buttonbar">
+      <a href="/">home</a>
+      {% if user.is_authenticated %} {% if not user|is_lazy_user %}
+      <a href="/profile">{{ user.username }}</a>
+      <a href="{% url 'logout' %}">logout</a>
+      {% else %} {% if not user|is_lazy_user %}
+      <a href="/signup">signup</a>
+      {% else %}
+      <a href="/convert">signup</a>
+      {% endif %}
+      <a href="{% url 'login' %}">login</a>
+      {% endif %} {% else %}
+      <a href="{% url 'login' %}">login</a>
+      <a href="/signup">signup</a>
+      {% endif %}
+      <a href="/about">about</a>
+      <a href="/doc">doc</a>
+    </nav>
 
-  <nav class="index-buttonbar">
-    <a href="/">home</a>
-    {% if user.is_authenticated %}
-    {% if not user|is_lazy_user %}
-    <a href="/profile">{{ user.username }}</a>
-    <a href="{% url 'logout' %}">logout</a>
-    {% else %}
-    {% if not user|is_lazy_user %}
-    <a href="/signup">signup</a>
-    {% else %}
-    <a href="/convert">signup</a>
-    {% endif %}
-    <a href="{% url 'login' %}">login</a>
-    {% endif %}
-    {% else %}
-    <a href="{% url 'login' %}">login</a>
-    <a href="/signup">signup</a>
-    {% endif %}
-    <a href="/about">about</a>
-    <a href="/doc">doc</a>
-  </nav>
-
-</body>
+    <script async src="//static.getclicky.com/101376988.js"></script>
+    <noscript
+      ><p>
+        <img
+          alt="Clicky"
+          width="1"
+          height="1"
+          src="//in.getclicky.com/101376988ns.gif"
+        /></p
+    ></noscript>
+  </body>
 </html>
