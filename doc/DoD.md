@@ -1,0 +1,11 @@
+- [ ] has acceptance criteria (like user stories)
+- [ ] acceptance Criteria are fulfilled
+- [ ] accessible online (ideally `koljapluemer.com` subdomain)
+- [x] essential view tracking *(GoatCounter + Dashboard (?))* exists
+	- [ ] check if this is still true
+- [x] marketed (in any way)
+- [x] linked on my portfolio
+- [ ] all `.md` files exist, have at least 1 line, and fulfill their purpose
+- [ ] appropriately credited
+- [ ] branding: favicon, gh setup, backlinks at reasonable level
+- [ ] quality of code and doc feels appropriate
